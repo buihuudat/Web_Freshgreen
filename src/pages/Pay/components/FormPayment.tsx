@@ -5,19 +5,30 @@ import {
 } from "@stripe/react-stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { StripeError, loadStripe } from "@stripe/stripe-js";
-import { useAppSelector } from "../../../redux/hooks";
 import { LoadingButton } from "@mui/lab";
-import { RootState } from "../../../redux/store";
 import { LinearProgress } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { PayDataProps } from "../../../types/payType";
-import { NotificationToast } from "../../../utils/handlers/NotificationToast";
+import { OrderItemType } from "../../../types/orderType";
+import { setItem } from "../../../utils/handlers/tokenHandler";
 
 const stripePromise = loadStripe(
   "pk_test_51NFrKrEup2wfutAaLVem6eRVtamjYxuUJwOy6F9ewZ7BtakNcARqqzcV9nZa6hbuQNj73JWxf1CywUOaaie5lbrO005zUQAI7K"
 );
 
-const FormPay = (props: PayDataProps) => {
+interface Props {
+  state: {
+    payData: PayDataProps;
+    order: OrderItemType;
+  };
+  secretClient: {
+    id: string;
+    client_secret: string;
+  };
+}
+
+const FormPay = (props: Props) => {
+  const { payData, order } = props.state;
   const [isProcessingPayment, setIsProcessingPayment] =
     useState<boolean>(false);
 
@@ -31,17 +42,18 @@ const FormPay = (props: PayDataProps) => {
     setIsProcessingPayment(true);
 
     try {
+      setItem("order", order);
       const { error }: { error: StripeError } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: "http://localhost:3000/thankyou/",
+          return_url: "http://localhost:3000/thankyou",
           payment_method_data: {
             billing_details: {
-              name: props.nameOfUser,
-              phone: props.phone,
-              email: props.email,
+              name: payData.nameOfUser,
+              phone: payData.phone,
+              email: payData.email,
               address: {
-                line1: props.address,
+                line1: payData.address,
               },
             },
           },
@@ -50,11 +62,7 @@ const FormPay = (props: PayDataProps) => {
 
       if (error) {
         console.log("Error during payment:", error.message);
-      } else {
-        NotificationToast({
-          message: "Đã thanh toán thành công",
-          type: "success",
-        });
+        return;
       }
     } catch (error) {
       return false;
@@ -80,16 +88,12 @@ const FormPay = (props: PayDataProps) => {
   );
 };
 
-const FormPayment = (props: PayDataProps) => {
-  const { client_secret, loading } = useAppSelector(
-    (state: RootState) => state.pay
-  );
-
+const FormPayment = (props: Props) => {
   const options = {
-    clientSecret: client_secret,
+    clientSecret: props.secretClient.client_secret,
   };
 
-  return loading ? (
+  return !props.secretClient.client_secret ? (
     <LinearProgress />
   ) : (
     <Elements stripe={stripePromise} options={options}>

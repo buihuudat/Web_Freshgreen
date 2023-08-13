@@ -6,10 +6,7 @@ import { mainColor } from "../../../utils/Constants/colors";
 import { NavigateOptions, useNavigate } from "react-router-dom";
 
 const OrderProductItem = (product: ProductCartType) => {
-  console.log(product);
-
   const navigate = useNavigate();
-
   const state = { product } as NavigateOptions;
 
   const viewProduct = () => {

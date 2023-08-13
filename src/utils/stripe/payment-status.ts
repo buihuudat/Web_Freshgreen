@@ -1,13 +1,28 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStripe } from "@stripe/react-stripe-js";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { orderActions } from "../../actions/orderActions";
+import { RootState } from "../../redux/store";
+import { clearCart } from "../../redux/slices/cartSlice";
+import { getItem, removeItem } from "../handlers/tokenHandler";
 const PaymentStatus = () => {
   const navigate = useNavigate();
   const stripe = useStripe();
   const [message, setMessage] = useState<any | null>(null);
 
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.user.user);
+  const order = getItem("order");
+
+  console.log(order);
+
   useEffect(() => {
     if (!stripe) {
+      return;
+    }
+    if (!order) {
+      navigate("/");
       return;
     }
 
@@ -20,28 +35,33 @@ const PaymentStatus = () => {
       .then(({ paymentIntent }: any) => {
         switch (paymentIntent.status) {
           case "succeeded":
-            // clearCart();
+            dispatch(
+              orderActions.createOrder({ userId: user._id as string, order })
+            );
+            dispatch(clearCart());
+            removeItem("order");
             setMessage(
-              `Thank you! your purchase for $${
-                paymentIntent.amount / 100
-              } has been accepted successfully.`
+              `Cảm ơn bạn! Giao dịch của bạn với số tiền ${paymentIntent.amount} đã được chấp nhận thành công.`
             );
             break;
 
           case "processing":
             setMessage(
-              "Payment processing. We'll update you when payment is received."
+              "Đang xử lý thanh toán. Chúng tôi sẽ thông báo cho bạn khi thanh toán được nhận."
             );
             break;
 
           case "requires_payment_method":
             navigate(-1);
-            setMessage("Payment failed. Please try another payment method.");
+            setMessage(
+              "Thanh toán thất bại. Vui lòng thử phương thức thanh toán khác."
+            );
             break;
 
           default:
             navigate(-1);
             setMessage("Something went wrong.");
+            removeItem("order");
             break;
         }
       });

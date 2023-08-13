@@ -13,6 +13,7 @@ import {
   filterDataProducts,
 } from "../../../utils/handlers/filterDataProduct";
 import { ProductType } from "../../../types/productType";
+import SkeletonCard from "../../../components/SkeletonCard";
 
 const BestSellers = memo(({ products }: { products: ProductType[] }) => {
   const customSwiper: DealsOfTheDayType = {
@@ -70,13 +71,25 @@ const BestSellers = memo(({ products }: { products: ProductType[] }) => {
         </Box>
 
         <Box width={"70%"}>
-          <Swiper {...customSwiper} style={{ width: "100%" }}>
-            {dataProducts.map((data, index) => (
-              <SwiperSlide key={index} style={{ display: "block", width: 600 }}>
-                <ProductCard product={data} width={250} fast={true} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {dataProducts.length ? (
+            <Swiper {...customSwiper} style={{ width: "100%" }}>
+              {dataProducts.map((data, index) => (
+                <SwiperSlide
+                  key={index}
+                  style={{ display: "block", width: 600 }}
+                >
+                  <ProductCard product={data} width={250} fast={true} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <Box display={"flex"} flexDirection={"row"} gap={5}>
+              <SkeletonCard width={250} />
+              <SkeletonCard width={250} />
+              <SkeletonCard width={250} />
+              <SkeletonCard width={250} />
+            </Box>
+          )}
         </Box>
       </Box>
     </Box>

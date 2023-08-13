@@ -6,6 +6,7 @@ import {
   InitialSortProduct,
   filterDataProducts,
 } from "../../../utils/handlers/filterDataProduct";
+import SkeletonCard from "../../../components/SkeletonCard";
 
 const HomeProducts = memo(({ products }: { products: ProductType[] }) => {
   const popularProducts = useMemo(
@@ -19,26 +20,42 @@ const HomeProducts = memo(({ products }: { products: ProductType[] }) => {
     [products]
   );
 
-  return popularProducts.length ? (
-    <Box py={3}>
-      <Typography fontWeight={600} fontSize={35} pb={3}>
-        Sản phẩm phổ biến
-      </Typography>
-      <Box
-        display={"flex"}
-        flexDirection={"row"}
-        flexWrap={"wrap"}
-        alignItems={"center"}
-        gap={5}
-        justifyContent={"space-between"}
-      >
-        {popularProducts.map((product: ProductType, index) => (
-          <ProductCard key={index} product={product} />
-        ))}
+  return (
+    <Box>
+      <Box py={3}>
+        <Typography fontWeight={600} fontSize={35} pb={3}>
+          Sản phẩm phổ biến
+        </Typography>
+        {popularProducts.length ? (
+          <Box
+            display={"flex"}
+            flexDirection={"row"}
+            flexWrap={"wrap"}
+            alignItems={"center"}
+            gap={5}
+            justifyContent={"space-between"}
+          >
+            {popularProducts.map((product: ProductType, index) => (
+              <ProductCard key={index} product={product} />
+            ))}
+          </Box>
+        ) : (
+          <Box
+            display={"flex"}
+            flexDirection={"row"}
+            flexWrap={"wrap"}
+            alignItems={"center"}
+            gap={5}
+            justifyContent={"space-between"}
+          >
+            <SkeletonCard width={350} />
+            <SkeletonCard width={350} />
+            <SkeletonCard width={350} />
+            <SkeletonCard width={350} />
+          </Box>
+        )}
       </Box>
     </Box>
-  ) : (
-    <Skeleton variant="rectangular" width={210} height={118} />
   );
 });
 

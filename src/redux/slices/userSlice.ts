@@ -56,9 +56,6 @@ export const userSlice = createSlice({
       .addCase(userActions.getUsers.fulfilled, (state, action) => {
         state.users = action.payload;
       })
-      .addCase(userActions.getUser.fulfilled, (state, action) => {
-        state.user = action.payload;
-      })
       .addCase(userActions.userUpdate.fulfilled, (state, action) => {
         if (state.user._id === action.payload._id) state.user = action.payload;
         state.userViewData = action.payload;

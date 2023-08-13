@@ -60,16 +60,12 @@ export const userActions = {
     }
   }),
 
-  getUser: createAsyncThunk("user/get", async (_id: string, thunkAPI) => {
+  getUser: async (_id: string) => {
     try {
       const res = await userApi.getUser(_id);
       return res.data;
     } catch (error: any) {
-      if (error.data) {
-        NotificationToast({ message: error.data, type: "error" });
-        return thunkAPI.rejectWithValue(error.data);
-      }
       throw error;
     }
-  }),
+  },
 };

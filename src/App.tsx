@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Payment from "./pages/Pay";
 import OrderManager from "./pages/OrderManeger";
+import Thankyou from "./pages/Pay/ThankYou";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const Login = lazy(() => import("./pages/auth/Login"));
@@ -76,6 +77,7 @@ const App = () => {
           <Route path="/tai-khoan" element={<Profile />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/quan-li-don-hang" element={<OrderManager />} />
+          <Route path="/thankyou" element={<Thankyou />} />
         </Route>
       </Routes>
     </ThemeProvider>

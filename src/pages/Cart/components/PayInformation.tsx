@@ -110,6 +110,21 @@ const PayInformation = memo(() => {
       });
       return;
     }
+
+    const order: OrderItemType = {
+      products: cart.products,
+      totalPrice: totalPay,
+      voucherUsed: {
+        voucher,
+        discount,
+      },
+      pay: {
+        method: PayMethod.lastPay,
+        amount: totalPay,
+        status: PayStatus.spending,
+      },
+      status: OrderStatus.spending,
+    };
     // pay online
     if (paymentMethod === "payNow") {
       navigate("/payment", {
@@ -125,24 +140,13 @@ const PayInformation = memo(() => {
               discount,
             },
           },
+
+          order: { ...order, pay: { ...order.pay, method: PayMethod.payNow } },
         },
       });
     } else {
       setIsLoading({ pay: true });
-      const order: OrderItemType = {
-        products: cart.products,
-        totalPrice: totalPay,
-        voucherUsed: {
-          voucher,
-          discount,
-        },
-        pay: {
-          method: PayMethod.lastPay,
-          amount: totalPay,
-          status: PayStatus.spending,
-        },
-        status: OrderStatus.spending,
-      };
+
       try {
         await dispatch(
           orderActions.createOrder({ userId: user._id as string, order })
