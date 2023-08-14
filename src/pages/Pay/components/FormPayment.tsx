@@ -11,6 +11,7 @@ import { ChangeEvent, useState } from "react";
 import { PayDataProps } from "../../../types/payType";
 import { OrderItemType } from "../../../types/orderType";
 import { setItem } from "../../../utils/handlers/tokenHandler";
+import { host } from "../../../utils/api/axiosClient";
 
 const stripePromise = loadStripe(
   "pk_test_51NFrKrEup2wfutAaLVem6eRVtamjYxuUJwOy6F9ewZ7BtakNcARqqzcV9nZa6hbuQNj73JWxf1CywUOaaie5lbrO005zUQAI7K"
@@ -46,7 +47,7 @@ const FormPay = (props: Props) => {
       const { error }: { error: StripeError } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: "http://localhost:3000/thankyou",
+          return_url: `${host}/thankyou`,
           payment_method_data: {
             billing_details: {
               name: payData.nameOfUser,
