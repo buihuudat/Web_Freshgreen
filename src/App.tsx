@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Payment from "./pages/Pay";
 import OrderManager from "./pages/OrderManeger";
-import Thankyou from "./pages/Pay/ThankYou";
+import Thankyou from "./pages/Pay/Thankyou";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const Login = lazy(() => import("./pages/auth/Login"));
