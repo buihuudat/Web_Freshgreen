@@ -8,7 +8,6 @@ export const cartActions = {
   getCart: createAsyncThunk("cart/getCart", async (userId: string) => {
     try {
       const res = await cartApi.getCart(userId);
-      setItem("cart", res.data);
       return res.data;
     } catch (error) {
       throw error;

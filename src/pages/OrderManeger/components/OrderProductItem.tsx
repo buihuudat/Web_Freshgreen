@@ -19,8 +19,7 @@ const OrderProductItem = (product: ProductCartType) => {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        gap: 3,
-        width: 400,
+        gap: 2,
         p: 1,
       }}
     >
@@ -31,18 +30,21 @@ const OrderProductItem = (product: ProductCartType) => {
       />
       <Typography
         fontWeight={600}
-        fontSize={20}
+        fontSize={18}
         textTransform={"capitalize"}
-        sx={{ width: 150, cursor: "pointer" }}
+        sx={{ width: 140, cursor: "pointer" }}
         onClick={viewProduct}
       >
         {product.title.length > 10
           ? product.title.slice(0, 10) + "..."
           : product.title}
       </Typography>
+      <Typography fontSize={16} fontWeight={600}>
+        {moneyFormat(product.lastPrice)}
+      </Typography>
       <Typography fontSize={14}>x{product.count}</Typography>
       <Typography fontSize={23} fontWeight={600} color={mainColor}>
-        {moneyFormat(product.lastPrice)}
+        {moneyFormat(product.lastPrice * product.count)}
       </Typography>
     </Box>
   );

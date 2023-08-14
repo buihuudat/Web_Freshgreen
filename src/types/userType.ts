@@ -22,7 +22,7 @@ export enum UserRole {
   superadmin = "superadmin",
 }
 
-interface FullnameOfUser {
+export interface FullnameOfUser {
   firstname: string;
   lastname: string;
 }

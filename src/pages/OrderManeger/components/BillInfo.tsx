@@ -44,10 +44,12 @@ const BillInfo = (order: OrderItemType) => {
       <Box sx={billInfoItem}>
         <Typography>Voucher sử dụng:</Typography>
         <Typography fontWeight={600}>
-          {order.voucherUsed.voucher || "Don't use"}
+          {order.voucherUsed.voucher || "Không sử dụng"}
         </Typography>
         <Typography fontWeight={600} color={mainColor} fontSize={20}>
-          -{order.voucherUsed.discount}%
+          {order.voucherUsed.discount !== 0
+            ? `${order.voucherUsed.discount}%`
+            : ""}
         </Typography>
       </Box>
       <Box sx={billInfoItem}>

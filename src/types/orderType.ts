@@ -1,4 +1,5 @@
 import { ProductCartType } from "./cartType";
+import { InitialUser, UserType } from "./userType";
 
 export enum StatusOrder {
   spending,
@@ -49,11 +50,11 @@ export interface OrderItemType {
 
 export interface OrderType {
   _id?: string;
-  user: string;
+  user: UserType;
   orders: OrderItemType[];
 }
 
 export const initialDataOrder = {
-  user: "",
+  user: InitialUser,
   orders: [],
 };

@@ -5,7 +5,7 @@ const SkeletonCard = ({ width = 350 }: { width: number }) => (
   <Paper
     variant="outlined"
     sx={{
-      borderRadius: 5,
+      // borderRadius: 5,
       width,
     }}
   >

@@ -130,6 +130,7 @@ const PayInformation = memo(() => {
       navigate("/payment", {
         state: {
           payData: {
+            totalPrice,
             amount: totalPay,
             address,
             phone: user.phone,
@@ -148,9 +149,7 @@ const PayInformation = memo(() => {
       setIsLoading({ pay: true });
 
       try {
-        await dispatch(
-          orderActions.createOrder({ userId: user._id as string, order })
-        );
+        await dispatch(orderActions.createOrder({ user, order }));
         dispatch(clearCart());
         navigate("/quan-li-don-hang");
       } finally {

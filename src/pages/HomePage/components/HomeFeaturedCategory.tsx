@@ -18,11 +18,16 @@ const HomeFeaturedCategory: React.FC = () => {
         {FeaturedCategoryData.map((data: FeaturedCategoryDataType, index) => (
           <Paper
             key={index}
-            sx={{ width: 200, p: 1, textDecoration: "none" }}
+            sx={{ width: 200, textDecoration: "none" }}
             component={NavLink}
             to={data.title}
+            elevation={6}
           >
-            <img src={data.image} alt={data.title} />
+            <img
+              src={data.image}
+              alt={data.title}
+              style={{ width: "100%", height: 150, objectFit: "cover" }}
+            />
             <Typography fontWeight={600} align="center" fontSize={18}>
               {data.title}
             </Typography>

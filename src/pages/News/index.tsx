@@ -2,7 +2,7 @@ import { Box, Paper, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Search from "../../components/common/Search";
 import { mainColor } from "../../utils/Constants/colors";
-import NewsRecently from "../../components/common/NewsRecently";
+import NewsRecently from "./NewsRecently";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { useEffect } from "react";

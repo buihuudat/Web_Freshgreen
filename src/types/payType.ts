@@ -1,5 +1,6 @@
 export interface PayDataProps {
   amount: number;
+  totalPrice: number;
   address: string;
   phone: string;
   email: string;
@@ -12,6 +13,7 @@ export interface PayDataProps {
 
 export const InitialPayData: PayDataProps = {
   amount: 0,
+  totalPrice: 0,
   address: "",
   phone: "",
   email: "",

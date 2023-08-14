@@ -67,22 +67,37 @@ const BillPay = memo((props: PayDataProps) => {
           Phí giao hàng:
         </Typography>
         <Typography my={2} fontWeight={600} fontSize={18}>
-          {moneyFormat(props.amount > 50000 ? 0 : 25000)}
+          {moneyFormat(props.totalPrice > 50000 ? 0 : 25000)}
         </Typography>
       </Box>
       {props.discount && props.discount.discount !== 0 && (
-        <Box
-          display={"flex"}
-          flexDirection={"row"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
-          <Typography fontSize={22} color={"#555"}>
-            Giảm:
-          </Typography>
-          <Typography fontSize={22} fontWeight={600} color={mainColor}>
-            {props?.discount.discount}%
-          </Typography>
+        <Box>
+          <Box
+            display={"flex"}
+            flexDirection={"row"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+          >
+            <Typography fontSize={22} color={"#555"}>
+              Voucher:
+            </Typography>
+            <Typography fontSize={22} fontWeight={600}>
+              {props?.discount.voucher}
+            </Typography>
+          </Box>
+          <Box
+            display={"flex"}
+            flexDirection={"row"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+          >
+            <Typography fontSize={22} color={"#555"}>
+              Giảm:
+            </Typography>
+            <Typography fontSize={22} fontWeight={600} color={mainColor}>
+              {props?.discount.discount}%
+            </Typography>
+          </Box>
         </Box>
       )}
       <Box

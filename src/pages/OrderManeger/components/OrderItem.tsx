@@ -3,52 +3,42 @@ import { OrderItemType } from "../../../types/orderType";
 import { Box, Paper } from "@mui/material";
 import OrderProductItem from "./OrderProductItem";
 import { ProductCartType } from "../../../types/cartType";
-import { LoadingButton } from "@mui/lab";
-import { InitialUser, UserType } from "../../../types/userType";
-import { userActions } from "../../../actions/userActions";
+import { UserType } from "../../../types/userType";
 import UserInfo from "./UserInfo";
 import BillInfo from "./BillInfo";
+import OrderActions from "./OrderActions";
 interface Props {
   order: OrderItemType;
-  user: string;
+  user: UserType;
 }
 
 const OrderItem = memo((props: Props) => {
-  const [userInfo, setUserInfo] = useState<UserType>(InitialUser);
+  const { user } = props;
   const [address, setAddress] = useState("");
   const [isLoading, setIsLoading] = useState({
     user: true,
   });
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const user: UserType = await userActions.getUser(props.user);
-        setUserInfo(user);
-        setAddress(
-          user.address.more +
-            " " +
-            user.address.street +
-            " " +
-            user.address.ward +
-            " " +
-            user.address.district +
-            " " +
-            user.address.city +
-            " "
-        );
-        setIsLoading({ user: false });
-      } catch (error) {
-        return false;
-      }
-    };
-    getUser();
-  }, [props.user]);
+    setAddress(
+      user.address.more +
+        " " +
+        user.address.street +
+        " " +
+        user.address.ward +
+        " " +
+        user.address.district +
+        " " +
+        user.address.city +
+        " "
+    );
+    setIsLoading({ user: false });
+  }, [user]);
 
   return (
-    <Box sx={{ m: 3, outline: "1px solid #ddd", width: 450 }}>
+    <Box sx={{ m: 3, outline: "1px solid #ddd", width: 480 }}>
       {/* customer information */}
-      <UserInfo user={userInfo} address={address} isLoading={isLoading.user} />
+      <UserInfo user={user} address={address} isLoading={isLoading.user} />
 
       {/* product list */}
       <Box
@@ -70,14 +60,7 @@ const OrderItem = memo((props: Props) => {
 
       <BillInfo {...props.order} />
 
-      {/* <Box sx={{ display: "flex", gap: 1, p: 1 }}>
-        <LoadingButton fullWidth color="error" variant="outlined">
-          Hủy đơn hàng
-        </LoadingButton>
-        <LoadingButton fullWidth color="success" variant="contained">
-          Xác nhận đơn hàng
-        </LoadingButton>
-      </Box> */}
+      <OrderActions {...props} />
     </Box>
   );
 });

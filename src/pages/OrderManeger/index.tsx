@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { orderActions } from "../../actions/orderActions";
 import { RootState } from "../../redux/store";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import OrderItem from "./components/OrderItem";
 import { OrderItemType } from "../../types/orderType";
 
@@ -21,6 +21,10 @@ const OrderManager = () => {
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <CircularProgress />
     </Box>
+  ) : !dataOrder?.orders.length ? (
+    <Typography align="center" fontSize={23} fontWeight={600}>
+      Chưa có đơn hàng
+    </Typography>
   ) : (
     <Box
       sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 10 }}
