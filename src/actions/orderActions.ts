@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { orderApi } from "../utils/api/orderApi";
 import { OrderItemType } from "../types/orderType";
 import { NotificationToast } from "../utils/handlers/NotificationToast";
+import { removeItem } from "../utils/handlers/tokenHandler";
 
 export const orderActions = {
   getOrders: createAsyncThunk("/order/gets", async (userId: string) => {
@@ -19,6 +20,7 @@ export const orderActions = {
       try {
         const res = await orderApi.createOrder(userId, order);
         NotificationToast({ message: "Đơn hàng đã được đặt", type: "success" });
+        removeItem("cart");
         return res.data;
       } catch (error) {
         NotificationToast({ message: "Đặt hàng thất bại", type: "error" });
