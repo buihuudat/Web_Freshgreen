@@ -64,15 +64,15 @@ const PayInformation = memo(() => {
 
   useEffect(() => {
     setAddress(
-      user.address.more +
+      user.address?.more +
         " " +
-        user.address.street +
+        user.address?.street +
         " " +
-        user.address.ward +
+        user.address?.ward +
         " " +
-        user.address.district +
+        user.address?.district +
         " " +
-        user.address.city
+        user.address?.city
     );
   }, [user.address]);
 
