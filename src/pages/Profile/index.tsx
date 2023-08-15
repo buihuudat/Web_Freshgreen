@@ -24,6 +24,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ProfileDataProps, profileData } from "./components/Data";
 import { mainColor } from "../../utils/Constants/colors";
 import { clearCart } from "../../redux/slices/cartSlice";
+import { clearFavorite } from "../../redux/slices/favoriteSlice";
 
 const initialErrText: {
   phone: string;
@@ -241,6 +242,7 @@ const Profile = () => {
   const handleLogout = () => {
     dispatch(logout());
     dispatch(clearCart());
+    dispatch(clearFavorite());
     navigate("/");
   };
 

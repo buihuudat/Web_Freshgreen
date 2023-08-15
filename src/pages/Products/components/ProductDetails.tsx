@@ -13,6 +13,7 @@ import { mainColor } from "../../../utils/Constants/colors";
 import { useEffect, useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import ShareIcon from "@mui/icons-material/Share";
 import { LoadingButton } from "@mui/lab";
@@ -30,6 +31,7 @@ import { productActions } from "../../../actions/productActions";
 import { cartActions } from "../../../actions/cartActions";
 import { InitialShop, ShopType } from "../../../types/shopType";
 import { shopAPI } from "../../../utils/api/shopApi";
+import { checkFavorite } from "../../../redux/slices/favoriteSlice";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -71,6 +73,9 @@ const ProductDetails = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state: RootState) => state.product.products);
   const userId = useAppSelector((state: RootState) => state.user.user)._id;
+  const isFavorite = useAppSelector(
+    (state: RootState) => state.favorite.isFavorite
+  );
 
   const [shopInfo, setShopInfo] = useState<ShopType>(InitialShop);
   const [currentCountProduct, setCurrentCountProduct] = useState<number>(1);
@@ -91,7 +96,8 @@ const ProductDetails = () => {
     };
     getShopInfo();
     dispatch(productActions.gets({ page: 1, perPage: 8 }));
-  }, [dispatch, product.shop]);
+    dispatch(checkFavorite(product._id));
+  }, [dispatch, product._id, product.shop]);
 
   const handleAddCart = () => {
     dispatch(
@@ -248,8 +254,8 @@ const ProductDetails = () => {
             <LoadingButton loading={isLoading} variant="contained" size="large">
               Mua ngay
             </LoadingButton>
-            <Button size="large" variant="outlined" color="secondary">
-              <FavoriteBorderIcon />
+            <Button size="large" variant="outlined" color="error">
+              {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
             </Button>
             <Button size="large" variant="outlined">
               <ShuffleIcon />

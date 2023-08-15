@@ -20,6 +20,9 @@ const Navbar = () => {
   const user = useAppSelector((state: RootState) => state.user.user);
   const countProductsCart: number =
     useAppSelector((state: RootState) => state.cart.data)?.products.length || 0;
+  const countFavoriteProduct: number =
+    useAppSelector((state: RootState) => state.favorite.favoriteProducts)
+      .length || 0;
 
   const ListIcons: ListIconTypes[] = [
     {
@@ -31,7 +34,7 @@ const Navbar = () => {
     {
       title: "Sản phẩm yêu thích",
       icon: <FavoriteIcon />,
-      badge: 0,
+      badge: countFavoriteProduct,
       path: "/san-pham-yeu-thich",
     },
     {

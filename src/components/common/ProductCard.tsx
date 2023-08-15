@@ -6,10 +6,12 @@ import {
   IconButton,
   Paper,
   Rating,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import { mainColor, secColor } from "../../utils/Constants/colors";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { moneyFormat } from "../../utils/handlers/moneyFormat";
@@ -20,6 +22,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { cartActions } from "../../actions/cartActions";
 import { RootState } from "../../redux/store";
 import { favoriteActions } from "../../actions/favoriteActions";
+import { checkFavorite } from "../../redux/slices/favoriteSlice";
 interface ProductCardType {
   product: ProductType;
   fast?: boolean;
@@ -34,18 +37,20 @@ const ProductCard = memo(
     const userId = useAppSelector((state: RootState) => state.user.user)._id;
     const stateShopInfo = { shopInfo } as NavigateOptions;
     const stateProduct = { product } as NavigateOptions;
+    const isFavorite = useAppSelector((state) => state.favorite.isFavorite);
 
     useEffect(() => {
       const getShopInfo = async () => {
         try {
-          const rs = await shopAPI.get(product.shop);
+          const rs = await shopAPI.get(product?.shop);
           setShopInfo(rs.data);
         } catch (error) {
           return false;
         }
       };
       getShopInfo();
-    }, [product.shop]);
+      dispatch(checkFavorite(product._id as string));
+    }, [dispatch, product._id, product.shop]);
 
     const handleAddCart = useCallback(() => {
       dispatch(
@@ -60,7 +65,7 @@ const ProductCard = memo(
       dispatch(
         favoriteActions.update({
           userId: userId as string,
-          productId: product._id as string,
+          product,
         })
       );
     };
@@ -179,22 +184,28 @@ const ProductCard = memo(
               ({product.star.count})
             </Typography>
           </Box>
-          <Typography fontSize={13} color={"#555"}>
-            Bán bởi
-            <b
-              style={{
-                color: mainColor,
-                cursor: "pointer",
-                textTransform: "capitalize",
-              }}
-              onClick={() =>
-                navigate("/cua-hang/" + product.shop, { state: stateShopInfo })
-              }
-            >
-              {" "}
-              {shopInfo.name}
-            </b>
-          </Typography>
+          {!shopInfo._id ? (
+            <Skeleton width={100} height={20} />
+          ) : (
+            <Typography fontSize={13} color={"#555"}>
+              Bán bởi
+              <b
+                style={{
+                  color: mainColor,
+                  cursor: "pointer",
+                  textTransform: "capitalize",
+                }}
+                onClick={() =>
+                  navigate("/cua-hang/" + product.shop, {
+                    state: stateShopInfo,
+                  })
+                }
+              >
+                {" "}
+                {shopInfo.name}
+              </b>
+            </Typography>
+          )}
 
           {/* price */}
           <Box
@@ -237,7 +248,7 @@ const ProductCard = memo(
             title="Thêm sản phẩm yêu thích"
             onClick={handleAddFavorite}
           >
-            <FavoriteBorderIcon />
+            {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
           <IconButton color="primary" title="So sánh" onClick={handleCompare}>
             <ShuffleIcon />

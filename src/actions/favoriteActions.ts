@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { favoriteApi } from "../utils/api/favoriteApi";
 import { NotificationToast } from "../utils/handlers/NotificationToast";
+import { ProductType } from "../types/productType";
 
 export const favoriteActions = {
   get: createAsyncThunk("favorite/get", async (userId: string) => {
@@ -12,12 +13,12 @@ export const favoriteActions = {
     }
   }),
 
-  update: createAsyncThunk<any, { userId: string; productId: string }>(
+  update: createAsyncThunk<any, { userId: string; product: ProductType }>(
     "favorite/update",
-    async ({ userId, productId }) => {
+    async ({ userId, product }) => {
       try {
-        await favoriteApi.update({ userId, productId });
-        return true;
+        await favoriteApi.update({ userId, productId: product._id as string });
+        return product;
       } catch (error) {
         NotificationToast({
           message: "!Oppps...",

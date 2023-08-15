@@ -10,6 +10,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { setUserReducer } from "../../redux/slices/userSlice";
 import { getItem } from "../../utils/handlers/tokenHandler";
 import { cartActions } from "../../actions/cartActions";
+import { favoriteActions } from "../../actions/favoriteActions";
 
 const AppLayout = () => {
   const { pathname } = useLocation();
@@ -23,6 +24,7 @@ const AppLayout = () => {
         if (!user) return;
         dispatch(setUserReducer(user));
         dispatch(cartActions.getCart(user._id));
+        dispatch(favoriteActions.get(user._id));
       } catch (error) {
         return;
       }

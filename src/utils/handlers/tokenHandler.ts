@@ -1,4 +1,4 @@
-type KeyProps = "user" | "cart" | "client_secret" | "order";
+type KeyProps = "user" | "cart" | "client_secret" | "order" | "favorite";
 
 export const setItem = (key: KeyProps, data: any): void =>
   localStorage.setItem(key, JSON.stringify(data));
