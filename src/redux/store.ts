@@ -10,6 +10,7 @@ import shopSlice from "./slices/shopSlice";
 import cartSlice from "./slices/cartSlice";
 import paySlice from "./slices/paySlice";
 import orderSlice from "./slices/orderSlice";
+import favoriteSlice from "./slices/favoriteSlice";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     cart: cartSlice,
     pay: paySlice,
     order: orderSlice,
+    favorite: favoriteSlice,
   },
 });
 

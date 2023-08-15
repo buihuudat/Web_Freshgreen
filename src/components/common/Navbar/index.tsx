@@ -124,7 +124,7 @@ const Navbar = () => {
               title={value.title}
               sx={{ width: 50, height: 50 }}
             >
-              <Badge badgeContent={value.badge} color="secondary">
+              <Badge badgeContent={value.badge} color="success">
                 {value.icon}
               </Badge>
             </IconButton>

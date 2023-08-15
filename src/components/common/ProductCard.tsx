@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import { mainColor, secColor } from "../../utils/Constants/colors";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -20,6 +19,7 @@ import { shopAPI } from "../../utils/api/shopApi";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { cartActions } from "../../actions/cartActions";
 import { RootState } from "../../redux/store";
+import { favoriteActions } from "../../actions/favoriteActions";
 interface ProductCardType {
   product: ProductType;
   fast?: boolean;
@@ -55,6 +55,17 @@ const ProductCard = memo(
         })
       );
     }, [product, userId, dispatch]);
+
+    const handleAddFavorite = () => {
+      dispatch(
+        favoriteActions.update({
+          userId: userId as string,
+          productId: product._id as string,
+        })
+      );
+    };
+
+    const handleCompare = () => {};
 
     return (
       <Paper
@@ -221,13 +232,14 @@ const ProductCard = memo(
           flexDirection={"row"}
           justifyContent={"space-around"}
         >
-          <IconButton color="error">
+          <IconButton
+            color="error"
+            title="Thêm sản phẩm yêu thích"
+            onClick={handleAddFavorite}
+          >
             <FavoriteBorderIcon />
           </IconButton>
-          <IconButton color="warning">
-            <RemoveRedEyeIcon />
-          </IconButton>
-          <IconButton color="primary">
+          <IconButton color="primary" title="So sánh" onClick={handleCompare}>
             <ShuffleIcon />
           </IconButton>
         </Box>

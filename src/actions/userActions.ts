@@ -34,9 +34,9 @@ export const userActions = {
     }
   ),
 
-  delete: async (data: string) => {
+  delete: async (userId: string) => {
     try {
-      await userApi.deleteUser(data);
+      await userApi.deleteUser(userId);
       NotificationToast({
         message: "Đã xóa người dùng thành công",
         type: "success",
