@@ -310,7 +310,7 @@ const Footer = () => {
               fontWeight: 600,
               color: mainColor,
             }}
-            href="https://facebook.com/1951065541"
+            href="https://facebook.com/1150694301"
           >
             Bui Huu Dat
           </a>

@@ -40,9 +40,11 @@ export type FooterInfoDataType = {
 export interface PaginationType {
   page?: number;
   perPage?: number;
+  categorySelected?: string[];
+  storeSelected?: string[];
+  tagsSelected?: string;
+  minPrice?: number;
+  maxPrice?: number;
 }
 
-export const InitialPagination: PaginationType = {
-  page: undefined,
-  perPage: undefined,
-};
+export const InitialPagination: PaginationType = {};

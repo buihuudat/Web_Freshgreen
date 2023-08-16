@@ -6,6 +6,7 @@ export const newsApi = {
   create: (payload: NewsType) =>
     axiosClient.post<NewsType>("/news/create", payload),
 
+  updateViewCount: (id: string) => axiosClient.put(`/news/${id}/views`),
   update: (payload: NewsType) =>
     axiosClient.put(`/news/${payload._id}`, payload),
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { favoriteActions } from "../actions/favoriteActions";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { RootState } from "../redux/store";
 import ProductCard from "../components/common/ProductCard";
 import SkeletonCard from "../components/SkeletonCard";
@@ -26,7 +26,9 @@ const Favorites = () => {
     </Box>
   ) : (
     <Box display={"flex"} justifyContent={"center"}>
-      <CircularProgress />
+      <Typography fontWeight={600} fontSize={32}>
+        Chưa có sản phẩm
+      </Typography>
     </Box>
   );
 };

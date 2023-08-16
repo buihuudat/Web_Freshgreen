@@ -6,7 +6,7 @@ import Directory from "../common/Directory";
 import Footer from "../common/Footer";
 import { verifyToken } from "../../utils/verifyToken";
 import { useAppDispatch } from "../../redux/hooks";
-import { getItem } from "../../utils/handlers/tokenHandler";
+import { clearStorage, getItem } from "../../utils/handlers/tokenHandler";
 
 const AuthLayout: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,9 +23,11 @@ const AuthLayout: React.FC = () => {
             navigate("/");
           } else {
             setIsLoading(false);
+            clearStorage();
           }
         } else {
           setIsLoading(false);
+          clearStorage();
         }
       } catch (error) {
         setIsLoading(false);

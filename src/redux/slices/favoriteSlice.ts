@@ -11,7 +11,7 @@ interface InitialStateProps {
 }
 
 const initialState: InitialStateProps = {
-  favoriteProducts: [],
+  favoriteProducts: getItem("favorite") || [],
   loading: false,
   isFavorite: false,
 };

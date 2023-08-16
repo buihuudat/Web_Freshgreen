@@ -96,7 +96,7 @@ const ProductDetails = () => {
     };
     getShopInfo();
     dispatch(productActions.gets({ page: 1, perPage: 8 }));
-    dispatch(checkFavorite(product._id));
+    // dispatch(checkFavorite(product._id));
   }, [dispatch, product._id, product.shop]);
 
   const handleAddCart = () => {

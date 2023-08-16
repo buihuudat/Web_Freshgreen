@@ -23,12 +23,14 @@ const Navbar = () => {
   const countFavoriteProduct: number =
     useAppSelector((state: RootState) => state.favorite.favoriteProducts)
       .length || 0;
+  const countCompareProduct: number =
+    useAppSelector((state) => state.compare.products)?.length || 0;
 
   const ListIcons: ListIconTypes[] = [
     {
       title: "So sánh",
       icon: <CompareIcon />,
-      badge: 0,
+      badge: countCompareProduct,
       path: "/so-sanh",
     },
     {

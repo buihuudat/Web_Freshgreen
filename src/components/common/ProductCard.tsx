@@ -23,6 +23,11 @@ import { cartActions } from "../../actions/cartActions";
 import { RootState } from "../../redux/store";
 import { favoriteActions } from "../../actions/favoriteActions";
 import { checkFavorite } from "../../redux/slices/favoriteSlice";
+import {
+  addProductCompare,
+  checkCompare,
+} from "../../redux/slices/compareSlice";
+import { NotificationToast } from "../../utils/handlers/NotificationToast";
 interface ProductCardType {
   product: ProductType;
   fast?: boolean;
@@ -37,7 +42,12 @@ const ProductCard = memo(
     const userId = useAppSelector((state: RootState) => state.user.user)._id;
     const stateShopInfo = { shopInfo } as NavigateOptions;
     const stateProduct = { product } as NavigateOptions;
-    const isFavorite = useAppSelector((state) => state.favorite.isFavorite);
+    const isFavorite = useAppSelector(
+      (state: RootState) => state.favorite.isFavorite
+    );
+    const isComapring = useAppSelector(
+      (state: RootState) => state.compare.isComparing
+    );
 
     useEffect(() => {
       const getShopInfo = async () => {
@@ -50,6 +60,7 @@ const ProductCard = memo(
       };
       getShopInfo();
       dispatch(checkFavorite(product._id as string));
+      dispatch(checkCompare(product._id as string));
     }, [dispatch, product._id, product.shop]);
 
     const handleAddCart = useCallback(() => {
@@ -62,6 +73,10 @@ const ProductCard = memo(
     }, [product, userId, dispatch]);
 
     const handleAddFavorite = () => {
+      if (!userId) {
+        NotificationToast({ message: "Bạn chưa đăng nhập", type: "warning" });
+        return false;
+      }
       dispatch(
         favoriteActions.update({
           userId: userId as string,
@@ -70,7 +85,9 @@ const ProductCard = memo(
       );
     };
 
-    const handleCompare = () => {};
+    const handleCompare = () => {
+      dispatch(addProductCompare(product));
+    };
 
     return (
       <Paper
@@ -250,7 +267,12 @@ const ProductCard = memo(
           >
             {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
-          <IconButton color="primary" title="So sánh" onClick={handleCompare}>
+          <IconButton
+            color="primary"
+            title="So sánh"
+            onClick={handleCompare}
+            disabled={isComapring}
+          >
             <ShuffleIcon />
           </IconButton>
         </Box>

@@ -45,6 +45,9 @@ export const newsSlice = createSlice({
           return state;
         });
       })
+      .addCase(newsActions.updateViewCount.fulfilled, (state, action) => {
+        if (action.payload) return state;
+      })
       .addCase(newsActions.delete.fulfilled, (state, action) => {
         const newsIndex = state.newsList.findIndex(
           (news) => news._id === action.meta.arg

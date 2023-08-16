@@ -9,6 +9,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { setUserReducer } from "../../redux/slices/userSlice";
 import { getItem } from "../../utils/handlers/tokenHandler";
 import { cartActions } from "../../actions/cartActions";
+import { favoriteActions } from "../../actions/favoriteActions";
 
 const UserLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,6 +26,7 @@ const UserLayout = () => {
             setIsLoading(false);
             dispatch(setUserReducer(user));
             dispatch(cartActions.getCart(user._id));
+            dispatch(favoriteActions.get(user._id));
           } else {
             navigate("/dang-nhap");
           }

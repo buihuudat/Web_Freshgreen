@@ -1,4 +1,10 @@
-type KeyProps = "user" | "cart" | "client_secret" | "order" | "favorite";
+type KeyProps =
+  | "user"
+  | "cart"
+  | "client_secret"
+  | "order"
+  | "favorite"
+  | "productCompare";
 
 export const setItem = (key: KeyProps, data: any): void =>
   localStorage.setItem(key, JSON.stringify(data));
@@ -10,3 +16,12 @@ export const getItem = (key: KeyProps) => {
 };
 
 export const removeItem = (key: KeyProps): void => localStorage.removeItem(key);
+
+export const clearStorage = () => {
+  removeItem("cart");
+  removeItem("favorite");
+  removeItem("order");
+  removeItem("user");
+  removeItem("productCompare");
+  removeItem("client_secret");
+};

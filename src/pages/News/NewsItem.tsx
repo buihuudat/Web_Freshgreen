@@ -4,9 +4,12 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { NavigateOptions, useNavigate } from "react-router-dom";
 import { NewsType } from "../../types/newsType";
 import { formatDateInput } from "../../utils/handlers/formatDateInput";
+import { useAppDispatch } from "../../redux/hooks";
+import { newsActions } from "../../actions/newsActions";
 
 const NewsItem = memo(({ news }: { news: NewsType }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const state = { news } as NavigateOptions;
 
   const constent =
@@ -16,6 +19,7 @@ const NewsItem = memo(({ news }: { news: NewsType }) => {
 
   const handleViewNews = () => {
     navigate(`/tin-tuc/${news.title}`, { state });
+    dispatch(newsActions.updateViewCount(news._id as string));
   };
 
   return (

@@ -67,4 +67,16 @@ export const newsActions = {
       throw error;
     }
   }),
+
+  updateViewCount: createAsyncThunk(
+    "news/update/viewCount",
+    async (_id: string) => {
+      try {
+        await newsApi.updateViewCount(_id);
+        return true;
+      } catch (error) {
+        throw error;
+      }
+    }
+  ),
 };
