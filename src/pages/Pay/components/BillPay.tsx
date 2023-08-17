@@ -54,7 +54,7 @@ const BillPay = memo((props: PayDataProps) => {
           Tổng tiền hàng:
         </Typography>
         <Typography fontWeight={600} fontSize={18}>
-          {moneyFormat(props.amount)}
+          {moneyFormat(props.totalPrice)}
         </Typography>
       </Box>
       <Box
