@@ -22,7 +22,7 @@ export const favoriteSlice = createSlice({
   reducers: {
     checkFavorite: (state, action) => {
       state.isFavorite = state.favoriteProducts.some(
-        (product: ProductType) => product._id === action.payload
+        (product: ProductType) => product?._id === action.payload
       );
     },
     clearFavorite: (state) => {

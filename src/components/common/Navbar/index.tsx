@@ -63,8 +63,6 @@ const Navbar = () => {
     },
   ];
 
-  console.log(searchQuery);
-
   return (
     <Box
       position={"fixed"}

@@ -32,9 +32,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Compage = lazy(() => import("./pages/Compage"));
 const Favorites = lazy(() => import("./pages/Favorites"));
 const Cart = lazy(() => import("./pages/Cart"));
-const ProductDetails = lazy(
-  () => import("./pages/Products/components/ProductDetails")
-);
+const ProductDetails = lazy(() => import("./pages/ProductDetails"));
 
 const App = () => {
   const theme = createTheme({

@@ -4,12 +4,10 @@ import {
   IconButton,
   Paper,
   Rating,
-  Tab,
-  Tabs,
   TextField,
   Typography,
 } from "@mui/material";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../utils/Constants/colors";
 import { useEffect, useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -21,53 +19,20 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { NavigateOptions, useLocation, useNavigate } from "react-router-dom";
-import { moneyFormat } from "../../../utils/handlers/moneyFormat";
-import { ProductType } from "../../../types/productType";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { RootState } from "../../../redux/store";
+import { moneyFormat } from "../../utils/handlers/moneyFormat";
+import { ProductType } from "../../types/productType";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
 import _ from "lodash";
-import ProductCard from "../../../components/common/ProductCard";
-import { productActions } from "../../../actions/productActions";
-import { cartActions } from "../../../actions/cartActions";
-import { InitialShop, ShopType } from "../../../types/shopType";
-import { shopAPI } from "../../../utils/api/shopApi";
-import { checkFavorite } from "../../../redux/slices/favoriteSlice";
-import { NotificationToast } from "../../../utils/handlers/NotificationToast";
-import { favoriteActions } from "../../../actions/favoriteActions";
-import { addProductCompare } from "../../../redux/slices/compareSlice";
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+import ProductCard from "../../components/common/ProductCard";
+import { productActions } from "../../actions/productActions";
+import { cartActions } from "../../actions/cartActions";
+import { InitialShop, ShopType } from "../../types/shopType";
+import { shopAPI } from "../../utils/api/shopApi";
+import { NotificationToast } from "../../utils/handlers/NotificationToast";
+import { favoriteActions } from "../../actions/favoriteActions";
+import { addProductCompare } from "../../redux/slices/compareSlice";
+import DetailActions from "./components/DetailActions";
 
 const ProductDetails = () => {
   const { state } = useLocation();
@@ -84,7 +49,6 @@ const ProductDetails = () => {
   const [currentCountProduct, setCurrentCountProduct] = useState<number>(1);
   const [isLoading] = useState<boolean>(false);
   const [imageToShow, setImageToShow] = useState<string>(product.images[0]);
-  const [value, setValue] = useState(0);
 
   const shopState = { shopInfo } as NavigateOptions;
 
@@ -126,10 +90,6 @@ const ProductDetails = () => {
 
   const handleCompare = () => {
     dispatch(addProductCompare(product));
-  };
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
   };
 
   const viewShop = () =>
@@ -330,60 +290,7 @@ const ProductDetails = () => {
       </Box>
 
       {/* view more */}
-      <Paper variant="outlined" sx={{ width: "100%", p: 4, minHeight: 300 }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab
-              label={<Typography fontWeight={600}>Mô tả</Typography>}
-              {...a11yProps(0)}
-            />
-            <Tab
-              label={<Typography fontWeight={600}>Nhận xét</Typography>}
-              {...a11yProps(1)}
-            />
-            <Tab
-              label={<Typography fontWeight={600}>Nhà cung cấp</Typography>}
-              {...a11yProps(2)}
-            />
-          </Tabs>
-        </Box>
-        <CustomTabPanel value={value} index={0}>
-          <Box>
-            <Typography>
-              Tên sản phẩm: <b style={{ fontSize: 20 }}>{product.title}</b>
-            </Typography>
-            <Typography>
-              Danh mục: <b style={{ fontSize: 20 }}>{product.category}</b>
-            </Typography>
-          </Box>
-          <Typography
-            pt={2}
-            fontWeight={600}
-            fontSize={18}
-            sx={{ textDecoration: "underline" }}
-          >
-            Chi tiết
-          </Typography>
-          <div
-            style={{ wordWrap: "break-word" }}
-            dangerouslySetInnerHTML={{
-              __html: product.description,
-            }}
-          />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          Item Two
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <Typography>
-            Bán bởi: <b style={{ fontSize: 20 }}>{product.shop}</b>
-          </Typography>
-        </CustomTabPanel>
-      </Paper>
+      <DetailActions {...product} />
 
       <Box py={5}>
         <Typography fontSize={30} fontWeight={600}>

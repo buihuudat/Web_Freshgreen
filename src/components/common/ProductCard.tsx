@@ -42,9 +42,7 @@ const ProductCard = memo(
     const userId = useAppSelector((state: RootState) => state.user.user)._id;
     const stateShopInfo = { shopInfo } as NavigateOptions;
     const stateProduct = { product } as NavigateOptions;
-    const isFavorite = useAppSelector(
-      (state: RootState) => state.favorite.isFavorite
-    );
+    const isFavorite = false;
     const isComapring = useAppSelector(
       (state: RootState) => state.compare.isComparing
     );

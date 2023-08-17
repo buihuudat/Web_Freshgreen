@@ -32,6 +32,8 @@ export const cartSlice = createSlice({
         if (action.payload) {
           state.data = action.payload;
           setItem("cart", action.payload);
+        } else {
+          setItem("cart", InitialCart);
         }
       })
       .addCase(cartActions.addProductToCart.fulfilled, (state, action) => {
