@@ -1,4 +1,4 @@
-import { Box, Skeleton, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ProductCard from "../../../components/common/ProductCard";
 import { ProductType } from "../../../types/productType";
 import { memo, useMemo } from "react";
@@ -26,7 +26,7 @@ const HomeProducts = memo(({ products }: { products: ProductType[] }) => {
         <Typography fontWeight={600} fontSize={35} pb={3}>
           Sản phẩm phổ biến
         </Typography>
-        {popularProducts.length ? (
+        {products.length ? (
           <Box
             display={"flex"}
             flexDirection={"row"}

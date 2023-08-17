@@ -32,6 +32,9 @@ import { cartActions } from "../../../actions/cartActions";
 import { InitialShop, ShopType } from "../../../types/shopType";
 import { shopAPI } from "../../../utils/api/shopApi";
 import { checkFavorite } from "../../../redux/slices/favoriteSlice";
+import { NotificationToast } from "../../../utils/handlers/NotificationToast";
+import { favoriteActions } from "../../../actions/favoriteActions";
+import { addProductCompare } from "../../../redux/slices/compareSlice";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -103,10 +106,28 @@ const ProductDetails = () => {
     dispatch(
       cartActions.addProductToCart({
         userId: userId as string,
-        product: { ...product, count: 1 },
+        product: { ...product, count: currentCountProduct },
       })
     );
   };
+
+  const handleAddFavorite = () => {
+    if (!userId) {
+      NotificationToast({ message: "Bạn chưa đăng nhập", type: "warning" });
+      return false;
+    }
+    dispatch(
+      favoriteActions.update({
+        userId: userId as string,
+        product,
+      })
+    );
+  };
+
+  const handleCompare = () => {
+    dispatch(addProductCompare(product));
+  };
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -254,10 +275,15 @@ const ProductDetails = () => {
             <LoadingButton loading={isLoading} variant="contained" size="large">
               Mua ngay
             </LoadingButton>
-            <Button size="large" variant="outlined" color="error">
+            <Button
+              size="large"
+              variant="outlined"
+              color="error"
+              onClick={handleAddFavorite}
+            >
               {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
             </Button>
-            <Button size="large" variant="outlined">
+            <Button size="large" variant="outlined" onClick={handleCompare}>
               <ShuffleIcon />
             </Button>
           </Box>

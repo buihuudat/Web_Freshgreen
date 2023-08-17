@@ -1,6 +1,5 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import Search from "../../components/common/Search";
 import { mainColor } from "../../utils/Constants/colors";
 import NewsRecently from "./NewsRecently";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -33,8 +32,6 @@ const News = () => {
         <Outlet />
       </Box>
       <Box width={"20%"}>
-        <Search placeholder="Tìm..." />
-
         <Paper variant="outlined" sx={{ p: 2, my: 5 }}>
           <Typography fontWeight={600}>DANH MỤC</Typography>
           <hr color="#555" />

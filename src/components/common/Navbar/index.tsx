@@ -12,12 +12,18 @@ import { ListIconTypes } from "../../../types/dataTypes";
 import { navbarDataItem } from "./components/Data/NavbarDataItem";
 import { useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
+import { ProductType } from "../../../types/productType";
+import { useState } from "react";
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const path = pathname.split("/")[1];
   const user = useAppSelector((state: RootState) => state.user.user);
+  const products = useAppSelector((state: RootState) => state.product.products);
+
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   const countProductsCart: number =
     useAppSelector((state: RootState) => state.cart.data)?.products.length || 0;
   const countFavoriteProduct: number =
@@ -57,6 +63,8 @@ const Navbar = () => {
     },
   ];
 
+  console.log(searchQuery);
+
   return (
     <Box
       position={"fixed"}
@@ -92,7 +100,11 @@ const Navbar = () => {
             cursor: "pointer",
           }}
         />
-        <Search placeholder="Tìm kiếm sản phẩm ưa thích..." />
+        <Search
+          placeholder="Tìm kiếm sản phẩm ưa thích..."
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
 
         <Box display={"flex"} flexDirection={"row"} gap={2}>
           {navbarDataItem.map(

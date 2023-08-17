@@ -25,7 +25,6 @@ const AppLayout = () => {
         dispatch(setUserReducer(user));
         dispatch(cartActions.getCart(user._id));
         dispatch(favoriteActions.get(user._id));
-        clearStorage();
       } catch (error) {
         return;
       }
