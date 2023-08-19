@@ -11,6 +11,7 @@ import { setUserReducer } from "../../redux/slices/userSlice";
 import { clearStorage, getItem } from "../../utils/handlers/tokenHandler";
 import { cartActions } from "../../actions/cartActions";
 import { favoriteActions } from "../../actions/favoriteActions";
+import { clearCart } from "../../redux/slices/cartSlice";
 
 const AppLayout = () => {
   const { pathname } = useLocation();
@@ -19,9 +20,15 @@ const AppLayout = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        if (!getItem("user")) return;
+        if (!getItem("user")) {
+          clearCart();
+          return;
+        }
         const user = await verifyToken();
-        if (!user) return;
+        if (!user) {
+          clearCart();
+          return;
+        }
         dispatch(setUserReducer(user));
         dispatch(cartActions.getCart(user._id));
         dispatch(favoriteActions.get(user._id));

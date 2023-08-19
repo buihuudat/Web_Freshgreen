@@ -42,8 +42,10 @@ export const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(productActions.gets.fulfilled, (state, action) => {
-        state.products = action.payload.products;
-        state.totalProducts = action.payload.totalProducts;
+        if (action.payload) {
+          state.products = action.payload?.products;
+          state.totalProducts = action.payload?.totalProducts;
+        }
       })
       .addCase(productActions.get.fulfilled, (state, action) => {
         state.product = action.payload;

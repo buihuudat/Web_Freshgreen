@@ -1,6 +1,7 @@
 import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { ProductType } from "../../../types/productType";
+import CommentActions from "./CommentActions";
 
 function a11yProps(index: number) {
   return {
@@ -44,21 +45,31 @@ const DetailActions = (product: ProductType) => {
   return (
     <Box>
       <Paper variant="outlined" sx={{ width: "100%", p: 4, minHeight: 300 }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: "divider",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <Tabs
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
           >
             <Tab
+              sx={{ width: 300 }}
               label={<Typography fontWeight={600}>Mô tả</Typography>}
               {...a11yProps(0)}
             />
             <Tab
+              sx={{ width: 300 }}
               label={<Typography fontWeight={600}>Nhận xét</Typography>}
               {...a11yProps(1)}
             />
             <Tab
+              sx={{ width: 300 }}
               label={<Typography fontWeight={600}>Nhà cung cấp</Typography>}
               {...a11yProps(2)}
             />
@@ -89,7 +100,7 @@ const DetailActions = (product: ProductType) => {
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          Item Two
+          <CommentActions />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           <Typography>

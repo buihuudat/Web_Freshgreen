@@ -13,6 +13,7 @@ import orderSlice from "./slices/orderSlice";
 import favoriteSlice from "./slices/favoriteSlice";
 import compareSlice from "./slices/compareSlice";
 import faqSlice from "./slices/faqSlice";
+import commentSlice from "./slices/commentSlice";
 
 export const store = configureStore({
   reducer: {
@@ -30,6 +31,7 @@ export const store = configureStore({
     favorite: favoriteSlice,
     compare: compareSlice,
     faq: faqSlice,
+    comment: commentSlice,
   },
 });
 

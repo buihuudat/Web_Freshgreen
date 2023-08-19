@@ -33,6 +33,7 @@ import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { favoriteActions } from "../../actions/favoriteActions";
 import { addProductCompare } from "../../redux/slices/compareSlice";
 import DetailActions from "./components/DetailActions";
+import commentActions from "../../actions/commentActions";
 
 const ProductDetails = () => {
   const { state } = useLocation();
@@ -63,6 +64,7 @@ const ProductDetails = () => {
     };
     getShopInfo();
     dispatch(productActions.gets({ page: 1, perPage: 8 }));
+    dispatch(commentActions.getProductComments(product._id as string));
     // dispatch(checkFavorite(product._id));
   }, [dispatch, product._id, product.shop]);
 
@@ -107,14 +109,14 @@ const ProductDetails = () => {
           <Paper
             variant="outlined"
             sx={{
-              height: 800,
+              height: "max-content",
               py: 3,
               mx: 5,
             }}
           >
             <img
               src={imageToShow}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{ width: "100%", height: "auto", objectFit: "cover" }}
               alt={product.title}
             />
           </Paper>
@@ -139,7 +141,7 @@ const ProductDetails = () => {
                 <img
                   src={image}
                   alt="images"
-                  style={{ width: 100, height: 100, objectFit: "cover" }}
+                  style={{ width: 100, height: "auto", objectFit: "cover" }}
                 />
               </Paper>
             ))}
