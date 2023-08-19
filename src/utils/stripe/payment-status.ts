@@ -6,6 +6,7 @@ import { orderActions } from "../../actions/orderActions";
 import { RootState } from "../../redux/store";
 import { clearCart } from "../../redux/slices/cartSlice";
 import { getItem, removeItem } from "../handlers/tokenHandler";
+
 const PaymentStatus = () => {
   const navigate = useNavigate();
   const stripe = useStripe();
@@ -14,8 +15,6 @@ const PaymentStatus = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.user.user);
   const order = getItem("order");
-
-  console.log(order);
 
   useEffect(() => {
     if (!stripe) {
@@ -35,12 +34,13 @@ const PaymentStatus = () => {
       .then(({ paymentIntent }: any) => {
         switch (paymentIntent.status) {
           case "succeeded":
-            dispatch(orderActions.createOrder({ user, order }));
-            dispatch(clearCart());
-            removeItem("order");
-            setMessage(
-              `Cảm ơn bạn! Giao dịch của bạn với số tiền ${paymentIntent.amount} đã được chấp nhận thành công.`
-            );
+            dispatch(orderActions.createOrder({ user, order })).then(() => {
+              dispatch(clearCart());
+              removeItem("order");
+              setMessage(
+                `Cảm ơn bạn! Giao dịch của bạn với số tiền ${paymentIntent.amount} đã được chấp nhận thành công.`
+              );
+            });
             break;
 
           case "processing":
