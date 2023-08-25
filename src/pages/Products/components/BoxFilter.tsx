@@ -14,7 +14,13 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { FilterDataSelection } from "./data/DataFilter";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { mainColor } from "../../../utils/Constants/colors";
@@ -78,7 +84,7 @@ interface FilterProps {
   setProductsFilter: (products: ProductType[]) => void;
 }
 
-const BoxFilter = (props: FilterProps) => {
+const BoxFilter = memo((props: FilterProps) => {
   const [categorySelected, setCategorySelected] = useState<string[]>([]);
   const [storeSelected, setStoreSelected] = useState<string[]>([]);
   const [tagsSelected, setTagsSelected] = useState<string>("tags/new");
@@ -339,6 +345,6 @@ const BoxFilter = (props: FilterProps) => {
       </Box>
     </Paper>
   );
-};
+});
 
 export default BoxFilter;

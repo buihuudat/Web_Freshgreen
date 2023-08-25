@@ -1,15 +1,14 @@
-import { Box, Button, Pagination, Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { useEffect, useMemo, useState } from "react";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { productActions } from "../../actions/productActions";
-
 import ProductList from "./components/ProductList";
 import BoxFilter from "./components/BoxFilter";
 import { ProductType } from "../../types/productType";
+import Pagini from "../../components/Pagini";
 
 const Products = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +18,6 @@ const Products = () => {
   const numberOfProductShow: number = 8;
 
   const [isShow, setIsShow] = useState<boolean>(false);
-  const [countPage, setCountPage] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [productsFilter, setProductsFilter] = useState<ProductType[]>(products);
 
@@ -30,16 +28,10 @@ const Products = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [dispatch, currentPage]);
 
-  useEffect(() => {
-    setCountPage(Math.ceil(totalProducts / numberOfProductShow));
-  }, [totalProducts]);
-
-  const handleChangePage = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setCurrentPage(value);
-  };
+  const countPage = useMemo(
+    () => Math.ceil(totalProducts / numberOfProductShow),
+    [totalProducts]
+  );
 
   return (
     <Box>
@@ -81,12 +73,7 @@ const Products = () => {
           p: 5,
         }}
       >
-        <Pagination
-          onChange={handleChangePage}
-          count={countPage}
-          variant="outlined"
-          color="primary"
-        />
+        <Pagini countPage={countPage} setCurrentPage={setCurrentPage} />
       </Stack>
     </Box>
   );

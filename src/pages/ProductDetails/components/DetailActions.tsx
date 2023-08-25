@@ -1,7 +1,8 @@
 import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { ProductType } from "../../../types/productType";
-import CommentActions from "./CommentActions";
+import CommentActions from "./Comment/CommentActions";
+import ListComment from "./Comment/ListComment";
 
 function a11yProps(index: number) {
   return {
@@ -100,7 +101,10 @@ const DetailActions = (product: ProductType) => {
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <CommentActions />
+          <Box display={"flex"} flexDirection={"column"} width={"100%"} gap={2}>
+            <CommentActions productId={product._id as string} />
+            <ListComment />
+          </Box>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           <Typography>

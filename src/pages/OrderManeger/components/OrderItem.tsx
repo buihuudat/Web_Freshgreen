@@ -36,7 +36,7 @@ const OrderItem = memo((props: Props) => {
   }, [user]);
 
   return (
-    <Box sx={{ m: 3, outline: "1px solid #ddd", width: 480 }}>
+    <Paper sx={{ m: 3, width: 480 }} elevation={9}>
       {/* customer information */}
       <UserInfo user={user} address={address} isLoading={isLoading.user} />
 
@@ -61,7 +61,7 @@ const OrderItem = memo((props: Props) => {
       <BillInfo {...props.order} />
 
       <OrderActions {...props} />
-    </Box>
+    </Paper>
   );
 });
 

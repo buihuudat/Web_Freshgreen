@@ -40,12 +40,15 @@ const ProductDetails = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state: RootState) => state.product.products);
   const userId = useAppSelector((state: RootState) => state.user.user)._id;
+  const comments = useAppSelector((state: RootState) => state.comment.comments);
   const favoriteProducts = useAppSelector(
     (state: RootState) => state.favorite.favoriteProducts
   );
   const isFavorite = favoriteProducts.filter(
     (p) => p._id === product._id
   ).length;
+
+  console.log(comments);
 
   const [currentCountProduct, setCurrentCountProduct] = useState<number>(1);
   const [isLoading] = useState<boolean>(false);
