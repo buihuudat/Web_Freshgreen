@@ -15,18 +15,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { moneyFormat } from "../../utils/handlers/moneyFormat";
-import { memo, useCallback, useEffect, useState } from "react";
-import { InitialShop, ShopType } from "../../types/shopType";
-import { shopAPI } from "../../utils/api/shopApi";
+import { memo, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { cartActions } from "../../actions/cartActions";
 import { RootState } from "../../redux/store";
 import { favoriteActions } from "../../actions/favoriteActions";
-import { checkFavorite } from "../../redux/slices/favoriteSlice";
-import {
-  addProductCompare,
-  checkCompare,
-} from "../../redux/slices/compareSlice";
+import { addProductCompare } from "../../redux/slices/compareSlice";
 import { NotificationToast } from "../../utils/handlers/NotificationToast";
 interface ProductCardType {
   product: ProductType;
@@ -36,30 +30,14 @@ interface ProductCardType {
 
 const ProductCard = memo(
   ({ product, fast = false, width = 400 }: ProductCardType) => {
-    const [shopInfo, setShopInfo] = useState<ShopType>(InitialShop);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const userId = useAppSelector((state: RootState) => state.user.user)._id;
-    const stateShopInfo = { shopInfo } as NavigateOptions;
     const stateProduct = { product } as NavigateOptions;
     const isFavorite = false;
     const isComapring = useAppSelector(
       (state: RootState) => state.compare.isComparing
     );
-
-    useEffect(() => {
-      const getShopInfo = async () => {
-        try {
-          const rs = await shopAPI.get(product?.shop);
-          setShopInfo(rs.data);
-        } catch (error) {
-          return false;
-        }
-      };
-      getShopInfo();
-      dispatch(checkFavorite(product._id as string));
-      dispatch(checkCompare(product._id as string));
-    }, [dispatch, product._id, product.shop]);
 
     const handleAddCart = useCallback(() => {
       dispatch(
@@ -199,7 +177,7 @@ const ProductCard = memo(
               ({product.star.count})
             </Typography>
           </Box>
-          {!shopInfo._id ? (
+          {!product?.shop ? (
             <Skeleton width={100} height={20} />
           ) : (
             <Typography fontSize={13} color={"#555"}>
@@ -211,13 +189,13 @@ const ProductCard = memo(
                   textTransform: "capitalize",
                 }}
                 onClick={() =>
-                  navigate("/cua-hang/" + product.shop, {
-                    state: stateShopInfo,
+                  navigate("/cua-hang/" + product.shop?.name, {
+                    state: product.shop?._id,
                   })
                 }
               >
                 {" "}
-                {shopInfo.name}
+                {product.shop.name}
               </b>
             </Typography>
           )}
@@ -232,15 +210,17 @@ const ProductCard = memo(
           >
             <Typography fontSize={30} color={mainColor} fontWeight={600}>
               {moneyFormat(product.lastPrice)}
-              <span
-                style={{
-                  fontSize: 25,
-                  color: "#ddd",
-                  textDecoration: "line-through",
-                }}
-              >
-                {moneyFormat(product.price)}
-              </span>
+              {product.discount > 0 && (
+                <span
+                  style={{
+                    fontSize: 25,
+                    color: "#ddd",
+                    textDecoration: "line-through",
+                  }}
+                >
+                  {moneyFormat(product.price)}
+                </span>
+              )}
             </Typography>
             <Button
               variant="contained"

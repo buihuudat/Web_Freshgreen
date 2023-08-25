@@ -24,14 +24,21 @@ export const productApi = {
     apiUrl = `/products?${queryParams.toString()}`;
     return axiosClient.get(apiUrl);
   },
+
   get: (product: ProductType) => axiosClient.get(`/products/${product._id}`),
+
   create: (newProduct: ProductType) =>
     axiosClient.post("/products/create", newProduct),
+
   update: (newProduct: ProductType) =>
     axiosClient.put(`/products/${newProduct._id}`, newProduct),
+
   delete: (product: ProductType) =>
     axiosClient.patch(`/products/${product._id}`),
 
   shopProducts: (id: string) =>
     axiosClient.get(`/products/shop/${id}/products`),
+
+  searchProducts: (searchQuery: string) =>
+    axiosClient.get(`/products/search?${searchQuery}`),
 };

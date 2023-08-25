@@ -34,7 +34,7 @@ const BillInfo = (order: OrderItemType) => {
       <Box sx={billInfoItem}>
         <Typography>Thời gian đặt hàng</Typography>
         <Typography fontWeight={600}>
-          {moment(order.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+          {moment(order.createdAt).format("D-MMMM-YYYY, h:mm:ss a")}
         </Typography>
       </Box>
       <Box sx={billInfoItem}>

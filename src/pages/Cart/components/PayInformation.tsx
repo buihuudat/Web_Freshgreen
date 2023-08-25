@@ -121,9 +121,9 @@ const PayInformation = memo(() => {
       pay: {
         method: PayMethod.lastPay,
         amount: totalPay,
-        status: PayStatus.spending,
+        status: PayStatus.pending,
       },
-      status: OrderStatus.spending,
+      status: OrderStatus.pending,
     };
     // pay online
     if (paymentMethod === "payNow") {
@@ -142,14 +142,23 @@ const PayInformation = memo(() => {
             },
           },
 
-          order: { ...order, pay: { ...order.pay, method: PayMethod.payNow } },
+          order: {
+            ...order,
+            pay: {
+              ...order.pay,
+              method: PayMethod.payNow,
+              status: PayStatus.success,
+            },
+          },
         },
       });
     } else {
       setIsLoading({ pay: true });
 
       try {
-        await dispatch(orderActions.createOrder({ user, order }));
+        await dispatch(
+          orderActions.createOrder({ userId: user._id as string, order })
+        );
         dispatch(clearCart());
         navigate("/quan-li-don-hang");
       } finally {

@@ -27,8 +27,6 @@ import _ from "lodash";
 import ProductCard from "../../components/common/ProductCard";
 import { productActions } from "../../actions/productActions";
 import { cartActions } from "../../actions/cartActions";
-import { InitialShop, ShopType } from "../../types/shopType";
-import { shopAPI } from "../../utils/api/shopApi";
 import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { favoriteActions } from "../../actions/favoriteActions";
 import { addProductCompare } from "../../redux/slices/compareSlice";
@@ -46,27 +44,15 @@ const ProductDetails = () => {
     (state: RootState) => state.favorite.isFavorite
   );
 
-  const [shopInfo, setShopInfo] = useState<ShopType>(InitialShop);
   const [currentCountProduct, setCurrentCountProduct] = useState<number>(1);
   const [isLoading] = useState<boolean>(false);
   const [imageToShow, setImageToShow] = useState<string>(product.images[0]);
 
-  const shopState = { shopInfo } as NavigateOptions;
-
   useEffect(() => {
-    const getShopInfo = async () => {
-      try {
-        const res = await shopAPI.get(product.shop);
-        setShopInfo(res.data);
-      } catch (error) {
-        return false;
-      }
-    };
-    getShopInfo();
     dispatch(productActions.gets({ page: 1, perPage: 8 }));
     dispatch(commentActions.getProductComments(product._id as string));
     // dispatch(checkFavorite(product._id));
-  }, [dispatch, product._id, product.shop]);
+  }, [dispatch, product._id]);
 
   const handleAddCart = () => {
     dispatch(
@@ -94,8 +80,7 @@ const ProductDetails = () => {
     dispatch(addProductCompare(product));
   };
 
-  const viewShop = () =>
-    navigate("/cua-hang/" + shopInfo.name, { state: shopState });
+  const viewShop = () => navigate("/cua-hang/" + product.shop?.name);
 
   return (
     <Box>
@@ -256,7 +241,7 @@ const ProductDetails = () => {
               onClick={viewShop}
               style={{ color: mainColor, cursor: "pointer" }}
             >
-              {shopInfo.name}
+              {product.shop?.name}
             </b>
           </Typography>
 

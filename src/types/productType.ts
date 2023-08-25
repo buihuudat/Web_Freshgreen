@@ -4,7 +4,6 @@ interface RatingsType {
   stars: number;
   count: number;
 }
-
 export interface ProductType {
   _id?: string;
   images: string[];
@@ -25,7 +24,13 @@ export interface ProductType {
   currentQuantity: number;
   averageStarRating: number;
   brand: string;
-  shop: string;
+  shop?: {
+    _id: string;
+    name: string;
+    user: {
+      avatar: string;
+    };
+  };
   comments: Array<string>;
   createdAt?: string;
   updatedAt?: string;
@@ -50,6 +55,5 @@ export const InitialProduct: ProductType = {
   quantity: 0,
   currentQuantity: 0,
   brand: "",
-  shop: "",
   comments: [],
 };

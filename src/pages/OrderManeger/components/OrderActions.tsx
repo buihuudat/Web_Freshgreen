@@ -1,68 +1,121 @@
 import { LoadingButton } from "@mui/lab";
-import { Box } from "@mui/material";
-import {
-  OrderItemType,
-  OrderStatus,
-  PayMethod,
-} from "../../../types/orderType";
-import { memo } from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { OrderItemType, OrderStatus } from "../../../types/orderType";
+import { memo, useState } from "react";
 import { UserType } from "../../../types/userType";
+import { useAppDispatch } from "../../../redux/hooks";
+import { orderActions } from "../../../actions/orderActions";
 
 interface Props {
   order: OrderItemType;
   user: UserType;
 }
 const OrderActions = memo((props: Props) => {
-  const { order } = props;
+  const { order, user } = props;
+  const dispatch = useAppDispatch();
 
-  const handleCancel = () => {};
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState<string>("");
+  const [messageErr, setMessageErr] = useState("");
 
-  return (
+  const handleSubmit = () => {
+    dispatch(
+      orderActions.submitStatusOrder({
+        userId: user._id as string,
+        orderId: order._id as string,
+        status: OrderStatus.done,
+      })
+    );
+  };
+  const handleRefure = () => {
+    if (message.length < 5) {
+      setMessageErr("Lý do không hợp lệ");
+      return;
+    }
+    dispatch(
+      orderActions.submitStatusOrder({
+        userId: user._id as string,
+        orderId: order._id as string,
+        status: OrderStatus.refuse,
+        message,
+      })
+    );
+    setMessageErr("");
+    setShow(false);
+  };
+
+  return order.status === OrderStatus.pending ? (
+    <Box sx={{ display: "flex", gap: 1, p: 1, flexDirection: "column" }}>
+      {!show ? (
+        <LoadingButton
+          fullWidth
+          color="error"
+          variant="outlined"
+          onClick={() => setShow(!show)}
+        >
+          Hủy đơn hàng
+        </LoadingButton>
+      ) : (
+        <Box>
+          <TextField
+            name="message"
+            label="message"
+            onChange={(e) => setMessage(e.target.value)}
+            required
+            fullWidth
+            error={messageErr !== ""}
+            helperText={messageErr}
+          />
+          <Box display={"flex"} flexDirection={"row"}>
+            <LoadingButton
+              fullWidth
+              color="warning"
+              variant="outlined"
+              onClick={() => setShow(false)}
+            >
+              Cancel
+            </LoadingButton>
+            <LoadingButton
+              fullWidth
+              color="error"
+              variant="contained"
+              onClick={handleRefure}
+            >
+              Xác nhận
+            </LoadingButton>
+          </Box>
+        </Box>
+      )}
+    </Box>
+  ) : order.status === OrderStatus.access ? (
     <Box>
-      {order.status === OrderStatus.spending && (
-        <Box sx={{ display: "flex", gap: 1, p: 1, flexDirection: "column" }}>
-          <LoadingButton
-            fullWidth
-            color="primary"
-            variant="text"
-            disabled
-            onClick={handleCancel}
-          >
-            {order.pay.method === PayMethod.payNow
-              ? "Người bán đang chuẩn bị hàng"
-              : "Chờ xác nhận"}
-          </LoadingButton>
-          <LoadingButton
-            fullWidth
-            color="error"
-            variant="outlined"
-            onClick={handleCancel}
-          >
-            Hủy đơn hàng
-          </LoadingButton>{" "}
-        </Box>
-      )}
-      {order.status === OrderStatus.success && (
-        <Box sx={{ display: "flex", gap: 1, p: 1, flexDirection: "column" }}>
-          <LoadingButton
-            disabled
-            fullWidth
-            color="secondary"
-            variant="text"
-            onClick={handleCancel}
-          >
-            Đang giao hàng
-          </LoadingButton>
-          <LoadingButton
-            fullWidth
-            color="success"
-            variant="contained"
-            onClick={handleCancel}
-          >
-            Đã nhận được hàng
-          </LoadingButton>
-        </Box>
-      )}
+      <Button variant="text" fullWidth color="success" disabled>
+        Đang giao hàng
+      </Button>
+      <Button
+        variant="contained"
+        fullWidth
+        color="success"
+        onClick={handleSubmit}
+      >
+        Đã nhận được hàng
+      </Button>
+    </Box>
+  ) : order.status === OrderStatus.done ? (
+    <Button variant="contained" fullWidth color="primary">
+      Mua lại
+    </Button>
+  ) : (
+    <Box p={1}>
+      <Button variant="text" fullWidth color="error" disabled>
+        Đã hủy
+      </Button>
+      <Typography>
+        Lí do:{" "}
+        <b style={{ color: "red" }}>
+          <i>{order.message}</i>
+        </b>
+      </Typography>
     </Box>
   );
 });

@@ -5,14 +5,11 @@ import { mainColor } from "../../utils/Constants/colors";
 import { ProductType } from "../../types/productType";
 import { moneyFormat } from "../../utils/handlers/moneyFormat";
 import { memo, useEffect, useState } from "react";
-import { InitialShop, ShopType } from "../../types/shopType";
-import { shopAPI } from "../../utils/api/shopApi";
 
 const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
   const navigate = useNavigate();
   const stateProduct = { product } as NavigateOptions;
 
-  const [shopInfo, setShopInfo] = useState<ShopType>(InitialShop);
   const ms = 1;
   const [time, setTime] = useState({
     d: ms * 60 * 60 * 24,
@@ -37,18 +34,6 @@ const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
       }));
     }, 1000);
   }, [countDownDate]);
-
-  useEffect(() => {
-    const getShopInfo = async () => {
-      try {
-        const rs = await shopAPI.get(product.shop);
-        setShopInfo(rs.data);
-      } catch (error) {
-        return false;
-      }
-    };
-    getShopInfo();
-  }, [product.shop]);
 
   return (
     <Box
@@ -157,12 +142,17 @@ const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
               readOnly
             />
             <Typography fontWeight={14}>
-              Bán bởi{" "}
+              Bán bởi
               <b
                 style={{ color: mainColor, cursor: "pointer" }}
-                onClick={() => navigate("cua-hang/" + product.shop ?? "")}
+                onClick={() =>
+                  navigate("cua-hang/" + product.shop ?? "", {
+                    state: product.shop?._id,
+                  })
+                }
               >
-                {shopInfo.name}
+                {" "}
+                {product.shop?.name || ""}
               </b>
             </Typography>
 
@@ -175,11 +165,13 @@ const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
                 <Typography fontWeight={600} fontSize={30}>
                   {moneyFormat(product.lastPrice)}
                 </Typography>
-                <Typography
-                  sx={{ textDecoration: "line-through", color: "#ddd" }}
-                >
-                  {moneyFormat(product.price)}
-                </Typography>
+                {product.discount > 0 && (
+                  <Typography
+                    sx={{ textDecoration: "line-through", color: "#ddd" }}
+                  >
+                    {moneyFormat(product.price)}
+                  </Typography>
+                )}
               </Box>
               <Button variant="contained" color="success" size="small">
                 <AddShoppingCartIcon />

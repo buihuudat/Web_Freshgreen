@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Paper, Rating, Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
@@ -7,40 +7,25 @@ import { mainColor } from "../../../utils/Constants/colors";
 import { NavigateOptions, useNavigate } from "react-router-dom";
 import { ShopType } from "../../../types/shopType";
 import { NoImage } from "../../../utils/Constants/images";
-import { InitialUser, UserType } from "../../../types/userType";
-import { userApi } from "../../../utils/api/userApi";
 
 const StoreCard = ({ store }: { store: ShopType }) => {
   const navigate = useNavigate();
-  const [moreInfo, setMoreInfo] = useState<UserType>(InitialUser);
   const [address, setAddress] = useState("");
-  const state = { shopInfo: { ...store, moreInfo } } as NavigateOptions;
-
-  useEffect(() => {
-    const getMoreInfo = async () => {
-      try {
-        const info = await userApi.getUser(store.user);
-        info && setMoreInfo(info.data);
-      } catch (error) {
-        return false;
-      }
-    };
-    getMoreInfo();
-  }, [store.user]);
+  const state = { shopInfo: { ...store } } as NavigateOptions;
 
   useEffect(() => {
     setAddress(
-      moreInfo.address.more +
+      store.user?.address.more +
         " " +
-        moreInfo.address.street +
+        store.user?.address.street +
         " " +
-        moreInfo.address.ward +
+        store.user?.address.ward +
         " " +
-        moreInfo.address.district +
+        store.user?.address.district +
         " " +
-        moreInfo.address.city
+        store.user?.address.city
     );
-  }, [moreInfo.address]);
+  }, [store?.user]);
 
   return (
     <Paper
@@ -82,7 +67,7 @@ const StoreCard = ({ store }: { store: ShopType }) => {
         <Typography>
           <LocalPhoneIcon sx={{ color: mainColor, fontSize: 18 }} />
           <b>Số điện thoại: </b>
-          {moreInfo.phone}
+          {store.user?.phone}
         </Typography>
 
         <Button

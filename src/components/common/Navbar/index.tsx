@@ -1,5 +1,4 @@
 import { Badge, Box, IconButton, Typography, Avatar } from "@mui/material";
-import Search from "../Search";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { mainColor } from "../../../utils/Constants/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -10,17 +9,17 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { Logo } from "../../../utils/Constants/images";
 import { ListIconTypes } from "../../../types/dataTypes";
 import { navbarDataItem } from "./components/Data/NavbarDataItem";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
-import { ProductType } from "../../../types/productType";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Search from "../Search";
+import { productActions } from "../../../actions/productActions";
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const path = pathname.split("/")[1];
   const user = useAppSelector((state: RootState) => state.user.user);
-  const products = useAppSelector((state: RootState) => state.product.products);
 
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -62,6 +61,11 @@ const Navbar = () => {
       path: "/tai-khoan",
     },
   ];
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(productActions.searchProducts(searchQuery));
+  }, [searchQuery, dispatch]);
 
   return (
     <Box

@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { orderActions } from "../../actions/orderActions";
-import { OrderType } from "../../types/orderType";
+import { OrderItemType } from "../../types/orderType";
 import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
 
 interface InitialStateProps {
-  data: OrderType | null;
+  data: OrderItemType[];
   loading: boolean;
 }
 const initialState: InitialStateProps = {
-  data: null,
+  data: [],
   loading: false,
 };
 
@@ -19,10 +19,20 @@ export const orderSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(orderActions.getOrders.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.data = action.payload.orders;
       })
       .addCase(orderActions.createOrder.fulfilled, (state, action) => {
-        state.data?.orders.push(action.payload);
+        state.data.push(action.payload);
+      })
+      .addCase(orderActions.submitStatusOrder.fulfilled, (state, action) => {
+        if (action.payload.status) {
+          const index = state.data.findIndex(
+            (order) => order._id === action.payload.orderId
+          );
+          if (index !== -1) {
+            state.data[index].status = action.payload.status;
+          }
+        }
       })
       .addMatcher<PendingAction>(
         (action) => action.type.endsWith("/pending"),

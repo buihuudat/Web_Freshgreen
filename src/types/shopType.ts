@@ -1,6 +1,13 @@
+import { UserAddress } from "./userType";
+
 export interface ShopType {
   _id?: string;
-  user: string;
+  user?: {
+    address: UserAddress;
+    phone: string;
+    email: string;
+    avatar: string;
+  };
   name: string;
   image?: string;
   description: string;
@@ -23,7 +30,6 @@ export interface ShopType {
 export const InitialShop = {
   name: "",
   image: "",
-  user: "",
   description: "",
   bio: "",
   startYear: 1978,

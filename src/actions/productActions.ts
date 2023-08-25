@@ -93,4 +93,16 @@ export const productActions = {
       }
     }
   ),
+
+  searchProducts: createAsyncThunk(
+    "product/search",
+    async (searchQuery: string) => {
+      try {
+        const res = await productApi.searchProducts(searchQuery);
+        return res.data;
+      } catch (error) {
+        throw error;
+      }
+    }
+  ),
 };

@@ -34,7 +34,9 @@ const PaymentStatus = () => {
       .then(({ paymentIntent }: any) => {
         switch (paymentIntent.status) {
           case "succeeded":
-            dispatch(orderActions.createOrder({ user, order })).then(() => {
+            dispatch(
+              orderActions.createOrder({ userId: user._id as string, order })
+            ).then(() => {
               dispatch(clearCart());
               removeItem("order");
               setMessage(

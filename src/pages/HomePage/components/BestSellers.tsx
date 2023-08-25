@@ -78,16 +78,16 @@ const BestSellers = memo(({ products }: { products: ProductType[] }) => {
                   key={index}
                   style={{ display: "block", width: 600 }}
                 >
-                  <ProductCard product={data} width={250} fast={true} />
+                  <ProductCard product={data} width={280} fast={true} />
                 </SwiperSlide>
               ))}
             </Swiper>
           ) : (
             <Box display={"flex"} flexDirection={"row"} gap={5}>
-              <SkeletonCard width={250} />
-              <SkeletonCard width={250} />
-              <SkeletonCard width={250} />
-              <SkeletonCard width={250} />
+              <SkeletonCard width={280} />
+              <SkeletonCard width={280} />
+              <SkeletonCard width={280} />
+              <SkeletonCard width={280} />
             </Box>
           )}
         </Box>

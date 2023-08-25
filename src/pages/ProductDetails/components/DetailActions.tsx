@@ -104,7 +104,7 @@ const DetailActions = (product: ProductType) => {
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           <Typography>
-            Bán bởi: <b style={{ fontSize: 20 }}>{product.shop}</b>
+            Bán bởi: <b style={{ fontSize: 20 }}>{product.shop?.name}</b>
           </Typography>
         </CustomTabPanel>
       </Paper>

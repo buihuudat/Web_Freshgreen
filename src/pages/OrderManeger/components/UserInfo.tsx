@@ -1,5 +1,4 @@
 import { Box, Skeleton, Typography, createStyles } from "@mui/material";
-import React from "react";
 import { UserType } from "../../../types/userType";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";

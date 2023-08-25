@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { InitialShop, ShopType } from "../../types/shopType";
 import { shopActions } from "../../actions/shopActions";
 import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
-import { ProductType } from "../../types/productType";
 
 interface InitialStateProps {
   shop: ShopType;

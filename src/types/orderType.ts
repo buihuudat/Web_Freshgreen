@@ -2,7 +2,7 @@ import { ProductCartType } from "./cartType";
 import { InitialUser, UserType } from "./userType";
 
 export enum StatusOrder {
-  spending,
+  pending,
   success,
   cancel,
   refuse,
@@ -20,7 +20,7 @@ export enum PayMethod {
 }
 
 export enum PayStatus {
-  spending = "spending",
+  pending = "pending",
   falure = "falure",
   success = "success",
 }
@@ -31,9 +31,10 @@ export interface PayType {
 }
 
 export enum OrderStatus {
-  spending = "spending",
+  done = "done",
   success = "success",
-  cancel = "cancel",
+  pending = "pending",
+  access = "access",
   refuse = "refuse",
 }
 export interface OrderItemType {
@@ -58,3 +59,10 @@ export const initialDataOrder = {
   user: InitialUser,
   orders: [],
 };
+
+export interface SubmitProps {
+  orderId: string;
+  userId: string;
+  status: OrderStatus.done | OrderStatus.refuse;
+  message?: string;
+}

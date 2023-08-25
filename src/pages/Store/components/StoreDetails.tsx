@@ -16,33 +16,29 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { ShopType } from "../../../types/shopType";
 import { useEffect, useMemo, useState } from "react";
-import { UserType } from "../../../types/userType";
 import { productActions } from "../../../actions/productActions";
 import { RootState } from "../../../redux/store";
 import ProductCard from "../../../components/common/ProductCard";
 import React from "react";
 import { ProductType } from "../../../types/productType";
-
-interface CustomShopType extends ShopType {
-  moreInfo?: UserType;
-}
+import { shopActions } from "../../../actions/shopActions";
 
 const StoreDetails = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [productsResearch, setProductsResearch] = useState<ProductType[]>([]);
   const { state } = useLocation();
-  const store: CustomShopType = state.shopInfo;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    store?._id && dispatch(productActions.getShopProducts(store._id));
-  }, [dispatch, store?._id]);
+    dispatch(shopActions.get(state));
+    dispatch(productActions.getShopProducts(state));
+  }, [dispatch, state]);
 
   const { products, totalProducts } = useAppSelector(
     (state: RootState) => state.product.shopProducts
   );
+  const store = useAppSelector((state: RootState) => state.shop.shop);
 
   const preProducts: ProductType[] = useMemo(() => [...products], [products]);
 
@@ -162,12 +158,12 @@ const StoreDetails = () => {
             <Typography>
               <LocationOnIcon sx={{ color: mainColor, fontSize: 18 }} />
               <b>Địa chỉ: </b>
-              {store.moreInfo?.address.city}
+              {store.user?.address.city}
             </Typography>
             <Typography>
               <LocalPhoneIcon sx={{ color: mainColor, fontSize: 18 }} />
               <b>Số điện thoại: </b>
-              {store.moreInfo?.phone}
+              {store.user?.phone}
             </Typography>
             <Typography>
               <LocalPhoneIcon sx={{ color: mainColor, fontSize: 18 }} />

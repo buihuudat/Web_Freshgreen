@@ -14,7 +14,7 @@ export const profileData: ProfileDataProps[] = [
   },
   {
     name: "Đơn hàng đã mua",
-    path: "/san-pham-da-mua",
+    path: "/don-hang-da-mua",
   },
   {
     name: "Sản phẩm yêu thích",

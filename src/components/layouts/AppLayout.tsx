@@ -8,7 +8,7 @@ import ScrollTop from "../common/ScrollTop";
 import { verifyToken } from "../../utils/verifyToken";
 import { useAppDispatch } from "../../redux/hooks";
 import { setUserReducer } from "../../redux/slices/userSlice";
-import { clearStorage, getItem } from "../../utils/handlers/tokenHandler";
+import { getItem } from "../../utils/handlers/tokenHandler";
 import { cartActions } from "../../actions/cartActions";
 import { favoriteActions } from "../../actions/favoriteActions";
 import { clearCart } from "../../redux/slices/cartSlice";
