@@ -34,10 +34,15 @@ const ProductCard = memo(
     const dispatch = useAppDispatch();
     const userId = useAppSelector((state: RootState) => state.user.user)._id;
     const stateProduct = { product } as NavigateOptions;
-    const isFavorite = false;
     const isComapring = useAppSelector(
       (state: RootState) => state.compare.isComparing
     );
+    const favoriteProducts = useAppSelector(
+      (state: RootState) => state.favorite.favoriteProducts
+    );
+    const isFavorite = favoriteProducts.filter(
+      (p) => p._id === product._id
+    ).length;
 
     const handleAddCart = useCallback(() => {
       dispatch(

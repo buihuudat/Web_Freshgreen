@@ -18,7 +18,7 @@ import { LoadingButton } from "@mui/lab";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { NavigateOptions, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { moneyFormat } from "../../utils/handlers/moneyFormat";
 import { ProductType } from "../../types/productType";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -40,9 +40,12 @@ const ProductDetails = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state: RootState) => state.product.products);
   const userId = useAppSelector((state: RootState) => state.user.user)._id;
-  const isFavorite = useAppSelector(
-    (state: RootState) => state.favorite.isFavorite
+  const favoriteProducts = useAppSelector(
+    (state: RootState) => state.favorite.favoriteProducts
   );
+  const isFavorite = favoriteProducts.filter(
+    (p) => p._id === product._id
+  ).length;
 
   const [currentCountProduct, setCurrentCountProduct] = useState<number>(1);
   const [isLoading] = useState<boolean>(false);
@@ -51,7 +54,6 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(productActions.gets({ page: 1, perPage: 8 }));
     dispatch(commentActions.getProductComments(product._id as string));
-    // dispatch(checkFavorite(product._id));
   }, [dispatch, product._id]);
 
   const handleAddCart = () => {
