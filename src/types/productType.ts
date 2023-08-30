@@ -1,8 +1,19 @@
 import { TagType } from "./tagType";
 
-interface RatingsType {
-  stars: number;
-  count: number;
+export interface RatingsType {
+  starNumber: number;
+  auth: string;
+  _id?: string;
+  created?: string;
+  updated?: string;
+}
+
+interface Shop {
+  _id: string;
+  name: string;
+  user: {
+    avatar: string;
+  };
 }
 export interface ProductType {
   _id?: string;
@@ -12,11 +23,7 @@ export interface ProductType {
   price: number;
   lastPrice: number;
   discount: number;
-  star: {
-    count: number;
-  };
   sold?: number;
-  ratings: Array<RatingsType>;
   category: string;
   tags: Array<TagType>;
   status: boolean;
@@ -24,13 +31,7 @@ export interface ProductType {
   currentQuantity: number;
   averageStarRating: number;
   brand: string;
-  shop?: {
-    _id: string;
-    name: string;
-    user: {
-      avatar: string;
-    };
-  };
+  shop?: Shop;
   comments: Array<string>;
   createdAt?: string;
   updatedAt?: string;
@@ -43,11 +44,7 @@ export const InitialProduct: ProductType = {
   price: 0,
   lastPrice: 0,
   discount: 0,
-  star: {
-    count: 0,
-  },
   sold: 0,
-  ratings: [],
   averageStarRating: 0,
   category: "",
   tags: [],

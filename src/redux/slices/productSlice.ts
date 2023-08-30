@@ -12,6 +12,7 @@ interface InitialStateProps {
   };
   totalProducts: number;
   loading: boolean;
+  productLoading: boolean;
   modal: {
     data?: ProductType;
     open: boolean;
@@ -24,6 +25,8 @@ const initialState: InitialStateProps = {
   shopProducts: { products: [], totalProducts: 0 },
   totalProducts: 0,
   loading: false,
+  productLoading: true,
+
   modal: {
     data: undefined,
     open: false,
@@ -49,6 +52,7 @@ export const productSlice = createSlice({
       })
       .addCase(productActions.get.fulfilled, (state, action) => {
         state.product = action.payload;
+        state.productLoading = false;
       })
       .addCase(productActions.create.fulfilled, (state, action) => {
         state.products.push(action.payload);
@@ -89,6 +93,3 @@ export const productSlice = createSlice({
 
 export const { setProductModal } = productSlice.actions;
 export default productSlice.reducer;
-function produce(state: (draftState: any) => void, arg1: unknown) {
-  throw new Error("Function not implemented.");
-}

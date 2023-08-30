@@ -135,12 +135,18 @@ const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
             >
               {product.title}
             </Typography>
-            <Rating
-              name="half-rating"
-              defaultValue={product.star.count}
-              precision={0.5}
-              readOnly
-            />
+            <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
+              <Rating
+                name="half-rating"
+                defaultValue={product.averageStarRating}
+                precision={0.5}
+                readOnly
+              />
+              <Typography fontSize={12} color={"#555"}>
+                {" "}
+                {/* ({product.comments.length}) */}
+              </Typography>
+            </Box>
             <Typography fontWeight={14}>
               Bán bởi
               <b

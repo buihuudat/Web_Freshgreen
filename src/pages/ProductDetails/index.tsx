@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   IconButton,
+  LinearProgress,
   Paper,
   Rating,
   TextField,
@@ -32,15 +33,17 @@ import { favoriteActions } from "../../actions/favoriteActions";
 import { addProductCompare } from "../../redux/slices/compareSlice";
 import DetailActions from "./components/DetailActions";
 import commentActions from "../../actions/commentActions";
+import SkeletonLoading from "./components/SkeletonLoading";
 
 const ProductDetails = () => {
   const { state } = useLocation();
-  const { product }: { product: ProductType } = state;
+  const { productId }: { productId: string } = state;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const products = useAppSelector((state: RootState) => state.product.products);
+  const { products, product, productLoading } = useAppSelector(
+    (state: RootState) => state.product
+  );
   const userId = useAppSelector((state: RootState) => state.user.user)._id;
-  const comments = useAppSelector((state: RootState) => state.comment.comments);
   const favoriteProducts = useAppSelector(
     (state: RootState) => state.favorite.favoriteProducts
   );
@@ -48,16 +51,15 @@ const ProductDetails = () => {
     (p) => p._id === product._id
   ).length;
 
-  console.log(comments);
-
   const [currentCountProduct, setCurrentCountProduct] = useState<number>(1);
   const [isLoading] = useState<boolean>(false);
-  const [imageToShow, setImageToShow] = useState<string>(product.images[0]);
+  const [imageToShow, setImageToShow] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+    dispatch(productActions.get(productId));
     dispatch(productActions.gets({ page: 1, perPage: 8 }));
-    dispatch(commentActions.getProductComments(product._id as string));
-  }, [dispatch, product._id]);
+    dispatch(commentActions.getProductComments(productId));
+  }, [dispatch, productId]);
 
   const handleAddCart = () => {
     dispatch(
@@ -87,7 +89,9 @@ const ProductDetails = () => {
 
   const viewShop = () => navigate("/cua-hang/" + product.shop?.name);
 
-  return (
+  return productLoading ? (
+    <SkeletonLoading />
+  ) : (
     <Box>
       <Box
         display={"flex"}
@@ -96,8 +100,8 @@ const ProductDetails = () => {
         gap={10}
       >
         <Box sx={{ width: "50%" }}>
-          <Paper
-            variant="outlined"
+          <Box
+            // variant="outlined"
             sx={{
               height: "max-content",
               py: 3,
@@ -105,11 +109,11 @@ const ProductDetails = () => {
             }}
           >
             <img
-              src={imageToShow}
-              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+              src={imageToShow || product.images[0]}
+              style={{ width: "100%", height: 500, objectFit: "cover" }}
               alt={product.title}
             />
-          </Paper>
+          </Box>
           <Box
             display={"flex"}
             flexDirection={"row"}
@@ -129,7 +133,7 @@ const ProductDetails = () => {
                 onClick={() => setImageToShow(image)}
               >
                 <img
-                  src={image}
+                  src={image || product.images[0]}
                   alt="images"
                   style={{ width: 100, height: "auto", objectFit: "cover" }}
                 />
@@ -153,7 +157,7 @@ const ProductDetails = () => {
               readOnly
             />
             <Typography>
-              ({product.star?.count > 0 ? product.star?.count : 0})
+              ({product.comments.length > 0 ? product.comments.length : 0})
             </Typography>
           </Box>
 
@@ -161,16 +165,18 @@ const ProductDetails = () => {
             <Typography color={mainColor} fontSize={50} fontWeight={600}>
               {moneyFormat(product.lastPrice)}
             </Typography>
-            <Box display={"flex"} flexDirection={"column"}>
-              <Typography color={"orange"}>-{product.discount}%</Typography>
-              <Typography
-                sx={{ textDecoration: "line-through" }}
-                fontSize={30}
-                color={"#ddd"}
-              >
-                {moneyFormat(product.price)}
-              </Typography>
-            </Box>
+            {product.discount > 0 && (
+              <Box display={"flex"} flexDirection={"column"}>
+                <Typography color={"orange"}>-{product.discount}%</Typography>
+                <Typography
+                  sx={{ textDecoration: "line-through" }}
+                  fontSize={30}
+                  color={"#ddd"}
+                >
+                  {moneyFormat(product.price)}
+                </Typography>
+              </Box>
+            )}
           </Box>
 
           <Box
@@ -219,6 +225,7 @@ const ProductDetails = () => {
               color="success"
               size="large"
               onClick={handleAddCart}
+              disabled={isLoading}
             >
               <AddShoppingCartIcon />
               Thêm vào giỏ hàng

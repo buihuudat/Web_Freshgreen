@@ -33,7 +33,6 @@ const ProductCard = memo(
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const userId = useAppSelector((state: RootState) => state.user.user)._id;
-    const stateProduct = { product } as NavigateOptions;
     const isComapring = useAppSelector(
       (state: RootState) => state.compare.isComparing
     );
@@ -135,13 +134,7 @@ const ProductCard = memo(
             width: "100%",
             height: 400,
             objectFit: "cover",
-            cursor: "pointer",
           }}
-          onClick={() =>
-            navigate(`/san-pham/details/` + product.title, {
-              state: stateProduct,
-            })
-          }
         />
 
         <Box p={2} display={"flex"} flexDirection={"column"} gap={1}>
@@ -155,7 +148,7 @@ const ProductCard = memo(
           <Typography
             onClick={() =>
               navigate(`/san-pham/details/` + product.title, {
-                state: stateProduct,
+                state: { productId: product._id as string },
               })
             }
             fontWeight={600}
@@ -173,13 +166,13 @@ const ProductCard = memo(
           <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
             <Rating
               name="half-rating"
-              defaultValue={product.star.count}
+              defaultValue={product.averageStarRating}
               precision={0.5}
               readOnly
             />
             <Typography fontSize={12} color={"#555"}>
               {" "}
-              ({product.star.count})
+              ({product.comments.length})
             </Typography>
           </Box>
           {!product?.shop ? (

@@ -24,7 +24,44 @@ export const commentSlice = createSlice({
         state.comments = _.orderBy(action.payload, ["createdAt"], "desc");
       })
       .addCase(commentActions.addComment.fulfilled, (state, action) => {
-        state.comments.unshift(action.payload);
+        if (action.meta.arg?.commentId) {
+          const index = state.comments.findIndex(
+            (comment) => comment._id === action.payload._id
+          );
+          if (index === -1) return;
+          state.comments[index] = action.payload;
+        } else {
+          state.comments.unshift(action.payload);
+        }
+      })
+      .addCase(
+        commentActions.reactCommentActions.fulfilled,
+        (state, action) => {
+          const index = state.comments.findIndex(
+            (comment) => comment._id === action.payload.commentId
+          );
+          const { auth, reaction } = action.meta.arg;
+
+          if (index !== -1) {
+            const comment = state.comments[index];
+            if (reaction === "Like") {
+              state.comments[index] = {
+                ...comment,
+                reaction: [...comment.reaction, auth],
+              };
+            } else {
+              const indexOfReact = comment.reaction.findIndex(
+                (r) => r === auth
+              );
+              comment.reaction.splice(indexOfReact, 1);
+            }
+          }
+        }
+      )
+      .addCase(commentActions.deleteComment.fulfilled, (state, action) => {
+        state.comments = state.comments.filter(
+          (comment) => comment._id !== action.payload.commentId
+        );
       })
       .addMatcher<PendingAction>(
         (action) => action.type.endsWith("/pending"),

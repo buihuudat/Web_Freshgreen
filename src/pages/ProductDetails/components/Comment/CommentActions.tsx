@@ -9,39 +9,61 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { useState } from "react";
+import { memo, useState } from "react";
 import commentActions from "../../../../actions/commentActions";
+import { RootState } from "../../../../redux/store";
+import Rate from "./Rate";
+import { NotificationToast } from "../../../../utils/handlers/NotificationToast";
 
-const CommentActions = ({ productId }: { productId: string }) => {
-  const [comment, setComment] = useState("");
-  const user = useAppSelector((state) => state.user.user);
+interface CommentActionsProps {
+  productId: string;
+  commentId?: string;
+  commentTime?: string;
+}
+
+const CommentActions = memo((props: CommentActionsProps) => {
+  const { productId, commentId } = props;
+  const [content, setContent] = useState<string>("");
+  const user = useAppSelector((state: RootState) => state.user.user);
+  const [value, setValue] = useState<number | null>(5);
 
   const dispatch = useAppDispatch();
 
   const handleSubmit = async () => {
+    if (!user._id) {
+      return NotificationToast({
+        message: "Yêu cầu đăng nhập!",
+        type: "warning",
+      });
+    }
     dispatch(
       commentActions.addComment({
         userId: user._id as string,
         productId,
-        comment,
+        content,
+        commentId,
+        rate: Number(value),
       })
     );
-    setComment("");
+
+    setContent("");
   };
 
   return (
     <Paper
-      elevation={8}
+      elevation={1}
       sx={{
-        width: "50%",
+        width: "100%",
         m: "0 auto",
         p: 2,
       }}
     >
-      <Typography fontSize={25} fontWeight={600} mb={2}>
-        Thêm nhận xét
-      </Typography>
-      <Box>
+      <Box
+        display={"flex"}
+        flexDirection={"row"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
         <Button
           size="small"
           sx={{ display: "flex", flexDirection: "row", gap: 1 }}
@@ -52,25 +74,27 @@ const CommentActions = ({ productId }: { productId: string }) => {
             {user.fullname.firstname} {user.fullname.lastname}
           </Typography>
         </Button>
-        <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
-          <TextField
-            variant="standard"
-            name="comment"
-            value={comment}
-            fullWidth
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <IconButton
-            color="primary"
-            onClick={handleSubmit}
-            disabled={comment === ""}
-          >
-            <SendIcon />
-          </IconButton>
-        </Box>
+
+        <Rate value={value} setValue={setValue} />
+      </Box>
+      <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+        <TextField
+          variant="standard"
+          name="comment"
+          value={content}
+          fullWidth
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <IconButton
+          color="primary"
+          onClick={handleSubmit}
+          disabled={content === ""}
+        >
+          <SendIcon />
+        </IconButton>
       </Box>
     </Paper>
   );
-};
+});
 
 export default CommentActions;

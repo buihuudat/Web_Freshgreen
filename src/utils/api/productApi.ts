@@ -25,7 +25,7 @@ export const productApi = {
     return axiosClient.get(apiUrl);
   },
 
-  get: (product: ProductType) => axiosClient.get(`/products/${product._id}`),
+  get: (productId: string) => axiosClient.get(`/products/${productId}`),
 
   create: (newProduct: ProductType) =>
     axiosClient.post("/products/create", newProduct),

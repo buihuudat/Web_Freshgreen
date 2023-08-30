@@ -21,9 +21,9 @@ export const productActions = {
     }
   ),
 
-  get: createAsyncThunk("product/get", async (product: ProductType) => {
+  get: createAsyncThunk("product/get", async (productId: string) => {
     try {
-      const res = await productApi.get(product);
+      const res = await productApi.get(productId);
       return res.data;
     } catch (error: any) {
       NotificationToast({ message: error.data, type: "error" });

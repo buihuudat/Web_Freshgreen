@@ -1,3 +1,8 @@
+import {
+  AddCommentProps,
+  DeleteCommentProps,
+  ReactCommentProps,
+} from "../../actions/commentActions";
 import axiosClient from "./axiosClient";
 
 const commentApi = {
@@ -7,15 +12,24 @@ const commentApi = {
   addComment: ({
     productId,
     userId,
-    comment,
-  }: {
-    productId: string;
-    userId: string;
-    comment: string;
-  }) =>
+    content,
+    commentId,
+    rate,
+  }: AddCommentProps) =>
     axiosClient.post(`/comments/product/${productId}/user/${userId}`, {
-      comment,
+      content,
+      commentId,
+      rate,
     }),
+
+  reactComment: ({ commentId, reaction, auth }: ReactCommentProps) =>
+    axiosClient.put(`/comments/${commentId}/reaction`, {
+      reaction,
+      auth,
+    }),
+
+  deleteComment: ({ commentId, productId }: DeleteCommentProps) =>
+    axiosClient.patch(`/comments/${commentId}`, { productId }),
 };
 
 export default commentApi;

@@ -1,8 +1,10 @@
 import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { ProductType } from "../../../types/productType";
+import React, { createContext, memo, useEffect, useState } from "react";
+import { InitialProduct, ProductType } from "../../../types/productType";
 import CommentActions from "./Comment/CommentActions";
 import ListComment from "./Comment/ListComment";
+import { useAppSelector } from "../../../redux/hooks";
+import { RootState } from "../../../redux/store";
 
 function a11yProps(index: number) {
   return {
@@ -36,13 +38,25 @@ function CustomTabPanel(props: TabPanelProps) {
     </div>
   );
 }
+export const CommentContext = createContext<ProductType>(InitialProduct);
 
-const DetailActions = (product: ProductType) => {
+const DetailActions = memo((product: ProductType) => {
   const [value, setValue] = useState(0);
+  const [showBox, setShowBox] = useState<boolean>(false);
+  const user = useAppSelector((state: RootState) => state.user.user);
+
+  useEffect(() => {
+    const isCommented = product.comments.filter(
+      (comment: any) => comment.auth === user._id
+    );
+
+    if (user._id && !isCommented.length) setShowBox(true);
+  }, [user._id, product.comments]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
   return (
     <Box>
       <Paper variant="outlined" sx={{ width: "100%", p: 4, minHeight: 300 }}>
@@ -101,9 +115,21 @@ const DetailActions = (product: ProductType) => {
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <Box display={"flex"} flexDirection={"column"} width={"100%"} gap={2}>
-            <CommentActions productId={product._id as string} />
-            <ListComment />
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            width={"50%"}
+            gap={1}
+            m="0 auto"
+          >
+            <Typography fontSize={25} fontWeight={600} mb={2}>
+              Thêm nhận xét
+            </Typography>
+
+            {showBox && <CommentActions productId={product._id as string} />}
+            <CommentContext.Provider value={product}>
+              <ListComment />
+            </CommentContext.Provider>
           </Box>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
@@ -114,6 +140,6 @@ const DetailActions = (product: ProductType) => {
       </Paper>
     </Box>
   );
-};
+});
 
 export default DetailActions;
