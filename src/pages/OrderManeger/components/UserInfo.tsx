@@ -30,8 +30,8 @@ const UserInfo = ({ user, address, isLoading }: UserInfoProps) => {
         src={user.avatar}
         alt={user.username}
         style={{
-          width: 80,
-          height: 80,
+          width: window.innerWidth > 600 ? 80 : 50,
+          height: window.innerWidth > 600 ? 80 : 50,
           objectFit: "cover",
           borderRadius: "50%",
         }}

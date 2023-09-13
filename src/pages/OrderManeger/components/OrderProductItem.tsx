@@ -19,31 +19,39 @@ const OrderProductItem = (product: ProductCartType) => {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        gap: 2,
+        gap: { sm: 2, xs: 1 },
         p: 1,
       }}
     >
       <img
         src={product.images[0]}
         alt={product.title}
-        style={{ width: 60, height: 60, objectFit: "cover" }}
+        style={{
+          width: window.innerWidth > 600 ? 60 : 40,
+          height: window.innerWidth > 600 ? 60 : 40,
+          objectFit: "cover",
+        }}
       />
       <Typography
         fontWeight={600}
-        fontSize={18}
+        fontSize={{ sm: 18, xs: 15 }}
         textTransform={"capitalize"}
-        sx={{ width: 140, cursor: "pointer" }}
+        sx={{ width: { sm: 140, xs: 150 }, cursor: "pointer" }}
         onClick={viewProduct}
       >
-        {product.title.length > 10
-          ? product.title.slice(0, 10) + "..."
+        {product.title.length > 9
+          ? product.title.slice(0, 9) + "..."
           : product.title}
       </Typography>
-      <Typography fontSize={16} fontWeight={600}>
+      <Typography fontSize={{ sm: 16, xs: 15 }} fontWeight={600}>
         {moneyFormat(product.lastPrice)}
       </Typography>
       <Typography fontSize={14}>x{product.count}</Typography>
-      <Typography fontSize={23} fontWeight={600} color={mainColor}>
+      <Typography
+        fontSize={{ sm: 23, xs: 17 }}
+        fontWeight={600}
+        color={mainColor}
+      >
         {moneyFormat(product.lastPrice * product.count)}
       </Typography>
     </Box>

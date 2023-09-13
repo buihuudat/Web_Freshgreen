@@ -36,7 +36,10 @@ const OrderItem = memo((props: Props) => {
   }, [user]);
 
   return (
-    <Paper sx={{ m: 3, width: 480 }} elevation={9}>
+    <Paper
+      sx={{ m: { sm: 3, xs: 1 }, width: { sm: 480, xs: "100%" } }}
+      elevation={9}
+    >
       {/* customer information */}
       <UserInfo user={user} address={address} isLoading={isLoading.user} />
 
