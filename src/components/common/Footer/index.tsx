@@ -169,9 +169,7 @@ const Footer = () => {
           <Box display={"flex"} alignItems={"center"} gap={1}>
             <LocationOnIcon sx={{ color: mainColor }} />
             <Typography fontWeight={600}>Địa chỉ:</Typography>
-            <Typography>
-              5171 W Campbell Ave undefined Kent, Utah 53127 United States
-            </Typography>
+            <Typography>17 Dang Thuy Tram, P17, Binh Thanh, HCMC</Typography>
           </Box>
           <Box display={"flex"} alignItems={"center"} gap={1}>
             <HeadphonesIcon sx={{ color: mainColor }} />
@@ -181,7 +179,7 @@ const Footer = () => {
           <Box display={"flex"} alignItems={"center"} gap={1}>
             <SendIcon sx={{ color: mainColor }} />
             <Typography fontWeight={600}>Email:</Typography>
-            <Typography>dat@dat.com</Typography>
+            <Typography>dat54261001@gmail.com.com</Typography>
           </Box>
           <Box display={"flex"} alignItems={"center"} gap={1}>
             <AccessTimeIcon sx={{ color: mainColor }} />

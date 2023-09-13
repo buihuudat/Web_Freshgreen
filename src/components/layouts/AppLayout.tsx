@@ -43,7 +43,7 @@ const AppLayout = () => {
     <Suspense fallback={<LinearProgress color="success" />}>
       <Box px={{ xs: 2, sm: 10 }}>
         <Navbar />
-        <Box minHeight={"100vh"} pt={15}>
+        <Box minHeight={"100vh"} pt={{ sm: 15, xs: 10 }}>
           {pathname !== "/" && <Directory />}
           <Outlet />
         </Box>

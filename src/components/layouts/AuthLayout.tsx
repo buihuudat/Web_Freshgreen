@@ -42,7 +42,7 @@ const AuthLayout: React.FC = () => {
     <Suspense fallback={<LinearProgress color="success" />}>
       <Box px={{ sm: 10, xs: 2 }}>
         <Navbar />
-        <Box minHeight={"100vh"} pt={15}>
+        <Box minHeight={"100vh"} pt={{ sm: 15, xs: 10 }}>
           {pathname !== "/" && <Directory />}
           <Outlet />
         </Box>

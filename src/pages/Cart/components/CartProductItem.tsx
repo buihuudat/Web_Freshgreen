@@ -67,7 +67,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
         />
         <Typography
           fontWeight={600}
-          fontSize={{ sm: 23, xs: 13 }}
+          fontSize={{ sm: 23, xs: 16 }}
           textTransform={"capitalize"}
           sx={{ cursor: "pointer" }}
           onClick={() =>
