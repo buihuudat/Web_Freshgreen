@@ -212,24 +212,25 @@ const BoxFilter = memo((props: FilterProps) => {
       elevation={1}
       sx={{
         my: 5,
-        height: props.isShow ? 500 : 0,
+        height: props.isShow ? { sm: 500, xs: "100%" } : 0,
         transition: "height .3s ",
         overflow: "hidden",
       }}
     >
       <Box
         sx={{
-          flexDirection: "row",
+          flexDirection: { sm: "row", xs: "column" },
           justifyContent: "space-between",
           display: "flex",
           m: 3,
         }}
       >
         <Box
-          width={"60%"}
+          width={{ sm: "60%", xs: "100%" }}
           display={"flex"}
           flexDirection={"row"}
           justifyContent={"space-between"}
+          flexWrap={{ sm: "nowrap", xs: "wrap" }}
         >
           {/* by categories */}
           <Box>
@@ -266,7 +267,7 @@ const BoxFilter = memo((props: FilterProps) => {
             </FormGroup>
           </Box>
 
-          <FormControl sx={{ width: 200 }}>
+          <FormControl sx={{ width: { sm: 200, xs: "100%" } }}>
             <InputLabel id="demo-simple-select-label">
               {FilterDataSelection.title}
             </InputLabel>
@@ -287,7 +288,7 @@ const BoxFilter = memo((props: FilterProps) => {
             </Select>
           </FormControl>
         </Box>
-        <Box width={"30%"}>
+        <Box width={{ sm: "30%", xs: "100%" }}>
           <Box>
             <Typography pb={3} fontSize={23} fontWeight={600}>
               Theo Giá
