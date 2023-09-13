@@ -16,7 +16,7 @@ const Contact = () => {
       <Paper
         elevation={9}
         sx={{
-          width: 600,
+          width: { sm: 600, xs: "100%" },
           m: "0 auto",
           p: 3,
           my: 5,

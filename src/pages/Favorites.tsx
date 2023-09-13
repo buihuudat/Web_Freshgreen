@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { favoriteActions } from "../actions/favoriteActions";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { RootState } from "../redux/store";
 import ProductCard from "../components/common/ProductCard";
-import SkeletonCard from "../components/SkeletonCard";
 import { ProductType } from "../types/productType";
 
 const Favorites = () => {

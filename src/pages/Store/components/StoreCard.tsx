@@ -30,7 +30,7 @@ const StoreCard = ({ store }: { store: ShopType }) => {
   return (
     <Paper
       sx={{
-        width: 500,
+        width: { sm: 500, xs: "100%" },
         display: "flex",
         flexDirection: "row",
         gap: 3,
@@ -43,7 +43,11 @@ const StoreCard = ({ store }: { store: ShopType }) => {
         <img
           src={store.image || NoImage}
           alt={store.name}
-          style={{ width: 200, height: 200, objectFit: "cover" }}
+          style={{
+            width: window.innerWidth > 600 ? 200 : 100,
+            height: window.innerWidth > 600 ? 200 : 100,
+            objectFit: "cover",
+          }}
         />
       </Box>
 

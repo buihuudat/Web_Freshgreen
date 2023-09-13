@@ -168,7 +168,7 @@ const PayInformation = memo(() => {
   };
 
   return (
-    <Paper elevation={9} sx={{ p: 3, width: "25%" }}>
+    <Paper elevation={9} sx={{ p: 3, width: { sm: "25%", xs: "100%" } }}>
       <Typography fontSize={32} fontWeight={500} pb={3}>
         Thanh Toán
       </Typography>

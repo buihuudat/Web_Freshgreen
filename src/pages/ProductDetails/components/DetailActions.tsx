@@ -59,7 +59,10 @@ const DetailActions = memo((product: ProductType) => {
 
   return (
     <Box>
-      <Paper variant="outlined" sx={{ width: "100%", p: 4, minHeight: 300 }}>
+      <Paper
+        variant="outlined"
+        sx={{ width: "100%", p: { sm: 4, xs: 0 }, minHeight: 300 }}
+      >
         <Box
           sx={{
             borderBottom: 1,
@@ -74,17 +77,17 @@ const DetailActions = memo((product: ProductType) => {
             aria-label="basic tabs example"
           >
             <Tab
-              sx={{ width: 300 }}
+              sx={{ width: { sm: 300, xs: 100 } }}
               label={<Typography fontWeight={600}>Mô tả</Typography>}
               {...a11yProps(0)}
             />
             <Tab
-              sx={{ width: 300 }}
+              sx={{ width: { sm: 300, xs: 100 } }}
               label={<Typography fontWeight={600}>Nhận xét</Typography>}
               {...a11yProps(1)}
             />
             <Tab
-              sx={{ width: 300 }}
+              sx={{ width: { sm: 300, xs: 100 } }}
               label={<Typography fontWeight={600}>Nhà cung cấp</Typography>}
               {...a11yProps(2)}
             />
@@ -118,7 +121,7 @@ const DetailActions = memo((product: ProductType) => {
           <Box
             display={"flex"}
             flexDirection={"column"}
-            width={"50%"}
+            width={{ sm: "50%", xs: "100%" }}
             gap={1}
             m="0 auto"
           >

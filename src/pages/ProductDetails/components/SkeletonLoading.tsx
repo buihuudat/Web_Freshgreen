@@ -11,7 +11,7 @@ const SkeletonLoading = () => {
       justifyContent={"center"}
       gap={10}
     >
-      <Box sx={{ width: "50%" }}>
+      <Box sx={{ width: { sm: "50%", xs: "100%" } }}>
         <Skeleton
           variant="rectangular"
           width="100%"
@@ -19,7 +19,7 @@ const SkeletonLoading = () => {
           animation="wave"
         />
       </Box>
-      <Box sx={{ width: "50%" }}>
+      <Box sx={{ width: { sm: "50%", xs: "100%" } }}>
         <Skeleton variant="text" width="80%" animation="wave" />
       </Box>
     </Box>

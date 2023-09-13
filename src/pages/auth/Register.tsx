@@ -154,19 +154,27 @@ const Register = () => {
   };
 
   return (
-    <Box display={"flex"} flexDirection={"row"} justifyContent={"space-around"}>
-      <img src={LoginBg} alt="login bg" />
+    <Box
+      display={{ sm: "flex", xs: "column" }}
+      flexDirection={"row"}
+      justifyContent={"space-around"}
+    >
+      <img
+        src={LoginBg}
+        alt="login bg"
+        style={window.innerWidth < 600 ? { width: "100%" } : {}}
+      />
       <Box
         display={"flex"}
         flexDirection={"column"}
-        width={500}
+        width={{ sm: 500, xs: "100%" }}
         component={"form"}
         onSubmit={handleSubmit}
       >
         <Typography fontWeight={600} fontSize={30}>
           Đăng ký
         </Typography>
-        <Box width={400} display={"flex"} gap={2}>
+        <Box width={{ sm: 400, xs: "100%" }} display={"flex"} gap={2}>
           <TextField
             label="Họ"
             name="firstname"
@@ -188,7 +196,7 @@ const Register = () => {
           margin="normal"
           type="email"
           required
-          sx={{ width: 400 }}
+          sx={{ width: { sm: 400, xs: "100%" } }}
           error={errText.email !== ""}
           helperText={errText.email}
         />
@@ -196,7 +204,7 @@ const Register = () => {
           label="Tài khoản"
           name="username"
           margin="normal"
-          sx={{ width: 400 }}
+          sx={{ width: { sm: 400, xs: "100%" } }}
           error={errText.username !== ""}
           helperText={errText.username}
         />
@@ -204,7 +212,7 @@ const Register = () => {
           label="Số điện thoại"
           name="phone"
           margin="normal"
-          sx={{ width: 400 }}
+          sx={{ width: { sm: 400, xs: "100%" } }}
           error={errText.phone !== ""}
           helperText={errText.phone}
         />
@@ -214,7 +222,7 @@ const Register = () => {
           margin="normal"
           type="password"
           autoComplete="false"
-          sx={{ width: 400 }}
+          sx={{ width: { sm: 400, xs: "100%" } }}
           error={errText.password !== ""}
           helperText={errText.password}
         />
@@ -224,14 +232,14 @@ const Register = () => {
           margin="normal"
           type="password"
           autoComplete="false"
-          sx={{ width: 400 }}
+          sx={{ width: { sm: 400, xs: "100%" } }}
           error={errText.confirmPassword !== ""}
           helperText={errText.confirmPassword}
         />
         <LoadingButton
           variant="contained"
           color="success"
-          sx={{ mt: 2, width: 400 }}
+          sx={{ mt: 2, width: { sm: 400, xs: "100%" } }}
           type="submit"
           loading={loading}
         >

@@ -13,18 +13,18 @@ const BillPay = memo((props: PayDataProps) => {
       </Typography>
 
       <Box display={"flex"} flexDirection={"row"} my={1} gap={1}>
-        <Typography fontSize={18} color={"#555"}>
+        <Typography fontSize={{ sm: 18, xs: 15 }} color={"#555"}>
           Tên tài khoản:
         </Typography>
-        <Typography fontSize={18} fontWeight={600}>
+        <Typography fontSize={{ sm: 18, xs: 15 }} fontWeight={600}>
           {props.nameOfUser}
         </Typography>
       </Box>
       <Box display={"flex"} flexDirection={"row"} my={1} gap={1}>
-        <Typography fontSize={18} color={"#555"}>
+        <Typography fontSize={{ sm: 18, xs: 15 }} color={"#555"}>
           Số điện thoại nhận hàng:{" "}
         </Typography>
-        <Typography fontSize={18} fontWeight={600}>
+        <Typography fontSize={{ sm: 18, xs: 15 }} fontWeight={600}>
           {props.phone}
         </Typography>
       </Box>
@@ -33,7 +33,7 @@ const BillPay = memo((props: PayDataProps) => {
         <Typography fontSize={18} color={"#555"}>
           Địa chỉ nhận hàng:
         </Typography>
-        <Typography fontSize={18} fontWeight={600}>
+        <Typography fontSize={{ sm: 18, xs: 15 }} fontWeight={600}>
           {props.address} (
           <Link href="/tai-khoan" sx={{ fontWeight: 300, color: blue }}>
             chỉnh sửa
@@ -50,7 +50,7 @@ const BillPay = memo((props: PayDataProps) => {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Typography fontSize={18} color={"#555"}>
+        <Typography fontSize={{ sm: 18, xs: 16 }} color={"#555"}>
           Tổng tiền hàng:
         </Typography>
         <Typography fontWeight={600} fontSize={18}>
@@ -63,7 +63,7 @@ const BillPay = memo((props: PayDataProps) => {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Typography fontSize={18} color={"#555"}>
+        <Typography fontSize={{ sm: 18, xs: 16 }} color={"#555"}>
           Phí giao hàng:
         </Typography>
         <Typography my={2} fontWeight={600} fontSize={18}>
@@ -78,10 +78,10 @@ const BillPay = memo((props: PayDataProps) => {
             justifyContent={"space-between"}
             alignItems={"center"}
           >
-            <Typography fontSize={22} color={"#555"}>
+            <Typography fontSize={{ sm: 22, xs: 16 }} color={"#555"}>
               Voucher:
             </Typography>
-            <Typography fontSize={22} fontWeight={600}>
+            <Typography fontSize={{ sm: 22, xs: 16 }} fontWeight={600}>
               {props?.discount.voucher}
             </Typography>
           </Box>
@@ -91,10 +91,14 @@ const BillPay = memo((props: PayDataProps) => {
             justifyContent={"space-between"}
             alignItems={"center"}
           >
-            <Typography fontSize={22} color={"#555"}>
+            <Typography fontSize={{ sm: 22, xs: 16 }} color={"#555"}>
               Giảm:
             </Typography>
-            <Typography fontSize={22} fontWeight={600} color={mainColor}>
+            <Typography
+              fontSize={{ sm: 22, xs: 16 }}
+              fontWeight={600}
+              color={mainColor}
+            >
               {props?.discount.discount}%
             </Typography>
           </Box>
@@ -106,7 +110,7 @@ const BillPay = memo((props: PayDataProps) => {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Typography fontSize={24} color={"#555"}>
+        <Typography fontSize={{ sm: 24, xs: 18 }} color={"#555"}>
           Tổng thanh toán:
         </Typography>
         <Typography fontSize={24} fontWeight={600} color={mainColor}>
@@ -120,7 +124,7 @@ const BillPay = memo((props: PayDataProps) => {
         <Typography fontSize={15} color={"#555"}>
           Phương thức thanh toán
         </Typography>
-        <Typography fontSize={16} fontWeight={600}>
+        <Typography fontSize={{ sm: 16, xs: 14 }} fontWeight={600}>
           Thanh toán trực tuyến (
           <Link href="/gio-hang" sx={{ fontWeight: 300, color: blue }}>
             thay đổi

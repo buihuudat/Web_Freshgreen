@@ -15,7 +15,7 @@ const ListComment = () => {
       margin={"0 auto"}
       maxHeight={500}
       sx={{ overflowY: "auto" }}
-      p={3}
+      p={{ sm: 3, xs: 0 }}
     >
       {comments?.map((comment) => (
         <CommentItem key={comment._id} {...comment} />

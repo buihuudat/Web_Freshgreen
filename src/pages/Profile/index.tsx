@@ -251,7 +251,13 @@ const Profile = () => {
   return (
     <Box display={"flex"} flexDirection={"row"} justifyContent={"space-around"}>
       <Paper
-        sx={{ width: "15%", height: "max-content", p: 3, mt: 5 }}
+        sx={{
+          width: "15%",
+          height: "max-content",
+          p: 3,
+          mt: 5,
+          display: { sm: "block", xs: "none" },
+        }}
         elevation={8}
       >
         {profileData.map((data: ProfileDataProps, index) => (
@@ -286,7 +292,7 @@ const Profile = () => {
           flexDirection: "column",
           justifyContent: "center",
           textAlign: "center",
-          width: "70%",
+          width: { sm: "70%", xs: "100%" },
         }}
       >
         <input
@@ -329,13 +335,18 @@ const Profile = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            width: 500,
+            width: { sm: 500, xs: "100%" },
             justifyContent: "center",
             textAlign: "center",
             mx: "auto",
           }}
         >
-          <Box display={"flex"} flex={"row"} justifyContent={"space-between"}>
+          <Box
+            display={"flex"}
+            flex={"row"}
+            gap={2}
+            justifyContent={"space-between"}
+          >
             <TextField
               name="firstname"
               label="First Name"
@@ -358,6 +369,7 @@ const Profile = () => {
             />
           </Box>
           <TextField
+            fullWidth
             name="username"
             disabled={!isDisable}
             label="Username"
@@ -441,6 +453,7 @@ const Profile = () => {
               disabled={!isDisable}
             />
             <TextField
+              sx={{ width: { xs: "45%" } }}
               label="Street"
               name="street"
               defaultValue={user?.address?.street || address.street}

@@ -9,7 +9,7 @@ import ProductSaleCard from "../../../components/common/ProductSaleCard";
 const HomeSale = memo(({ products }: { products: ProductType[] }) => {
   const customSwiper: DealsOfTheDayType = {
     spaceBetween: 30,
-    slidesPerView: 4,
+    slidesPerView: window.innerWidth > 600 ? 4 : 1,
     watchSlidesProgress: true,
     freeMode: true,
     centeredSlides: false,

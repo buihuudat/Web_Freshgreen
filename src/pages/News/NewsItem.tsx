@@ -26,7 +26,7 @@ const NewsItem = memo(({ news }: { news: NewsType }) => {
     <Paper
       variant="outlined"
       sx={{
-        height: 400,
+        height: { sm: 400, xs: 600 },
         display: "flex",
         flexDirection: "row",
         borderRadius: 1,
@@ -39,8 +39,8 @@ const NewsItem = memo(({ news }: { news: NewsType }) => {
         alt={news.title}
         style={{ width: "40%", height: "100%", objectFit: "cover" }}
       /> */}
-      <Box p={5}>
-        <Typography fontWeight={600} fontSize={32}>
+      <Box p={{ sm: 5, xs: 2 }}>
+        <Typography fontWeight={600} fontSize={{ sm: 32, xs: 20 }}>
           {news.title}
         </Typography>
 
@@ -51,17 +51,18 @@ const NewsItem = memo(({ news }: { news: NewsType }) => {
           flexDirection={"row"}
           alignItems={"center"}
           justifyContent={"space-between"}
+          flexWrap={{ sm: "nowrap", xs: "wrap" }}
         >
           <Box
             display={"flex"}
             flexDirection={"row"}
             alignItems={"center"}
-            gap={5}
+            gap={{ sm: 5, xs: 2 }}
           >
-            <Typography fontSize={20}>
+            <Typography fontSize={{ sm: 20, xs: 18 }}>
               {formatDateInput(news.createdAt)}
             </Typography>
-            <Typography fontSize={25} fontWeight={600}>
+            <Typography fontSize={{ sm: 25, xs: 20 }} fontWeight={600}>
               {news.viewCount} lượt xem
             </Typography>
           </Box>

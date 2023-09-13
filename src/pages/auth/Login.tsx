@@ -62,12 +62,20 @@ const Login = () => {
   };
 
   return (
-    <Box display={"flex"} flexDirection={"row"} justifyContent={"space-around"}>
-      <img src={LoginBg} alt="login bg" />
+    <Box
+      display={{ sm: "flex", xs: "column" }}
+      flexDirection={"row"}
+      justifyContent={"space-around"}
+    >
+      <img
+        src={LoginBg}
+        alt="login bg"
+        style={window.innerWidth < 600 ? { width: "100%" } : {}}
+      />
       <Box
         display={"flex"}
         flexDirection={"column"}
-        width={500}
+        width={{ sm: 500, xs: "100%" }}
         component={"form"}
         onSubmit={handleSubmit}
       >
@@ -78,7 +86,7 @@ const Login = () => {
           label="Số điện thoại"
           name="phone"
           margin="normal"
-          sx={{ width: 400 }}
+          sx={{ width: { sm: 400, xs: "100%" } }}
           required
           error={errText.phone !== ""}
           helperText={errText.phone}
@@ -95,7 +103,7 @@ const Login = () => {
             margin="normal"
             type={isShowPass ? "text" : "password"}
             autoComplete="false"
-            sx={{ width: 400 }}
+            sx={{ width: { sm: 400, xs: "100%" } }}
             required
             error={errText.password !== ""}
             helperText={errText.password}
@@ -109,7 +117,7 @@ const Login = () => {
         <LoadingButton
           variant="contained"
           color="success"
-          sx={{ mt: 2, width: 400 }}
+          sx={{ mt: 2, width: { sm: 400, xs: "100%" } }}
           type="submit"
           loading={loading}
         >

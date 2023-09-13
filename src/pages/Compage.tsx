@@ -17,6 +17,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 import { ProductType } from "../types/productType";
 import { removeProductCompare } from "../redux/slices/compareSlice";
+import { moneyFormat } from "../utils/handlers/moneyFormat";
 const Compare = () => {
   const headers = [
     "Product",
@@ -69,7 +70,9 @@ const Compare = () => {
                   color: (theme) => theme.palette.common.white,
                 }}
               >
-                <Typography variant="subtitle1">{header}</Typography>
+                <Typography variant="subtitle1" sx={{ fontSize: { xs: 12 } }}>
+                  {header}
+                </Typography>
               </TableCell>
             ))}
           </TableRow>
@@ -85,7 +88,7 @@ const Compare = () => {
               }}
             >
               <TableCell>{product.title}</TableCell>
-              <TableCell>${product.price}</TableCell>
+              <TableCell>{moneyFormat(product.price)}</TableCell>
               {/* <TableCell>{product.comments.length}</TableCell> */}
               <TableCell>{product.sold}</TableCell>
               <TableCell>{product.category}</TableCell>

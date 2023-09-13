@@ -18,7 +18,7 @@ import SkeletonCard from "../../../components/SkeletonCard";
 const BestSellers = memo(({ products }: { products: ProductType[] }) => {
   const customSwiper: DealsOfTheDayType = {
     spaceBetween: 30,
-    slidesPerView: 4,
+    slidesPerView: window.innerWidth > 600 ? 4 : 1,
     watchSlidesProgress: false,
     freeMode: true,
     centeredSlides: false,
@@ -43,15 +43,16 @@ const BestSellers = memo(({ products }: { products: ProductType[] }) => {
       </Typography>
       <Box
         display={"flex"}
-        flexDirection={"row"}
+        flexDirection={{ sm: "row", xs: "column" }}
         justifyContent={"space-between"}
+        gap={5}
       >
         <Box
           borderRadius={5}
           p={5}
-          pt={60}
-          width={"25%"}
-          height={700}
+          pt={{ sm: 60, xs: 50 }}
+          width={{ sm: "25%", xs: "100%" }}
+          height={{ sm: 700, xs: "100%" }}
           sx={{
             background: `url(${Banner2}) no-repeat`,
             backgroundSize: 300,
@@ -70,9 +71,14 @@ const BestSellers = memo(({ products }: { products: ProductType[] }) => {
           </Button>
         </Box>
 
-        <Box width={"70%"}>
+        <Box width={{ sm: "70%", xs: "100%" }}>
           {dataProducts.length ? (
-            <Swiper {...customSwiper} style={{ width: "100%" }}>
+            <Swiper
+              {...customSwiper}
+              style={{
+                width: "100%",
+              }}
+            >
               {dataProducts.map((data, index) => (
                 <SwiperSlide
                   key={index}

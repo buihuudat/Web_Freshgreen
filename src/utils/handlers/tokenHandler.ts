@@ -4,7 +4,9 @@ type KeyProps =
   | "client_secret"
   | "order"
   | "favorite"
-  | "productCompare";
+  | "productCompare"
+  | "productId"
+  | "shopId";
 
 export const setItem = (key: KeyProps, data: any): void =>
   localStorage.setItem(key, JSON.stringify(data));

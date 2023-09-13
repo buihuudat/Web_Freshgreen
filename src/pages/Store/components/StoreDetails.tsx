@@ -23,6 +23,7 @@ import ProductCard from "../../../components/common/ProductCard";
 import React from "react";
 import { ProductType } from "../../../types/productType";
 import { shopActions } from "../../../actions/shopActions";
+import { getItem } from "../../../utils/handlers/tokenHandler";
 
 const StoreDetails = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -31,7 +32,7 @@ const StoreDetails = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(shopActions.get(state));
+    dispatch(shopActions.get(state || getItem("shopId")));
     dispatch(productActions.getShopProducts(state));
   }, [dispatch, state]);
 
@@ -83,7 +84,7 @@ const StoreDetails = () => {
       <Paper
         variant="outlined"
         sx={{
-          width: 500,
+          width: { sm: 500, xs: "100%" },
           display: "flex",
           flexDirection: "row",
           m: "0 auto",
@@ -111,8 +112,12 @@ const StoreDetails = () => {
         </Button>
       </Paper>
 
-      <Box display={"flex"} flexDirection={"row"} gap={"5%"}>
-        <Box width={"20%"}>
+      <Box
+        display={"flex"}
+        flexDirection={{ sm: "row", xs: "column" }}
+        gap={"5%"}
+      >
+        <Box width={{ sm: "20%", sx: "100%" }}>
           <Paper sx={{ background: "#A6DEC1", p: 3 }}>
             <img
               src={store.image}

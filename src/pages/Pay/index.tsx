@@ -33,17 +33,17 @@ export default function Payment() {
     <Container
       sx={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: { sm: "row", xs: "column-reverse" },
         justifyContent: "center",
         gap: "10%",
       }}
     >
-      <Box width={"50%"}>
+      <Box width={{ sm: "50%", xs: "100%" }}>
         <Paper elevation={9} sx={{ p: 3, mt: 5 }}>
           <FormPayment state={state} secretClient={secretClient} />
         </Paper>
       </Box>
-      <Box width={"50%"}>
+      <Box width={{ sm: "50%", xs: "100%" }}>
         <BillPay {...payData} />
       </Box>
     </Container>

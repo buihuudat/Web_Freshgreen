@@ -28,10 +28,13 @@ const News = () => {
       flexDirection={"row"}
       justifyContent={"space-between"}
     >
-      <Box width={"75%"}>
+      <Box width={{ sm: "75%", xs: "100%" }}>
         <Outlet />
       </Box>
-      <Box width={"20%"}>
+      <Box
+        width={{ sm: "20%", xs: 0 }}
+        sx={{ display: { sm: "block", xs: "none" } }}
+      >
         <Paper variant="outlined" sx={{ p: 2, my: 5 }}>
           <Typography fontWeight={600}>DANH MỤC</Typography>
           <hr color="#555" />

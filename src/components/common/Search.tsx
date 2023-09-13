@@ -61,7 +61,7 @@ const Search = memo(
     };
 
     return (
-      <Box>
+      <Box sx={{ minWidth: "20%" }}>
         <SearchStyled>
           <SearchIconWrapper>
             <SearchIcon color={"success"} />

@@ -14,6 +14,8 @@ import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import Search from "../Search";
 import { productActions } from "../../../actions/productActions";
+import MenuIcon from "@mui/icons-material/Menu";
+import NavMobile from "./components/NavMobile";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -21,6 +23,7 @@ const Navbar = () => {
   const path = pathname.split("/")[1];
   const user = useAppSelector((state: RootState) => state.user.user);
 
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const countProductsCart: number =
@@ -67,38 +70,44 @@ const Navbar = () => {
     dispatch(productActions.searchProducts(searchQuery));
   }, [searchQuery, dispatch]);
 
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
+
   return (
     <Box
       position={"fixed"}
       top={0}
       left={0}
       right={0}
-      sx={{ backdropFilter: "blur(1000px)" }}
+      sx={{ backdropFilter: "blur(1000px)", padding: 1 }}
       zIndex={1000}
-      px={10}
+      px={{ sm: 10, xs: 3 }}
     >
       <Box
-        display={"flex"}
         flexDirection={"row"}
         alignItems={"center"}
         justifyContent={"space-between"}
+        sx={{ display: "flex" }}
       >
-        {/* <Typography
-        fontSize={30}
-        fontWeight={600}
-        component={NavLink}
-        to={"/"}
-        color={mainColor}
-        sx={{ textDecoration: "none" }}
-      >
-        SFoodhop
-      </Typography> */}
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ display: { sm: "none" } }}
+        >
+          <MenuIcon />
+        </IconButton>
         <img
           onClick={() => navigate("/")}
           src={Logo}
           alt="logo"
           style={{
-            width: 120,
+            width: "16%",
+            maxWidth: 120,
+            height: "auto",
+            objectFit: "cover",
             cursor: "pointer",
           }}
         />
@@ -108,7 +117,7 @@ const Navbar = () => {
           setSearchQuery={setSearchQuery}
         />
 
-        <Box display={"flex"} flexDirection={"row"} gap={2}>
+        <Box display={{ xs: "none", sm: "flex" }} flexDirection={"row"} gap={2}>
           {navbarDataItem.map(
             (value, index) =>
               value.show && (
@@ -134,14 +143,19 @@ const Navbar = () => {
           )}
         </Box>
 
-        <Box width={"15rem"} display={"flex"} flexDirection={"row"} gap={2}>
+        <Box
+          width={"15rem"}
+          display={"flex"}
+          flexDirection={"row"}
+          gap={{ xs: 1, sm: 2 }}
+        >
           {ListIcons.map((value, index) => (
             <IconButton
               onClick={() => navigate(value.path)}
               aria-label="cart"
               key={index}
               title={value.title}
-              sx={{ width: 50, height: 50 }}
+              sx={{ width: { xs: 35, sm: 50 }, height: { xs: 35, sm: 50 } }}
             >
               <Badge badgeContent={value.badge} color="success">
                 {value.icon}
@@ -150,7 +164,11 @@ const Navbar = () => {
           ))}
         </Box>
 
-        <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
+        <Box
+          display={{ xs: "none", sm: "flex" }}
+          flexDirection={"row"}
+          alignItems={"center"}
+        >
           <SupportAgentIcon sx={{ fontSize: 60 }} />
           <Box>
             <Typography fontSize={30} color={mainColor} fontWeight={600}>
@@ -162,6 +180,12 @@ const Navbar = () => {
           </Box>
         </Box>
       </Box>
+
+      <NavMobile
+        mobileOpen={mobileOpen}
+        handleDrawerToggle={handleDrawerToggle}
+        user={user}
+      />
     </Box>
   );
 };

@@ -79,7 +79,7 @@ const CommentItem = memo((comment: CommentType) => {
           >
             <Box
               display={"flex"}
-              flexDirection={"row"}
+              flexDirection={{ sm: "row", xs: "column" }}
               alignItems={"center"}
               pb={1}
               gap={3}

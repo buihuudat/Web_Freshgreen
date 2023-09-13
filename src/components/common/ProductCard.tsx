@@ -22,6 +22,7 @@ import { RootState } from "../../redux/store";
 import { favoriteActions } from "../../actions/favoriteActions";
 import { addProductCompare } from "../../redux/slices/compareSlice";
 import { NotificationToast } from "../../utils/handlers/NotificationToast";
+import { setItem } from "../../utils/handlers/tokenHandler";
 interface ProductCardType {
   product: ProductType;
   fast?: boolean;
@@ -69,6 +70,20 @@ const ProductCard = memo(
       dispatch(addProductCompare(product));
     };
 
+    const handleViewShop = () => {
+      navigate("/cua-hang/" + product.shop?.name, {
+        state: product.shop?._id,
+      });
+      setItem("productId", product.shop?._id);
+    };
+
+    const handleViewProduct = () => {
+      navigate(`/san-pham/details/` + product.title, {
+        state: { productId: product._id as string },
+      });
+      setItem("productId", product._id);
+    };
+
     return (
       <Paper
         variant="outlined"
@@ -77,7 +92,7 @@ const ProductCard = memo(
             outline: `1px solid ${mainColor}`,
           },
           borderRadius: 5,
-          width,
+          width: { sm: width, xs: 400 },
         }}
       >
         <Box
@@ -146,11 +161,7 @@ const ProductCard = memo(
             {product.category}
           </Typography>
           <Typography
-            onClick={() =>
-              navigate(`/san-pham/details/` + product.title, {
-                state: { productId: product._id as string },
-              })
-            }
+            onClick={handleViewProduct}
             fontWeight={600}
             fontSize={18}
             sx={{
@@ -186,11 +197,7 @@ const ProductCard = memo(
                   cursor: "pointer",
                   textTransform: "capitalize",
                 }}
-                onClick={() =>
-                  navigate("/cua-hang/" + product.shop?.name, {
-                    state: product.shop?._id,
-                  })
-                }
+                onClick={handleViewShop}
               >
                 {" "}
                 {product.shop.name}

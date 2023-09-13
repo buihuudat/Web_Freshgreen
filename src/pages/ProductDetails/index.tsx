@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   IconButton,
-  LinearProgress,
   Paper,
   Rating,
   TextField,
@@ -34,10 +33,12 @@ import { addProductCompare } from "../../redux/slices/compareSlice";
 import DetailActions from "./components/DetailActions";
 import commentActions from "../../actions/commentActions";
 import SkeletonLoading from "./components/SkeletonLoading";
+import { getItem } from "../../utils/handlers/tokenHandler";
 
 const ProductDetails = () => {
   const { state } = useLocation();
-  const { productId }: { productId: string } = state;
+  const { productId }: { productId: string } = state || getItem("productId");
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { products, product, productLoading } = useAppSelector(
@@ -95,11 +96,11 @@ const ProductDetails = () => {
     <Box>
       <Box
         display={"flex"}
-        flexDirection={"row"}
+        flexDirection={{ sm: "row", xs: "column" }}
         justifyContent={"center"}
         gap={10}
       >
-        <Box sx={{ width: "50%" }}>
+        <Box sx={{ width: { sm: "50%", xs: "100%" } }}>
           <Box
             // variant="outlined"
             sx={{
@@ -141,7 +142,7 @@ const ProductDetails = () => {
             ))}
           </Box>
         </Box>
-        <Box sx={{ width: "50%" }}>
+        <Box sx={{ width: { sm: "50%", xs: "100%" } }}>
           <Typography
             fontSize={35}
             fontWeight={600}
@@ -182,10 +183,10 @@ const ProductDetails = () => {
           <Box
             pb={3}
             display={"flex"}
-            flexDirection={"row"}
+            flexDirection={{ sm: "row", xs: "column" }}
             gap={2}
-            height={80}
-            my={5}
+            height={{ sm: 80 }}
+            my={{ sm: 5, xs: 0 }}
           >
             <Box
               display={"flex"}

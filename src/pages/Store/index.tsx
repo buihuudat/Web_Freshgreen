@@ -49,7 +49,7 @@ const Store = () => {
       <Paper
         variant="outlined"
         sx={{
-          width: 500,
+          width: { sm: 500, xs: "100%" },
           display: "flex",
           flexDirection: "row",
           m: "0 auto",

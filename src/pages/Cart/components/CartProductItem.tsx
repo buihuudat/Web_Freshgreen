@@ -45,9 +45,9 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
     <Paper
       elevation={8}
       sx={{
-        p: 1,
+        p: { sm: 1, xs: 0 },
         display: "flex",
-        flexDirection: "row",
+        flexDirection: { sm: "row", xs: "column" },
         alignItems: "center",
         justifyContent: "space-between",
       }}
@@ -57,7 +57,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          gap: 3,
+          gap: { sm: 3, xs: 1 },
         }}
       >
         <img
@@ -67,7 +67,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
         />
         <Typography
           fontWeight={600}
-          fontSize={23}
+          fontSize={{ sm: 23, xs: 13 }}
           textTransform={"capitalize"}
           sx={{ cursor: "pointer" }}
           onClick={() =>
@@ -80,18 +80,29 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
         </Typography>
       </Box>
 
-      <Box display={"flex"} flexDirection={"row"} gap={8} alignItems={"center"}>
-        <Typography fontSize={20} fontWeight={600} color={"orange"}>
+      <Box
+        display={"flex"}
+        flexDirection={"row"}
+        gap={{ sm: 8, xs: 2 }}
+        alignItems={"center"}
+        flexWrap={{ sm: "nowrap", xs: "wrap" }}
+        p={1}
+      >
+        <Typography
+          fontSize={{ sm: 20, xs: 13 }}
+          fontWeight={600}
+          color={"orange"}
+        >
           -{product.discount}%
         </Typography>
         <Typography color={"#999"} sx={{ textDecoration: "line-through" }}>
           {moneyFormat(product.price)}
         </Typography>
         <Typography
-          fontSize={22}
+          fontSize={{ sm: 22, xs: 13 }}
           color={"#62BD19"}
           fontWeight={600}
-          sx={{ width: 100 }}
+          sx={{ width: { sm: 100, xs: 50 } }}
           align="right"
         >
           {moneyFormat(product.lastPrice)}
@@ -112,10 +123,10 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
         </Box>
 
         <Typography
-          fontSize={35}
+          fontSize={{ sm: 35, xs: 25 }}
           fontWeight={600}
           color={"#333"}
-          sx={{ width: 150 }}
+          sx={{ width: { sm: 150, xs: 200 } }}
           align="right"
         >
           {moneyFormat(product.count * product.lastPrice)}

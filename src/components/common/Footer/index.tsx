@@ -1,6 +1,6 @@
 import { Box, IconButton, Typography, Button, Paper } from "@mui/material";
 import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../../utils/Constants/colors";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -10,8 +10,8 @@ import {
   ContactDataType,
   FooterDataType,
   FooterInfoDataType,
-} from "../../types/dataTypes";
-import { Banner, Logo } from "../../utils/Constants/images";
+} from "../../../types/dataTypes";
+import { Banner, Logo } from "../../../utils/Constants/images";
 
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
@@ -23,87 +23,8 @@ import HeadphonesIcon from "@mui/icons-material/Headphones";
 import SendIcon from "@mui/icons-material/Send";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { NavLink } from "react-router-dom";
-export const footerInfoData: FooterInfoDataType[] = [
-  {
-    title: "Công ty",
-    childrent: [
-      {
-        item: "Về chúng tôi",
-        url: "",
-      },
-      {
-        item: "Tiếp thị liên tiếp",
-        url: "",
-      },
-      {
-        item: "Tuyển dụng",
-        url: "",
-      },
-      {
-        item: "Liên hệ",
-        url: "",
-      },
-    ],
-  },
-  {
-    title: "Danh mục sản phẩm",
-    childrent: [
-      {
-        item: "Sữa",
-        url: "",
-      },
-      {
-        item: "Quần áo và làm đẹp",
-        url: "",
-      },
-      {
-        item: "Đồ chơi thú cưng",
-        url: "",
-      },
-      {
-        item: "Nguyên liệu làm bánh",
-        url: "",
-      },
-      {
-        item: "Trái cây tươi",
-        url: "",
-      },
-      {
-        item: "Rượu & đồ uống",
-        url: "",
-      },
-    ],
-  },
-  {
-    title: "Thông tin",
-    childrent: [
-      {
-        item: "Liên hệ",
-        url: "",
-      },
-      {
-        item: "Về chúng tôi",
-        url: "",
-      },
-      {
-        item: "Điều khoản & quy định",
-        url: "",
-      },
-      {
-        item: "Chính sách đổi trả",
-        url: "",
-      },
-      {
-        item: "Chính sách vận chuyển",
-        url: "",
-      },
-      {
-        item: "Chính sách bảo mật",
-        url: "",
-      },
-    ],
-  },
-];
+import { footerInfoData } from "./components/data";
+
 const Footer = () => {
   const footerData: FooterDataType[] = [
     {
@@ -163,14 +84,14 @@ const Footer = () => {
           background: `url(${Banner}) no-repeat`,
           backgroundPosition: "center",
           backgroundSize: "cover",
-          height: 400,
+          height: { sm: 400, xs: 200 },
           borderRadius: 5,
-          pl: "600px",
-          pt: 10,
+          pl: { sm: "600px", xs: 10 },
+          pt: { sm: 10, xs: 2 },
         }}
       >
         <Typography
-          fontSize={40}
+          fontSize={{ sm: 40, xs: 18 }}
           fontWeight={600}
           fontFamily={"Overpass"}
           color={"#fff"}
@@ -188,12 +109,16 @@ const Footer = () => {
               outline: "none",
               border: "none",
               padding: 10,
-              width: 350,
+              width: window.innerWidth > 600 ? 350 : 190,
               height: 50,
-              fontSize: 20,
+              fontSize: window.innerWidth > 600 ? 20 : 17,
             }}
           />
-          <Button color="success" variant="contained" sx={{ borderRadius: 30 }}>
+          <Button
+            color="success"
+            variant="contained"
+            sx={{ borderRadius: 30, fontSize: { xs: 10 } }}
+          >
             Đăng ký
           </Button>
         </Box>
@@ -202,8 +127,9 @@ const Footer = () => {
       {/*  */}
       <Box
         display={"flex"}
-        flexDirection={"row"}
+        flexDirection={{ sm: "row", xs: "column" }}
         justifyContent={"space-between"}
+        gap={2}
         py={5}
       >
         {footerData.map((data, index) => (
@@ -213,7 +139,7 @@ const Footer = () => {
               background: "#D3DEDB",
               p: 2,
               borderRadius: "10px",
-              width: 300,
+              width: { sm: 300, xs: "100%" },
               display: "flex",
               flexDirection: "row",
               gap: 1,
@@ -233,8 +159,9 @@ const Footer = () => {
       {/* info */}
       <Box
         display={"flex"}
-        flexDirection={"row"}
+        flexDirection={{ sm: "row", xs: "column" }}
         justifyContent={"space-between"}
+        gap={3}
       >
         <Box>
           <img src={Logo} alt="logo" style={{ width: 200 }} />
@@ -263,7 +190,7 @@ const Footer = () => {
           </Box>
         </Box>
         <Box
-          width={"60%"}
+          width={{ sm: "60%", xs: "100%" }}
           display={"flex"}
           flexDirection={"row"}
           justifyContent={"space-between"}
@@ -284,6 +211,7 @@ const Footer = () => {
                       color: mainColor,
                     },
                   }}
+                  fontSize={{ xs: 13 }}
                   color={"#000"}
                 >
                   {value.item}
@@ -298,11 +226,11 @@ const Footer = () => {
       {/* laster */}
       <Box
         display={"flex"}
-        flexDirection={"row"}
+        flexDirection={{ sm: "row", xs: "column-reverse" }}
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Typography>
+        <Typography sx={{ fontSize: { sm: 16, xs: 12 } }}>
           Bản quyền @ 2023 FoodShop. Phát triên bởi{" "}
           <a
             style={{

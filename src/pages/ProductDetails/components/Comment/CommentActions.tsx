@@ -55,7 +55,7 @@ const CommentActions = memo((props: CommentActionsProps) => {
       sx={{
         width: "100%",
         m: "0 auto",
-        p: 2,
+        p: { sm: 2, xs: 1 },
       }}
     >
       <Box

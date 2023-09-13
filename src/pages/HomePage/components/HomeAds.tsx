@@ -9,8 +9,9 @@ const HomeAds = () => {
     <Box
       py={3}
       display={"flex"}
-      flexDirection={"row"}
+      flexDirection={{ sm: "row", xs: "column" }}
       justifyContent={"space-around"}
+      gap={5}
     >
       {HomeAdsData.map((data, index) => (
         <Box

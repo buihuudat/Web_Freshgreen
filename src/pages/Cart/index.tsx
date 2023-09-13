@@ -10,7 +10,7 @@ const Cart = () => {
 
   return (
     <Box>
-      <Typography align="center" fontWeight={600} fontSize={32}>
+      <Typography align="center" fontWeight={600} fontSize={{ sm: 32, xs: 20 }}>
         {!cart.products.length
           ? "Giỏ hàng trống"
           : ` Có ${cart.products.length} sản phẩm trong giỏ hàng`}
@@ -19,19 +19,19 @@ const Cart = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: { sm: "row", xs: "column" },
           justifyContent: "space-between",
         }}
       >
         <Box
           height={505}
-          width={"70%"}
+          width={{ sm: "70%", xs: "100%" }}
           sx={{
             display: "flex",
             flexDirection: "column",
             gap: 3,
-            p: 3,
-            my: 5,
+            p: { sm: 3, xs: 1 },
+            my: { sm: 5, xs: 2 },
             overflowY: "auto",
           }}
         >
