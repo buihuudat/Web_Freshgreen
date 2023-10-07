@@ -15,8 +15,7 @@ import "swiper/css/navigation";
 import Payment from "./pages/Pay";
 import OrderManager from "./pages/OrderManeger";
 import Thankyou from "./pages/Pay/Thankyou";
-import "moment/locale/vi"; // Import ngôn ngữ Tiếng Việt
-import moment from "moment";
+import "moment/locale/vi";
 import Bought from "./pages/Bought";
 
 const HomePage = lazy(() => import("./pages/HomePage"));

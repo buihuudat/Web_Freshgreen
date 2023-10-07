@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { memo, useMemo } from "react";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { Banner2 } from "../../../utils/Constants/images";
+import { Banner2 } from "../../../constants/images";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 

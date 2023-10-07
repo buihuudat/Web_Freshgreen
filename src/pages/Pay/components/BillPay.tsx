@@ -1,7 +1,7 @@
 import { Box, Link, Typography } from "@mui/material";
 import { memo } from "react";
 import { moneyFormat } from "../../../utils/handlers/moneyFormat";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 import { PayDataProps } from "../../../types/payType";
 import { blue } from "@mui/material/colors";
 

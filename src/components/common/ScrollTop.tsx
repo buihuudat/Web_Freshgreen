@@ -1,6 +1,6 @@
 import { IconButton } from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../constants/colors";
 import { useCallback, useEffect, useState } from "react";
 const ScrollTop = () => {
   const [visible, setVisible] = useState(false);

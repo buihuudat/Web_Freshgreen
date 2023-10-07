@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";

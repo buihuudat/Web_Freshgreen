@@ -5,10 +5,10 @@ export const cartApi = {
   getCart: (userId: string) => axiosClient.get(`/cart/${userId}`),
   addProductToCart: (userId: string, product: ProductCartType) =>
     axiosClient.post(`/cart/${userId}/add`, { product }),
-  upCountProduct: (cartId: string, productId: string) =>
-    axiosClient.put(`/cart/${cartId}/add/${productId}`),
-  downCountProduct: (cartId: string, productId: string) =>
-    axiosClient.put(`/cart/${cartId}/remove/${productId}`),
-  removeProduct: (cartId: string, productId: string) =>
-    axiosClient.put(`/cart/${cartId}/product/${productId}`),
+  upCountProduct: (userId: string, productId: string) =>
+    axiosClient.put(`/cart/${userId}/add/${productId}`),
+  downCountProduct: (userId: string, productId: string) =>
+    axiosClient.put(`/cart/${userId}/remove/${productId}`),
+  removeProduct: (userId: string, productId: string) =>
+    axiosClient.put(`/cart/${userId}/product/${productId}`),
 };

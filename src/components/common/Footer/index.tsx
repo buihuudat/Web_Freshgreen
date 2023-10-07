@@ -1,6 +1,6 @@
 import { Box, IconButton, Typography, Button, Paper } from "@mui/material";
 import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -11,7 +11,7 @@ import {
   FooterDataType,
   FooterInfoDataType,
 } from "../../../types/dataTypes";
-import { Banner, Logo } from "../../../utils/Constants/images";
+import { Banner, Logo } from "../../../constants/images";
 
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";

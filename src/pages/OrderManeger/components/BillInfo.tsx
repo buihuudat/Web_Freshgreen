@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { OrderItemType, PayMethod } from "../../../types/orderType";
 import moment from "moment";
 import { moneyFormat } from "../../../utils/handlers/moneyFormat";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 
 const billInfoItem = createStyles({
   display: "flex",

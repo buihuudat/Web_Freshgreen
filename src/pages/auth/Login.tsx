@@ -1,10 +1,10 @@
 import { Box, TextField, Typography, IconButton } from "@mui/material";
-import { LoginBg } from "../../utils/Constants/images";
+import { LoginBg } from "../../constants/images";
 import { LoadingButton } from "@mui/lab";
 import { Link, useNavigate } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useState } from "react";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../constants/colors";
 import { LoginType } from "../../types/authType";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { authActions } from "../../actions/authActions";

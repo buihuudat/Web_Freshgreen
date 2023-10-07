@@ -27,7 +27,7 @@ const UserLayout = () => {
             setIsLoading(false);
             dispatch(setUserReducer(user));
             dispatch(cartActions.getCart(user._id));
-            dispatch(orderActions.getOrders(user._id));
+            // dispatch(orderActions.getOrders(user._id));
             dispatch(favoriteActions.get(user._id));
           } else {
             navigate("/dang-nhap");

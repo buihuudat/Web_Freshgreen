@@ -23,7 +23,7 @@ import React, {
 } from "react";
 import { FilterDataSelection } from "./data/DataFilter";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";

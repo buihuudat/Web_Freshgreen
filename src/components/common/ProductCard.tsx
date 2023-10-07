@@ -1,4 +1,4 @@
-import { NavigateOptions, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ProductType } from "../../types/productType";
 import {
   Box,
@@ -9,7 +9,7 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import { mainColor, secColor } from "../../utils/Constants/colors";
+import { mainColor, secColor } from "../../constants/colors";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
@@ -33,7 +33,7 @@ const ProductCard = memo(
   ({ product, fast = false, width = 400 }: ProductCardType) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const userId = useAppSelector((state: RootState) => state.user.user)._id;
+    const userId = useAppSelector((state: RootState) => state.user.user)._id!;
     const isComapring = useAppSelector(
       (state: RootState) => state.compare.isComparing
     );
@@ -47,7 +47,7 @@ const ProductCard = memo(
     const handleAddCart = useCallback(() => {
       dispatch(
         cartActions.addProductToCart({
-          userId: userId as string,
+          userId,
           product: { ...product, count: 1 },
         })
       );

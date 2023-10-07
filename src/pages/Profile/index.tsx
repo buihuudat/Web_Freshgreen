@@ -19,10 +19,10 @@ import { RootState } from "../../redux/store";
 import { logout, userChangeAvatar } from "../../redux/slices/userSlice";
 import { UserType } from "../../types/userType";
 import { getBaseImage } from "../../utils/handlers/getBaseImage";
-import { imageUpload } from "../../utils/handlers/imageUploadClound";
+import { imageUpload } from "../../utils/handlers/imageUploadCloud";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ProfileDataProps, profileData } from "./components/Data";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../constants/colors";
 import { clearCart } from "../../redux/slices/cartSlice";
 import { clearFavorite } from "../../redux/slices/favoriteSlice";
 

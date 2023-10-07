@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../constants/colors";
 import { useEffect, useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";

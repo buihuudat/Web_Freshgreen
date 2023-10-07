@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { ProductCartType } from "../../../types/cartType";
 import { moneyFormat } from "../../../utils/handlers/moneyFormat";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 import { NavigateOptions, useNavigate } from "react-router-dom";
 
 const OrderProductItem = (product: ProductCartType) => {

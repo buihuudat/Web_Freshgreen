@@ -1,6 +1,6 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
-import { mainColor } from "../utils/Constants/colors";
+import { mainColor } from "../constants/colors";
 
 const Contact = () => {
   return (

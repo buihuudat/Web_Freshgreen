@@ -3,10 +3,10 @@ import { Box, Button, Paper, Rating, Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 import { NavigateOptions, useNavigate } from "react-router-dom";
 import { ShopType } from "../../../types/shopType";
-import { NoImage } from "../../../utils/Constants/images";
+import { NoImage } from "../../../constants/images";
 
 const StoreCard = ({ store }: { store: ShopType }) => {
   const navigate = useNavigate();

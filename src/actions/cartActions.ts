@@ -37,11 +37,11 @@ export const cartActions = {
     }
   }),
 
-  upCountProduct: createAsyncThunk<any, { cartId: string; productId: string }>(
+  upCountProduct: createAsyncThunk<any, { userId: string; productId: string }>(
     "cart/upCount",
-    async ({ cartId, productId }) => {
+    async ({ userId, productId }) => {
       try {
-        await cartApi.upCountProduct(cartId, productId);
+        await cartApi.upCountProduct(userId, productId);
         return true;
       } catch (error) {
         throw error;
@@ -51,21 +51,21 @@ export const cartActions = {
 
   downCountProduct: createAsyncThunk<
     any,
-    { cartId: string; productId: string }
-  >("cart/downCount", async ({ cartId, productId }) => {
+    { userId: string; productId: string }
+  >("cart/downCount", async ({ userId, productId }) => {
     try {
-      await cartApi.downCountProduct(cartId, productId);
+      await cartApi.downCountProduct(userId, productId);
       return true;
     } catch (error) {
       throw error;
     }
   }),
 
-  removeProduct: createAsyncThunk<any, { cartId: string; productId: string }>(
+  removeProduct: createAsyncThunk<any, { userId: string; productId: string }>(
     "cart/deleteProduct",
-    async ({ cartId, productId }) => {
+    async ({ userId, productId }) => {
       try {
-        await cartApi.removeProduct(cartId, productId);
+        await cartApi.removeProduct(userId, productId);
         return true;
       } catch (error) {
         throw error;

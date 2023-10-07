@@ -18,7 +18,7 @@ import { RootState } from "../../../redux/store";
 import { ProductCartType } from "../../../types/cartType";
 import { voucherApi } from "../../../utils/api/voucherApi";
 import { useNavigate } from "react-router-dom";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 import { NotificationToast } from "../../../utils/handlers/NotificationToast";
 import {
   OrderItemType,

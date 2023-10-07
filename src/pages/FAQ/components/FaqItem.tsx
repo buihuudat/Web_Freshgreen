@@ -11,7 +11,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";
 import { FaqDataItem } from "../../../redux/slices/faqSlice";
 import { Box, Typography } from "@mui/material";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 
 export default function FaqItem(data: FaqDataItem) {
   const [open, setOpen] = React.useState(true);

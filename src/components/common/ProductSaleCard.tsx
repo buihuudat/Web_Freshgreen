@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Rating, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { NavigateOptions, useNavigate } from "react-router-dom";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../constants/colors";
 import { ProductType } from "../../types/productType";
 import { moneyFormat } from "../../utils/handlers/moneyFormat";
 import { memo, useEffect, useState } from "react";

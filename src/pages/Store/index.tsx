@@ -4,7 +4,7 @@ import StoreCard from "./components/StoreCard";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { shopActions } from "../../actions/shopActions";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../constants/colors";
 import { ShopType } from "../../types/shopType";
 
 const Store = () => {

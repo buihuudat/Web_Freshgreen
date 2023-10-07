@@ -1,7 +1,7 @@
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../constants/colors";
 import { Box } from "@mui/material";
 import { ChangeEvent, memo } from "react";
 

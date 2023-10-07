@@ -1,7 +1,7 @@
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../constants/colors";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { NavbarDataType } from "../../types/dataTypes";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";

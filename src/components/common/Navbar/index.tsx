@@ -1,12 +1,12 @@
 import { Badge, Box, IconButton, Typography, Avatar } from "@mui/material";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { mainColor } from "../../../utils/Constants/colors";
+import { mainColor } from "../../../constants/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CompareIcon from "@mui/icons-material/Compare";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import { Logo } from "../../../utils/Constants/images";
+import { Logo } from "../../../constants/images";
 import { ListIconTypes } from "../../../types/dataTypes";
 import { navbarDataItem } from "./components/Data/NavbarDataItem";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";

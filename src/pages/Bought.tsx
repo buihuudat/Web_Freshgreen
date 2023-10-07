@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
-import { Box, LinearProgress } from "@mui/material";
+import { Box, LinearProgress, Typography } from "@mui/material";
 import { OrderStatus } from "../types/orderType";
 import OrderItem from "./OrderManeger/components/OrderItem";
 // import Pagini from "../components/Pagini";
@@ -19,9 +19,17 @@ const Bought = () => {
   ) : (
     <div>
       <Box display={"flex"} flexDirection={"row"} flexWrap={"wrap"}>
-        {orders.map((order) => (
-          <OrderItem order={order} user={user} key={order._id} />
-        ))}
+        {!orders.length ? (
+          <Typography
+            sx={{ textAlign: "center", fontSize: 22, fontWeight: 600 }}
+          >
+            Chưa có đơn mua
+          </Typography>
+        ) : (
+          orders.map((order) => (
+            <OrderItem order={order} user={user} key={order._id} />
+          ))
+        )}
       </Box>
       {/* <Pagini countPage={1} setCurrentPage={setCurrentPage} /> */}
     </div>

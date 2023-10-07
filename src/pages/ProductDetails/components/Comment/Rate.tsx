@@ -6,16 +6,11 @@ import { useAppSelector } from "../../../../redux/hooks";
 import { RootState } from "../../../../redux/store";
 
 const labels: { [index: string]: string } = {
-  0.5: "Không có ích",
-  1: "Không có ích+",
-  1.5: "Yếu",
-  2: "Yếu+",
-  2.5: "Tạm được",
-  3: "Tạm được+",
-  3.5: "Tốt",
-  4: "Tốt+",
-  4.5: "Xuất sắc",
-  5: "Xuất sắc+",
+  "1": "Rất tệ",
+  "2": "Tệ",
+  "3": "Bình thường",
+  "4": "Tốt",
+  "5": "Rất tốt",
 };
 
 function getLabelText(value: number) {

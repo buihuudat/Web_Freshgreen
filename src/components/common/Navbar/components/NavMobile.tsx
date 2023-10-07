@@ -6,7 +6,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
-import { Logo } from "../../../../utils/Constants/images";
+import { Logo } from "../../../../constants/images";
 import { navbarDataItem } from "./Data/NavbarDataItem";
 import { NavbarDataType } from "../../../../types/dataTypes";
 import { profileData } from "../../../../pages/Profile/components/Data";

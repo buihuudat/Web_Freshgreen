@@ -14,12 +14,12 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const state = { product } as NavigateOptions;
-  const cartId = useAppSelector((state: RootState) => state.cart.data)._id;
+  const user = useAppSelector((state: RootState) => state.user.user);
 
   const handleUp = () => {
     dispatch(
       cartActions.upCountProduct({
-        cartId: cartId as string,
+        userId: user._id!,
         productId: product._id as string,
       })
     );
@@ -27,7 +27,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
   const handleDown = () => {
     dispatch(
       cartActions.downCountProduct({
-        cartId: cartId as string,
+        userId: user._id!,
         productId: product._id as string,
       })
     );
@@ -35,7 +35,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
   const handleDeleteProduct = () => {
     dispatch(
       cartActions.removeProduct({
-        cartId: cartId as string,
+        userId: user._id!,
         productId: product._id as string,
       })
     );

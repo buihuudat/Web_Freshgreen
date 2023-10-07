@@ -2,11 +2,7 @@ import {
   FeaturedCategoryDataType,
   HomeAdsDataType,
 } from "../../../../types/homeType";
-import {
-  HomeAds1,
-  HomeAds2,
-  HomeAds3,
-} from "../../../../utils/Constants/images";
+import { HomeAds1, HomeAds2, HomeAds3 } from "../../../../constants/images";
 
 export const FeaturedCategoryData: FeaturedCategoryDataType[] = [
   {

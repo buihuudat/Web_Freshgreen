@@ -1,6 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import { mainColor } from "../../utils/Constants/colors";
+import { mainColor } from "../../constants/colors";
 import NewsRecently from "./NewsRecently";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
