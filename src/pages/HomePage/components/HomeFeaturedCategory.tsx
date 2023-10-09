@@ -1,10 +1,15 @@
 import { Box, Paper, Typography } from "@mui/material";
-import React from "react";
 import { NavLink } from "react-router-dom";
-import { FeaturedCategoryData } from "./data/HomeData";
-import { FeaturedCategoryDataType } from "../../../types/homeType";
+import { CategoryType } from "../../../types/categoryType";
 
-const HomeFeaturedCategory: React.FC = () => {
+interface Props {
+  categories: Array<CategoryType>;
+}
+
+const HomeFeaturedCategory = (props: Props) => {
+  const { categories } = props;
+  console.log(categories);
+
   return (
     <Box py={5} display={{ xs: "none", sm: "block" }}>
       <Typography fontWeight={600} fontSize={35} pb={3}>
@@ -20,24 +25,24 @@ const HomeFeaturedCategory: React.FC = () => {
           overflowX: { xs: "auto", sm: "none" },
         }}
       >
-        {FeaturedCategoryData.map((data: FeaturedCategoryDataType, index) => (
+        {categories.map((category) => (
           <Paper
-            key={index}
+            key={category._id!}
             sx={{ width: { xs: 150, sm: 200 }, textDecoration: "none" }}
             component={NavLink}
-            to={data.title}
+            to={category.name}
             elevation={6}
           >
             <img
-              src={data.image}
-              alt={data.title}
+              src={category.image}
+              alt={category.name}
               style={{ width: "100%", height: 150, objectFit: "cover" }}
             />
             <Typography fontWeight={600} align="center" fontSize={18}>
-              {data.title}
+              {category.name}
             </Typography>
             <Typography align="center" fontSize={14}>
-              {data.count} mục
+              {/* {category.count} mục */}
             </Typography>
           </Paper>
         ))}

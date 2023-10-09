@@ -56,3 +56,11 @@ export const InitialUser: UserType = {
   role: UserRole.user,
   following: [],
 };
+
+export const fullnameOfUser = ({ firstname, lastname }: FullnameOfUser) => {
+  return `${firstname} ${lastname}`;
+};
+
+export const addressOfUser = (InitialUserAddress: UserAddress) => {
+  return `${InitialUserAddress.more} ${InitialUserAddress.street} ${InitialUserAddress.ward} ${InitialUserAddress.district} ${InitialUserAddress.city}`;
+};

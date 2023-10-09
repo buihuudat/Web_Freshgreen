@@ -45,6 +45,10 @@ const ProductCard = memo(
     ).length;
 
     const handleAddCart = useCallback(() => {
+      if (!userId) {
+        NotificationToast({ message: "Bạn chưa đăng nhập", type: "warning" });
+        return false;
+      }
       dispatch(
         cartActions.addProductToCart({
           userId,

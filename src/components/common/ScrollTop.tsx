@@ -35,8 +35,8 @@ const ScrollTop = () => {
           onClick={handleClick}
           sx={{
             position: "fixed",
-            right: 16,
-            bottom: 16,
+            right: 22,
+            bottom: 100,
             color: mainColor,
             background: "#ddd",
             ":hover": {

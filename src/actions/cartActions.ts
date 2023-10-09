@@ -17,10 +17,6 @@ export const cartActions = {
     any,
     { userId: string; product: ProductCartType }
   >("cart/addProduct", async ({ userId, product }) => {
-    if (!userId) {
-      NotificationToast({ message: "Bạn chưa đăng nhập", type: "warning" });
-      return false;
-    }
     try {
       await cartApi.addProductToCart(userId, product);
       NotificationToast({

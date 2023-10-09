@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { settingsActions } from "../../actions/settingsActionts";
+import { categoryActions } from "../../actions/categoryActions";
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -17,17 +18,21 @@ const HomePage = () => {
   const { images } = useAppSelector(
     (state: RootState) => state.settings.banners
   );
+  const categories = useAppSelector(
+    (state: RootState) => state.category.categories
+  );
 
   useEffect(() => {
     dispatch(productActions.gets({ page: 1, perPage: 8 }));
     dispatch(settingsActions.getBanner());
+    dispatch(categoryActions.gets());
   }, [dispatch]);
 
   return (
     <Box>
       <HomeSwiper images={images} />
       {/* danh muc noi bat */}
-      <HomeFeaturedCategory />
+      <HomeFeaturedCategory categories={categories} />
 
       {/*  ads */}
       <HomeAds />

@@ -1,5 +1,5 @@
 import { LinearProgress, Box } from "@mui/material";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../common/Navbar";
 import Directory from "../common/Directory";
@@ -12,10 +12,12 @@ import { getItem } from "../../utils/handlers/tokenHandler";
 import { cartActions } from "../../actions/cartActions";
 import { favoriteActions } from "../../actions/favoriteActions";
 import { clearCart } from "../../redux/slices/cartSlice";
+import PopupMessage from "../PopupMessage";
 
 const AppLayout = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -29,6 +31,7 @@ const AppLayout = () => {
           clearCart();
           return;
         }
+        setIsLogin(true);
         dispatch(setUserReducer(user));
         dispatch(cartActions.getCart(user._id));
         dispatch(favoriteActions.get(user._id));
@@ -49,6 +52,7 @@ const AppLayout = () => {
         </Box>
         <Footer />
         <ScrollTop />
+        {isLogin && <PopupMessage />}
       </Box>
     </Suspense>
   );
