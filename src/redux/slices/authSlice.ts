@@ -5,17 +5,31 @@ import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
 interface InitialStateProps {
   errors: any;
   loading: boolean;
+  modal: {
+    open: boolean;
+    data?: string;
+    message: string;
+  };
 }
 
 const initialState: InitialStateProps = {
   errors: null,
   loading: false,
+  modal: {
+    open: false,
+    data: undefined,
+    message: "",
+  },
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setLoginModal: (state, action) => {
+      state.modal = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // .addCase(authActions.login.rejected, (state, action) => {
@@ -44,4 +58,5 @@ export const authSlice = createSlice({
   },
 });
 
+export const { setLoginModal } = authSlice.actions;
 export default authSlice.reducer;

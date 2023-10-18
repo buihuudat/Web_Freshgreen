@@ -1,4 +1,4 @@
-import { GoogleLoginType, LoginType, RegisterType } from "../types/authType";
+import { LoginSocialType, LoginType, RegisterType } from "../types/authType";
 import { authAPI } from "../utils/api/authApi";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setItem } from "../utils/handlers/tokenHandler";
@@ -34,9 +34,23 @@ export const authActions = {
 
   google: createAsyncThunk(
     "auth/google",
-    async ({ user, token }: GoogleLoginType, thunkAPI) => {
+    async (user: LoginSocialType, thunkAPI) => {
       try {
-        const res = await authAPI.google({ user, token });
+        const res = await authAPI.google(user);
+        setItem("user", res.data.token);
+        return true;
+      } catch (error: any) {
+        if (error.data) return thunkAPI.rejectWithValue(error.data);
+        throw error;
+      }
+    }
+  ),
+
+  facebook: createAsyncThunk(
+    "auth/facebook",
+    async (user: LoginSocialType, thunkAPI) => {
+      try {
+        const res = await authAPI.facebook(user);
         setItem("user", res.data.token);
         return true;
       } catch (error: any) {

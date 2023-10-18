@@ -134,7 +134,10 @@ const Profile = () => {
     const data: UserType = {
       _id: user?._id,
       username: (formData.get("username") as string) || user?.username,
-      phone: (formData.get("phone") as string) || user?.phone,
+      phone:
+        (formData.get("phone") as string) || user?.phone.includes("social")
+          ? ""
+          : user?.phone,
       email: (formData.get("email") as string) || user?.email,
       password: formData.get("password") as string,
       fullname: {
@@ -424,7 +427,9 @@ const Profile = () => {
               label={`Phone ${
                 user.verifyPhone ? "(Đã xác minh)" : "(Chưa xác minh)"
               }`}
-              defaultValue={user?.phone}
+              defaultValue={
+                user?.phone.split("#").includes("social") ? "" : user?.phone
+              }
               margin="normal"
               required
               disabled={!isDisable}

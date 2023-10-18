@@ -8,15 +8,17 @@ export const loginWithFacebook = () => {
     .then((result) => {
       const credential = FacebookAuthProvider.credentialFromResult(result);
       const token = credential && credential.accessToken;
-      const user = result.user;
+      const user: any = result.user;
 
       const data = {
-        googleId: user.uid,
+        facebookId: user.uid,
         fullname: {
-          firstname: "",
-          lastname: user.displayName!,
+          firstname: user?.firstName || "",
+          lastname: user?.lastName || user.displayName!,
         },
+        avatar: user.photoURL,
         email: user.email!,
+        phone: "social#" + user.uid,
         username:
           user.email?.split("@")[0]! + user.uid.substring(user.uid.length - 4)!,
         password: user.uid,

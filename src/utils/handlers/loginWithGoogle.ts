@@ -17,6 +17,8 @@ export const loginWithGoogle = () => {
           lastname: user.displayName!,
         },
         email: user.email!,
+        avatar: user.photoURL,
+        phone: "social#" + user.uid,
         username:
           user.email?.split("@")[0]! + user.uid.substring(user.uid.length - 4)!,
         password: user.uid,

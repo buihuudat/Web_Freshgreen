@@ -1,10 +1,12 @@
-import { GoogleLoginType, LoginType, RegisterType } from "../../types/authType";
+import { LoginSocialType, LoginType, RegisterType } from "../../types/authType";
 import axiosClient from "./axiosClient";
 
 export const authAPI = {
   login: (payload: LoginType) => axiosClient.post("/auth/login", payload),
-  google: (payload: GoogleLoginType) =>
+  google: (payload: LoginSocialType) =>
     axiosClient.post("/auth/login/google", payload),
+  facebook: (payload: LoginSocialType) =>
+    axiosClient.post("/auth/login/facebook", payload),
   register: (newUser: RegisterType) =>
     axiosClient.post("/auth/register", newUser),
   verifyToken: () => axiosClient.post("/auth/verify-token"),

@@ -10,18 +10,15 @@ export interface LoginType {
   password: string;
 }
 
-export interface GoogleLoginType {
-  user: {
-    _id: string;
-    username: string;
-    email: string;
-    password: string;
-    fullname: {
-      firstname: string;
-      lastname: string;
-    };
+export interface LoginSocialType {
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
+  fullname: {
+    firstname: string;
+    lastname: string;
   };
-  token: string;
 }
 
 export interface CustomAuthResponse {

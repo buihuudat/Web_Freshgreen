@@ -22,6 +22,8 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import { loginWithGoogle } from "../../utils/handlers/loginWithGoogle";
 import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { loginWithFacebook } from "../../utils/handlers/loginWithFacebook";
+import { LoginModal } from "./LoginModal";
+import { setLoginModal } from "../../redux/slices/authSlice";
 
 const InitialErrText: { phone: string; password: string } = {
   phone: "",
@@ -76,7 +78,28 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     const res: any = await loginWithGoogle();
-    await dispatch(authActions.google({ user: res.data, token: res.token }))
+    await dispatch(authActions.google(res.data))
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error: any) => {
+        if (error.type === "email_existed") {
+          dispatch(
+            setLoginModal({
+              open: true,
+              message: error.message,
+              data: res.data.email,
+            })
+          );
+        }
+      });
+  };
+
+  const handleFacebookLogin = async () => {
+    const res: any = await loginWithFacebook();
+
+    await dispatch(authActions.facebook(res.data))
       .unwrap()
       .then(() => {
         navigate("/");
@@ -84,11 +107,6 @@ const Login = () => {
       .catch((error: any) => {
         NotificationToast({ message: error.message, type: "error" });
       });
-  };
-
-  const handleFacebookLogin = async () => {
-    const res: any = loginWithFacebook();
-    console.log(res);
   };
 
   return (
@@ -210,6 +228,7 @@ const Login = () => {
           </Link>
         </Typography>
       </Box>
+      <LoginModal />
     </Box>
   );
 };
