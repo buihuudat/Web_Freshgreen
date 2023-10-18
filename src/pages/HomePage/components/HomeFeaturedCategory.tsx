@@ -1,6 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
 import { CategoryType } from "../../../types/categoryType";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   categories: Array<CategoryType>;
@@ -8,7 +8,12 @@ interface Props {
 
 const HomeFeaturedCategory = (props: Props) => {
   const { categories } = props;
-  console.log(categories);
+  const navigate = useNavigate();
+
+  const handleViewProduct = (category: CategoryType) => {
+    console.log(category);
+    navigate("/san-pham", { state: category });
+  };
 
   return (
     <Box py={5} display={{ xs: "none", sm: "block" }}>
@@ -29,9 +34,8 @@ const HomeFeaturedCategory = (props: Props) => {
           <Paper
             key={category._id!}
             sx={{ width: { xs: 150, sm: 200 }, textDecoration: "none" }}
-            component={NavLink}
-            to={category.name}
             elevation={6}
+            onClick={() => handleViewProduct(category)}
           >
             <img
               src={category.image}

@@ -6,7 +6,7 @@ import { memo } from "react";
 import { ProductType } from "../../../types/productType";
 import ProductSaleCard from "../../../components/common/ProductSaleCard";
 
-const HomeSale = memo(({ products }: { products: ProductType[] }) => {
+const HomeSale = memo(({ products }: { products: Array<ProductType> }) => {
   const customSwiper: DealsOfTheDayType = {
     spaceBetween: 30,
     slidesPerView: window.innerWidth > 600 ? 4 : 1,

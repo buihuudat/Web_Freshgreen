@@ -1,8 +1,27 @@
 import { UserType } from "./userType";
 
+export interface ResetPasswordType {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 export interface LoginType {
   phone: string;
   password: string;
+}
+
+export interface GoogleLoginType {
+  user: {
+    _id: string;
+    username: string;
+    email: string;
+    password: string;
+    fullname: {
+      firstname: string;
+      lastname: string;
+    };
+  };
+  token: string;
 }
 
 export interface CustomAuthResponse {

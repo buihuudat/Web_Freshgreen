@@ -35,6 +35,7 @@ const Register = () => {
   const loading = useAppSelector((state: RootState) => state.auth.loading);
 
   const [errText, setErrText] = useState(InitialErrText);
+  const [showFormExpan, setShowFormExpan] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -236,6 +237,7 @@ const Register = () => {
           error={errText.confirmPassword !== ""}
           helperText={errText.confirmPassword}
         />
+
         <LoadingButton
           variant="contained"
           color="success"

@@ -60,6 +60,14 @@ export const userSlice = createSlice({
         if (state.user._id === action.payload._id) state.user = action.payload;
         state.userViewData = action.payload;
       })
+      .addCase(userActions.verifyEmail.fulfilled, (state, action) => {
+        if (!action.payload) return;
+        state.user.verifyEmail = true;
+      })
+      .addCase(userActions.verifyPhone.fulfilled, (state, action) => {
+        if (!action.payload) return;
+        state.user.verifyPhone = true;
+      })
       .addMatcher<PendingAction>(
         (action) => action.type.endsWith("/pending"),
         (state) => {

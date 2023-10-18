@@ -15,6 +15,7 @@ import compareSlice from "./slices/compareSlice";
 import faqSlice from "./slices/faqSlice";
 import commentSlice from "./slices/commentSlice";
 import settingsSlice from "./slices/settingsSlice";
+import messageSlice from "./slices/messageSlice";
 
 export const store = configureStore({
   reducer: {
@@ -34,6 +35,7 @@ export const store = configureStore({
     faq: faqSlice,
     comment: commentSlice,
     settings: settingsSlice,
+    messages: messageSlice,
   },
 });
 

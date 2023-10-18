@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { memo } from "react";
+import { memo } from "react";
 import { ProductType } from "../../../types/productType";
 import ProductCard from "../../../components/common/ProductCard";
 import SkeletonCard from "../../../components/SkeletonCard";

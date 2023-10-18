@@ -1,25 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import ProductCard from "../../../components/common/ProductCard";
 import { ProductType } from "../../../types/productType";
-import { memo, useMemo } from "react";
-import {
-  InitialSortProduct,
-  filterDataProducts,
-} from "../../../utils/handlers/filterDataProduct";
+import { memo } from "react";
 import SkeletonCard from "../../../components/SkeletonCard";
 
-const HomeProducts = memo(({ products }: { products: ProductType[] }) => {
-  const popularProducts = useMemo(
-    () =>
-      filterDataProducts({
-        ...InitialSortProduct,
-        products,
-        slice: 8,
-        sold: 0,
-      }),
-    [products]
-  );
-
+const HomeProducts = memo(({ products }: { products: Array<ProductType> }) => {
   return (
     <Box>
       <Box py={3}>
@@ -35,8 +20,8 @@ const HomeProducts = memo(({ products }: { products: ProductType[] }) => {
             gap={5}
             justifyContent={"space-between"}
           >
-            {popularProducts.map((product: ProductType, index) => (
-              <ProductCard key={index} product={product} />
+            {products.map((product: ProductType) => (
+              <ProductCard key={product._id!} product={product} />
             ))}
           </Box>
         ) : (

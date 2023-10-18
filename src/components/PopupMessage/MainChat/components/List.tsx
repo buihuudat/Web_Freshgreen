@@ -2,6 +2,22 @@ import { Avatar, Box, Divider, Typography } from "@mui/material";
 import ListIcon from "@mui/icons-material/List";
 import { fullnameOfUser } from "../../../../types/userType";
 import { mainColor } from "../../../../constants/colors";
+import { AIImage } from "../../../../constants/images";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { selectUser } from "../../../../redux/slices/messageSlice";
+
+const AIData = {
+  user: {
+    fullname: {
+      firstname: "AI ",
+      lastname: "tư vấn",
+    },
+    avatar: AIImage,
+  },
+  lastMessage: "",
+  time: "now",
+  seen: true,
+};
 
 const data = [
   {
@@ -163,8 +179,13 @@ const data = [
 ];
 
 const ListItem = (data: any) => {
+  const dispatch = useAppDispatch();
+
+  const handleSelect = () => {
+    dispatch(selectUser(data));
+  };
   return (
-    <Box>
+    <Box sx={{ cursor: "pointer" }} onClick={handleSelect}>
       <Box
         sx={{
           display: "flex",
@@ -224,6 +245,7 @@ function List() {
         <Typography fontWeight={600}>Danh sách</Typography>
       </Box>
       <Box sx={{ overflowY: "auto", height: "90%" }}>
+        <ListItem {...AIData} />
         {data.map((d, i) => (
           <ListItem {...d} key={i} />
         ))}

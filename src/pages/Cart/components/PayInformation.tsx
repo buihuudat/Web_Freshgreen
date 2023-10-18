@@ -28,6 +28,7 @@ import {
 } from "../../../types/orderType";
 import { orderActions } from "../../../actions/orderActions";
 import { clearCart } from "../../../redux/slices/cartSlice";
+import { socket } from "../../../utils/api/socketConfirm";
 
 const PayInformation = memo(() => {
   const [discount, setDiscount] = useState<number>(0);
@@ -158,7 +159,9 @@ const PayInformation = memo(() => {
       try {
         await dispatch(
           orderActions.createOrder({ userId: user._id as string, order })
-        );
+        ).then(() => {
+          socket.emit("create-order", order);
+        });
         dispatch(clearCart());
         navigate("/quan-li-don-hang");
       } finally {

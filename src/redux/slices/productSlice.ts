@@ -6,6 +6,8 @@ import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
 interface InitialStateProps {
   products: Array<ProductType>;
   product: ProductType;
+  popular: Array<ProductType>;
+  bestSeller: Array<ProductType>;
   shopProducts: {
     products: ProductType[];
     totalProducts: number;
@@ -22,6 +24,8 @@ interface InitialStateProps {
 const initialState: InitialStateProps = {
   products: [],
   product: InitialProduct,
+  popular: [],
+  bestSeller: [],
   shopProducts: { products: [], totalProducts: 0 },
   totalProducts: 0,
   loading: false,
@@ -53,6 +57,12 @@ export const productSlice = createSlice({
       .addCase(productActions.get.fulfilled, (state, action) => {
         state.product = action.payload;
         state.productLoading = false;
+      })
+      .addCase(productActions.popular.fulfilled, (state, action) => {
+        state.popular = action.payload;
+      })
+      .addCase(productActions.bestSeller.fulfilled, (state, action) => {
+        state.bestSeller = action.payload;
       })
       .addCase(productActions.create.fulfilled, (state, action) => {
         state.products.push(action.payload);

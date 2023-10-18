@@ -17,6 +17,8 @@ import OrderManager from "./pages/OrderManeger";
 import Thankyou from "./pages/Pay/Thankyou";
 import "moment/locale/vi";
 import Bought from "./pages/Bought";
+import ResetPassword from "./pages/auth/ResetPassword";
+import "./firebaseConfig";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const Login = lazy(() => import("./pages/auth/Login"));
@@ -51,6 +53,7 @@ const App = () => {
         <Route path="/" element={<AuthLayout />}>
           <Route path="/dang-ky" element={<Register />} />
           <Route path="/dang-nhap" element={<Login />} />
+          <Route path="/quen-mat-khau" element={<ResetPassword />} />
         </Route>
 
         <Route path="/" element={<AppLayout />}>

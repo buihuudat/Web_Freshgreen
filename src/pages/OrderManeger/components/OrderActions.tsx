@@ -5,6 +5,7 @@ import { memo, useState } from "react";
 import { UserType } from "../../../types/userType";
 import { useAppDispatch } from "../../../redux/hooks";
 import { orderActions } from "../../../actions/orderActions";
+import { socket } from "../../../utils/api/socketConfirm";
 
 interface Props {
   order: OrderItemType;
@@ -25,7 +26,9 @@ const OrderActions = memo((props: Props) => {
         orderId: order._id as string,
         status: OrderStatus.done,
       })
-    );
+    ).then(() => {
+      socket.emit("access-order");
+    });
   };
   const handleRefure = () => {
     if (message.length < 5) {
@@ -39,7 +42,9 @@ const OrderActions = memo((props: Props) => {
         status: OrderStatus.refuse,
         message,
       })
-    );
+    ).then(() => {
+      socket.emit("refuse-order");
+    });
     setMessageErr("");
     setShow(false);
   };

@@ -141,7 +141,7 @@ const ProductCard = memo(
               }}
               align="center"
             >
-              đã bán: {product.sold}
+              đã bán: {product.totalSales}
             </Typography>
           )}
         </Box>
@@ -187,7 +187,7 @@ const ProductCard = memo(
             />
             <Typography fontSize={12} color={"#555"}>
               {" "}
-              ({product.comments.length})
+              ({product?.comments?.length})
             </Typography>
           </Box>
           {!product?.shop ? (

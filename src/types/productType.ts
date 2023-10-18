@@ -33,6 +33,8 @@ export interface ProductType {
   brand: string;
   shop?: Shop;
   comments: Array<string>;
+
+  totalSales?: number;
   createdAt?: string;
   updatedAt?: string;
 }

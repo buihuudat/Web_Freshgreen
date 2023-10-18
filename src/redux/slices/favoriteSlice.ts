@@ -1,7 +1,11 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { favoriteActions } from "../../actions/favoriteActions";
 import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
-import { getItem, setItem } from "../../utils/handlers/tokenHandler";
+import {
+  getItem,
+  removeItem,
+  setItem,
+} from "../../utils/handlers/tokenHandler";
 import { ProductType } from "../../types/productType";
 
 interface InitialStateProps {
@@ -22,6 +26,7 @@ export const favoriteSlice = createSlice({
   reducers: {
     clearFavorite: (state) => {
       state.favoriteProducts = [];
+      removeItem("favorite");
     },
   },
   extraReducers(builder) {

@@ -1,35 +1,28 @@
-import {
-  Box,
-  TextField,
-  Typography,
-  IconButton,
-  Divider,
-  Chip,
-  Button,
-} from "@mui/material";
+import { Box, TextField, Typography, IconButton, Button } from "@mui/material";
 import { LoginBg } from "../../constants/images";
 import { LoadingButton } from "@mui/lab";
 import { Link, useNavigate } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useState } from "react";
 import { mainColor } from "../../constants/colors";
-import { LoginType } from "../../types/authType";
+import { ResetPasswordType } from "../../types/authType";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { authActions } from "../../actions/authActions";
 import { RootState } from "../../redux/store";
-import GoogleIcon from "@mui/icons-material/Google";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import { loginWithGoogle } from "../../utils/handlers/loginWithGoogle";
-import { NotificationToast } from "../../utils/handlers/NotificationToast";
-import { loginWithFacebook } from "../../utils/handlers/loginWithFacebook";
 
-const InitialErrText: { phone: string; password: string } = {
-  phone: "",
+const InitialErrText: {
+  email: string;
+  password: string;
+  confirmPassword: string;
+} = {
+  email: "",
   password: "",
+  confirmPassword: "",
 };
 
-const Login = () => {
+const ResetPassword = () => {
   const [isShowPass, setIsShowPass] = useState(false);
+  const [isShowCfPass, setIsShowCfPass] = useState(false);
   const [errText, setErrText] = useState(InitialErrText);
 
   const navigate = useNavigate();
@@ -39,14 +32,15 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data: LoginType = {
-      phone: formData.get("username") as string,
+    const data: ResetPasswordType = {
+      email: formData.get("email") as string,
       password: formData.get("password") as string,
+      confirmPassword: formData.get("confirmPassword") as string,
     };
 
     setErrText(InitialErrText);
 
-    await dispatch(authActions.login(data))
+    await dispatch(authActions.resetPassword(data))
       .unwrap()
       .then(() => {
         navigate("/");
@@ -74,23 +68,6 @@ const Login = () => {
       });
   };
 
-  const handleGoogleLogin = async () => {
-    const res: any = await loginWithGoogle();
-    await dispatch(authActions.google({ user: res.data, token: res.token }))
-      .unwrap()
-      .then(() => {
-        navigate("/");
-      })
-      .catch((error: any) => {
-        NotificationToast({ message: error.message, type: "error" });
-      });
-  };
-
-  const handleFacebookLogin = async () => {
-    const res: any = loginWithFacebook();
-    console.log(res);
-  };
-
   return (
     <Box
       display={{ sm: "flex", xs: "column" }}
@@ -110,16 +87,16 @@ const Login = () => {
         onSubmit={handleSubmit}
       >
         <Typography fontWeight={600} fontSize={30}>
-          Đăng nhập
+          Quên mật khẩu
         </Typography>
         <TextField
-          label="Tên tài khoản/ Số điện thoại/ Email"
-          name="username"
+          label="Email"
+          name="email"
           margin="normal"
           sx={{ width: { sm: 400, xs: "100%" } }}
           required
-          error={errText.phone !== ""}
-          helperText={errText.phone}
+          error={errText.email !== ""}
+          helperText={errText.email}
         />
         <Box
           display={"flex"}
@@ -128,7 +105,7 @@ const Login = () => {
           alignItems={"center"}
         >
           <TextField
-            label="Mật khẩu"
+            label="Mật khẩu mới"
             name="password"
             margin="normal"
             type={isShowPass ? "text" : "password"}
@@ -144,6 +121,29 @@ const Login = () => {
             />
           </IconButton>
         </Box>
+        <Box
+          display={"flex"}
+          flexDirection={"row"}
+          gap={1}
+          alignItems={"center"}
+        >
+          <TextField
+            label="Nhập lại mật khẩu"
+            name="confirmPassword"
+            margin="normal"
+            type={isShowCfPass ? "text" : "password"}
+            autoComplete="false"
+            sx={{ width: { sm: 400, xs: "100%" } }}
+            required
+            error={errText.password !== ""}
+            helperText={errText.password}
+          />
+          <IconButton onClick={() => setIsShowCfPass(!isShowCfPass)}>
+            <RemoveRedEyeIcon
+              sx={{ color: isShowCfPass ? mainColor : "normal" }}
+            />
+          </IconButton>
+        </Box>
         <LoadingButton
           variant="contained"
           color="success"
@@ -151,42 +151,10 @@ const Login = () => {
           type="submit"
           loading={loading}
         >
-          Đăng nhập
+          Xác nhận
         </LoadingButton>
-
-        <Divider variant="middle" sx={{ width: "70%", pt: 2 }}>
-          <Chip label="Hoặc đăng nhập bằng" />
-        </Divider>
-        {/* login with social */}
-        <Box sx={{ display: "flex", justifyContent: "start", gap: 5, pt: 2 }}>
-          <Button
-            sx={{
-              display: "flex",
-              gap: 1,
-              alignItems: "center",
-            }}
-            variant="outlined"
-            onClick={handleGoogleLogin}
-          >
-            <GoogleIcon />
-            <Typography fontSize={22} fontWeight={600}>
-              Google
-            </Typography>
-          </Button>
-          <Button
-            onClick={handleFacebookLogin}
-            sx={{ display: "flex", gap: 1, alignItems: "center" }}
-            variant="contained"
-          >
-            <FacebookIcon />
-            <Typography fontSize={22} fontWeight={600}>
-              Facebook
-            </Typography>
-          </Button>
-        </Box>
-
         <Link
-          to={"/quen-mat-khau"}
+          to={"/dang-nhap"}
           style={{
             fontWeight: 600,
             color: mainColor,
@@ -194,7 +162,7 @@ const Login = () => {
             textDecoration: "none",
           }}
         >
-          Quên mật khẩu?
+          Quay lại trang Đăng nhập
         </Link>
         <Typography>
           Bạn chưa có tài khoản?{" "}
@@ -214,4 +182,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ResetPassword;

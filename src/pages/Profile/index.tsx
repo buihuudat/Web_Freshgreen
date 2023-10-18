@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { getProvince } from "../../utils/api/getProvince";
 import { LoadingButton } from "@mui/lab";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -25,6 +25,8 @@ import { ProfileDataProps, profileData } from "./components/Data";
 import { mainColor } from "../../constants/colors";
 import { clearCart } from "../../redux/slices/cartSlice";
 import { clearFavorite } from "../../redux/slices/favoriteSlice";
+import { clearStorage } from "../../utils/handlers/tokenHandler";
+import VerifiedIcon from "@mui/icons-material/Verified";
 
 const initialErrText: {
   phone: string;
@@ -73,6 +75,11 @@ const Profile = () => {
   });
   const [errText, setErrText] = useState(initialErrText);
   const loading = useAppSelector((state: RootState) => state.user.isLoading);
+
+  const userVerified = useMemo(
+    () => user.verifyPhone && user.verifyEmail,
+    [user]
+  );
 
   // get provider
   useEffect(() => {
@@ -243,10 +250,19 @@ const Profile = () => {
     dispatch(logout());
     dispatch(clearCart());
     dispatch(clearFavorite());
+    clearStorage();
     navigate("/");
   };
 
   const { pathname } = useLocation();
+
+  const handleVerifyEmail = () => {
+    dispatch(userActions.verifyEmail(user.email));
+  };
+
+  // const handleVerifyPhone = () => {
+  //   dispatch(userActions.verifyPhone(user.phone));
+  // };
 
   return (
     <Box display={"flex"} flexDirection={"row"} justifyContent={"space-around"}>
@@ -323,11 +339,25 @@ const Profile = () => {
           </IconButton>
         )}
 
-        <Typography>({user?.role})</Typography>
+        {/* <Typography>({user?.role})</Typography> */}
 
-        <Typography fontSize={32}>
-          Hello {user?.fullname?.firstname} {user?.fullname?.lastname}
-        </Typography>
+        <Box
+          display={"flex"}
+          flexDirection={"row"}
+          alignItems={"center"}
+          gap={1}
+          mx={"auto"}
+        >
+          <Typography fontSize={32}>
+            Hello {user?.fullname?.firstname} {user?.fullname?.lastname}
+          </Typography>
+          {userVerified && (
+            <VerifiedIcon
+              color="primary"
+              titleAccess="Người dùng đã xác minh."
+            />
+          )}
+        </Box>
 
         <Box
           component={"form"}
@@ -379,26 +409,68 @@ const Profile = () => {
             error={errText.username !== ""}
             helperText={errText.username}
           />
-          <TextField
-            name="phone"
-            label="Phone"
-            defaultValue={user?.phone}
-            margin="normal"
-            required
-            disabled={!isDisable}
-            error={errText.phone !== ""}
-            helperText={errText.phone}
-          />
-          <TextField
-            name="email"
-            label="Email"
-            defaultValue={user?.email}
-            margin="normal"
-            required
-            disabled={!isDisable}
-            error={errText.email !== ""}
-            helperText={errText.email}
-          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 2,
+              width: "100%",
+            }}
+          >
+            <TextField
+              fullWidth
+              name="phone"
+              label={`Phone ${
+                user.verifyPhone ? "(Đã xác minh)" : "(Chưa xác minh)"
+              }`}
+              defaultValue={user?.phone}
+              margin="normal"
+              required
+              disabled={!isDisable}
+              error={errText.phone !== ""}
+              helperText={errText.phone}
+            />
+            {/* <Button
+              onClick={handleVerifyPhone}
+              variant="outlined"
+              sx={{ display: isDisable ? "block" : "none" }}
+            >
+              Xác minh
+            </Button> */}
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 2,
+              width: "100%",
+            }}
+          >
+            <TextField
+              fullWidth
+              name="email"
+              label={`Email ${
+                user.verifyEmail ? "(Đã xác minh)" : "(Chưa xác minh)"
+              }`}
+              defaultValue={user?.email}
+              margin="normal"
+              required
+              disabled={!isDisable}
+              error={errText.email !== ""}
+              helperText={errText.email}
+            />
+            {!user.verifyEmail && (
+              <Button
+                variant="outlined"
+                sx={{ display: isDisable ? "block" : "none" }}
+                onClick={handleVerifyEmail}
+              >
+                Xác minh
+              </Button>
+            )}
+          </Box>
           {isDisable && (
             <Box>
               <TextField

@@ -68,4 +68,30 @@ export const userActions = {
       throw error;
     }
   },
+
+  verifyEmail: createAsyncThunk("user/verify-email", async (email: string) => {
+    try {
+      const res = await userApi.verifyEmail(email);
+      NotificationToast({
+        message: "Đã xác minh thành công",
+        type: "success",
+      });
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }),
+
+  verifyPhone: createAsyncThunk("user/verify-phone", async (phone: string) => {
+    try {
+      const res = await userApi.verifyPhone(phone);
+      NotificationToast({
+        message: "Đã xác minh thành công",
+        type: "success",
+      });
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }),
 };

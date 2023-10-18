@@ -2,7 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 import { getItem } from "../handlers/tokenHandler";
 
-export const hostClient = "https://web-ecommerce-bhd.vercel.app";
+export const hostClient = "https://freshgreen.io.vn";
 export const hostServer = "https://ecommerce-bhd.onrender.com";
 
 // export const hostClient = "http://localhost:3000";

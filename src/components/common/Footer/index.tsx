@@ -6,11 +6,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import {
-  ContactDataType,
-  FooterDataType,
-  FooterInfoDataType,
-} from "../../../types/dataTypes";
+import { ContactDataType, FooterDataType } from "../../../types/dataTypes";
 import { Banner, Logo } from "../../../constants/images";
 
 import LoyaltyIcon from "@mui/icons-material/Loyalty";

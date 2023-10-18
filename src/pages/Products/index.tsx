@@ -19,7 +19,9 @@ const Products = () => {
 
   const [isShow, setIsShow] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [productsFilter, setProductsFilter] = useState<ProductType[]>(products);
+  const [onFillterChange, setOnFillterChange] = useState<boolean>(false);
+  const [productsFilter, setProductsFilter] =
+    useState<Array<ProductType>>(products);
 
   useEffect(() => {
     dispatch(
@@ -60,9 +62,10 @@ const Products = () => {
         isShow={isShow}
         products={products}
         setProductsFilter={setProductsFilter}
+        setOnFillterChange={setOnFillterChange}
       />
 
-      <ProductList products={productsFilter} />
+      <ProductList products={onFillterChange ? productsFilter : products} />
 
       <Stack
         spacing={2}

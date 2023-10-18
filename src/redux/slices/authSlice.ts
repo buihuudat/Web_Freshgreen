@@ -18,12 +18,15 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(authActions.login.rejected, (state, action) => {
-        state.errors = action.payload;
-      })
-      .addCase(authActions.register.rejected, (state, action) => {
-        state.errors = action.payload;
-      })
+      // .addCase(authActions.login.rejected, (state, action) => {
+      //   state.errors = action.payload;
+      // })
+      // .addCase(authActions.google.rejected, (state, action) => {
+      //   state.errors = action.payload;
+      // })
+      // .addCase(authActions.register.rejected, (state, action) => {
+      //   state.errors = action.payload;
+      // })
       .addMatcher<PendingAction>(
         (action) => action.type.endsWith("/pending"),
         (state) => {

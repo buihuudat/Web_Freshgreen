@@ -82,6 +82,7 @@ interface FilterProps {
   isShow: boolean;
   products: ProductType[];
   setProductsFilter: (products: ProductType[]) => void;
+  setOnFillterChange: (type: boolean) => void;
 }
 
 const BoxFilter = memo((props: FilterProps) => {
@@ -164,12 +165,14 @@ const BoxFilter = memo((props: FilterProps) => {
         maxPrice: newPrice[1],
       })
     );
+    props.setOnFillterChange(true);
   };
 
   const handleReset = () => {
     setCategorySelected([]);
     setStoreSelected([]);
     setTagsSelected("");
+    props.setOnFillterChange(false);
   };
 
   useEffect(() => {

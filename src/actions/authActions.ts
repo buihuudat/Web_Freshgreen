@@ -1,4 +1,4 @@
-import { LoginType, RegisterType } from "../types/authType";
+import { GoogleLoginType, LoginType, RegisterType } from "../types/authType";
 import { authAPI } from "../utils/api/authApi";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setItem } from "../utils/handlers/tokenHandler";
@@ -31,4 +31,34 @@ export const authActions = {
       }
     }
   ),
+
+  google: createAsyncThunk(
+    "auth/google",
+    async ({ user, token }: GoogleLoginType, thunkAPI) => {
+      try {
+        const res = await authAPI.google({ user, token });
+        setItem("user", res.data.token);
+        return true;
+      } catch (error: any) {
+        if (error.data) return thunkAPI.rejectWithValue(error.data);
+        throw error;
+      }
+    }
+  ),
+
+  resetPassword: createAsyncThunk<
+    any,
+    { email: string; password: string; confirmPassword: string }
+  >("user/reset-password", async ({ email, password, confirmPassword }) => {
+    try {
+      const res = await authAPI.resetPassword({
+        email,
+        password,
+        confirmPassword,
+      });
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }),
 };

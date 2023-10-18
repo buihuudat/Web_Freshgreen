@@ -10,6 +10,7 @@ import { setUserReducer } from "../../redux/slices/userSlice";
 import { getItem } from "../../utils/handlers/tokenHandler";
 import { cartActions } from "../../actions/cartActions";
 import { favoriteActions } from "../../actions/favoriteActions";
+import { socket } from "../../utils/api/socketConfirm";
 import { orderActions } from "../../actions/orderActions";
 
 const UserLayout = () => {
@@ -27,8 +28,9 @@ const UserLayout = () => {
             setIsLoading(false);
             dispatch(setUserReducer(user));
             dispatch(cartActions.getCart(user._id));
-            // dispatch(orderActions.getOrders(user._id));
+            dispatch(orderActions.getOrders(user._id));
             dispatch(favoriteActions.get(user._id));
+            socket.emit("user", user._id);
           } else {
             navigate("/dang-nhap");
           }

@@ -31,6 +31,24 @@ export const productActions = {
     }
   }),
 
+  popular: createAsyncThunk("product/popular", async () => {
+    try {
+      const res = await productApi.getPopularProducts();
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }),
+
+  bestSeller: createAsyncThunk("product/best-seller", async () => {
+    try {
+      const res = await productApi.getProductsBestSeller();
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }),
+
   create: createAsyncThunk(
     "product/create",
     async (newProduct: ProductType, thunkAPI) => {

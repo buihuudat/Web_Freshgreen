@@ -38,6 +38,8 @@ export interface UserType {
   address: UserAddress;
   role?: UserRole;
   following?: Array<string>;
+  verifyEmail?: boolean;
+  verifyPhone?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }

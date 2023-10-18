@@ -17,7 +17,7 @@ const OrderManager = () => {
 
   useEffect(() => {
     setOrders(
-      dataOrder.filter(
+      dataOrder?.filter(
         (order: OrderItemType) =>
           order.status !== OrderStatus.done && order.status === value
       )
@@ -28,7 +28,7 @@ const OrderManager = () => {
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <CircularProgress />
     </Box>
-  ) : !dataOrder.length ? (
+  ) : !dataOrder?.length ? (
     <Typography align="center" fontSize={23} fontWeight={600}>
       Chưa có đơn hàng
     </Typography>

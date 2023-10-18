@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import React, { memo, useMemo } from "react";
+import { memo } from "react";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Banner2 } from "../../../constants/images";
 import { useNavigate } from "react-router-dom";
@@ -8,14 +8,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
 import ProductCard from "../../../components/common/ProductCard";
 import { DealsOfTheDayType } from "../../../types/homeType";
-import {
-  InitialSortProduct,
-  filterDataProducts,
-} from "../../../utils/handlers/filterDataProduct";
 import { ProductType } from "../../../types/productType";
 import SkeletonCard from "../../../components/SkeletonCard";
 
-const BestSellers = memo(({ products }: { products: ProductType[] }) => {
+const BestSellers = memo(({ products }: { products: Array<ProductType> }) => {
   const customSwiper: DealsOfTheDayType = {
     spaceBetween: 30,
     slidesPerView: window.innerWidth > 600 ? 4 : 1,
@@ -30,11 +26,6 @@ const BestSellers = memo(({ products }: { products: ProductType[] }) => {
     modules: [Autoplay, FreeMode],
   };
   const navigate = useNavigate();
-
-  const dataProducts = useMemo(
-    () => filterDataProducts({ ...InitialSortProduct, products }),
-    [products]
-  );
 
   return (
     <Box py={3}>
@@ -72,14 +63,14 @@ const BestSellers = memo(({ products }: { products: ProductType[] }) => {
         </Box>
 
         <Box width={{ sm: "70%", xs: "100%" }}>
-          {dataProducts.length ? (
+          {products.length ? (
             <Swiper
               {...customSwiper}
               style={{
                 width: "100%",
               }}
             >
-              {dataProducts.map((data, index) => (
+              {products.map((data, index) => (
                 <SwiperSlide
                   key={index}
                   style={{ display: "block", width: 600 }}
