@@ -37,7 +37,7 @@ const Rate = React.memo((props: RateProps) => {
       <Rating
         name="hover-feedback"
         value={value}
-        disabled={!user.username}
+        disabled={!user?.username}
         precision={0.5}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {

@@ -14,8 +14,8 @@ const Favorites = () => {
   );
 
   useEffect(() => {
-    dispatch(favoriteActions.get(user._id as string));
-  }, [dispatch, user._id]);
+    dispatch(favoriteActions.get(user?._id as string));
+  }, [dispatch, user?._id]);
 
   return favoriteProducts.length ? (
     <Box display={"flex"} flexDirection={"row"} gap={10} flexWrap={"wrap"}>

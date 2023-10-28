@@ -69,7 +69,7 @@ const NavMobile = (props: Props) => {
             )
         )}
       </List>
-      {user._id && (
+      {user?._id && (
         <>
           <Divider>
             <Chip label="Người dùng" />

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authActions } from "../../actions/authActions";
 import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
 
 interface InitialStateProps {
@@ -9,6 +8,10 @@ interface InitialStateProps {
     open: boolean;
     data?: string;
     message: string;
+  };
+
+  capchaModal: {
+    open: boolean;
   };
 }
 
@@ -20,6 +23,9 @@ const initialState: InitialStateProps = {
     data: undefined,
     message: "",
   },
+  capchaModal: {
+    open: false,
+  },
 };
 
 export const authSlice = createSlice({
@@ -28,6 +34,9 @@ export const authSlice = createSlice({
   reducers: {
     setLoginModal: (state, action) => {
       state.modal = action.payload;
+    },
+    setCapchaModal: (state, action) => {
+      state.capchaModal = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -58,5 +67,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setLoginModal } = authSlice.actions;
+export const { setLoginModal, setCapchaModal } = authSlice.actions;
 export default authSlice.reducer;

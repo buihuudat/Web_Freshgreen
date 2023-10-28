@@ -42,7 +42,7 @@ const Login = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data: LoginType = {
-      phone: formData.get("username") as string,
+      username: formData.get("username") as string,
       password: formData.get("password") as string,
     };
 
@@ -109,6 +109,10 @@ const Login = () => {
       });
   };
 
+  const handleLoginWithSMS = () => {
+    navigate("/dang-nhap-sms");
+  };
+
   return (
     <Box
       display={{ sm: "flex", xs: "column" }}
@@ -171,6 +175,13 @@ const Login = () => {
         >
           Đăng nhập
         </LoadingButton>
+        <Button
+          onClick={handleLoginWithSMS}
+          variant="text"
+          sx={{ mt: 2, width: { sm: 400, xs: "100%" } }}
+        >
+          Đăng nhập bằng SMS
+        </Button>
 
         <Divider variant="middle" sx={{ width: "70%", pt: 2 }}>
           <Chip label="Hoặc đăng nhập bằng" />
@@ -184,6 +195,7 @@ const Login = () => {
               alignItems: "center",
             }}
             variant="outlined"
+            color="info"
             onClick={handleGoogleLogin}
           >
             <GoogleIcon />

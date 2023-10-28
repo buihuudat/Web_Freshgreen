@@ -30,7 +30,7 @@ const CommentActions = memo((props: CommentActionsProps) => {
   const dispatch = useAppDispatch();
 
   const handleSubmit = async () => {
-    if (!user._id) {
+    if (!user?._id) {
       return NotificationToast({
         message: "Yêu cầu đăng nhập!",
         type: "warning",
@@ -38,7 +38,7 @@ const CommentActions = memo((props: CommentActionsProps) => {
     }
     dispatch(
       commentActions.addComment({
-        userId: user._id as string,
+        userId: user?._id!,
         productId,
         content,
         commentId,
@@ -69,9 +69,9 @@ const CommentActions = memo((props: CommentActionsProps) => {
           sx={{ display: "flex", flexDirection: "row", gap: 1 }}
           color="success"
         >
-          <Avatar src={user.avatar} alt={user.username} />
+          <Avatar src={user?.avatar} alt={user?.username} />
           <Typography fontSize={16} fontWeight={600}>
-            {user.fullname.firstname} {user.fullname.lastname}
+            {user?.fullname.firstname} {user?.fullname.lastname}
           </Typography>
         </Button>
 

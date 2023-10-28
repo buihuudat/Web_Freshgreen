@@ -28,25 +28,27 @@ const OrderManager = () => {
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <CircularProgress />
     </Box>
-  ) : !dataOrder?.length ? (
-    <Typography align="center" fontSize={23} fontWeight={600}>
-      Chưa có đơn hàng
-    </Typography>
   ) : (
     <Box>
       <Tabs value={value} setValue={setValue} />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          gap: 10,
-        }}
-      >
-        {orders?.map((order: OrderItemType) => (
-          <OrderItem order={order} user={user} key={order._id} />
-        ))}
-      </Box>
+      {!orders?.length ? (
+        <Typography align="center" fontSize={23} fontWeight={600}>
+          Chưa có đơn hàng
+        </Typography>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            gap: 10,
+          }}
+        >
+          {orders?.map((order: OrderItemType) => (
+            <OrderItem order={order} user={user!} key={order._id} />
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };

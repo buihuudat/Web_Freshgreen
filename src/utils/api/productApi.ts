@@ -31,11 +31,16 @@ export const productApi = {
 
   getProductsBestSeller: () => axiosClient.get("/products/best-seller"),
 
+  getProductsView: () => axiosClient.get("/products/products-view"),
+
   create: (newProduct: ProductType) =>
     axiosClient.post("/products/create", newProduct),
 
   update: (newProduct: ProductType) =>
     axiosClient.put(`/products/${newProduct._id}`, newProduct),
+
+  updateView: (productId: string) =>
+    axiosClient.put(`/products/views/${productId}`),
 
   delete: (product: ProductType) =>
     axiosClient.patch(`/products/${product._id}`),

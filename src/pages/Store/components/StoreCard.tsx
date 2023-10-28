@@ -1,31 +1,53 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, Paper, Rating, Typography } from "@mui/material";
+import React from "react";
+import {
+  Box,
+  Button,
+  IconButton,
+  Paper,
+  Rating,
+  Typography,
+} from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { mainColor } from "../../../constants/colors";
 import { NavigateOptions, useNavigate } from "react-router-dom";
 import { ShopType } from "../../../types/shopType";
-import { NoImage } from "../../../constants/images";
+import { StoreImage } from "../../../constants/images";
+import { addressOfUser, phoneOfUser } from "../../../types/userType";
+import MessageIcon from "@mui/icons-material/Message";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { selectUser, setPopup } from "../../../redux/slices/messageSlice";
+import { RootState } from "../../../redux/store";
+import { NotificationToast } from "../../../utils/handlers/NotificationToast";
+import { messageActions } from "../../../actions/messageAction";
 
 const StoreCard = ({ store }: { store: ShopType }) => {
   const navigate = useNavigate();
-  const [address, setAddress] = useState("");
   const state = { shopInfo: { ...store } } as NavigateOptions;
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.user.user);
 
-  useEffect(() => {
-    setAddress(
-      store.user?.address.more +
-        " " +
-        store.user?.address.street +
-        " " +
-        store.user?.address.ward +
-        " " +
-        store.user?.address.district +
-        " " +
-        store.user?.address.city
+  const storeImage = store.image ?? StoreImage;
+
+  const handleMessage = () => {
+    if (!user)
+      return NotificationToast({
+        message: "Bạn cần phải đăng nhập trước",
+        type: "warning",
+      });
+    dispatch(
+      selectUser({
+        user: {
+          _id: store._id!,
+          name: store.name,
+          avatar: storeImage,
+        },
+      })
     );
-  }, [store?.user]);
+    dispatch(setPopup(true));
+    dispatch(messageActions.get({ from: user?._id!, to: store._id! }));
+  };
 
   return (
     <Paper
@@ -41,7 +63,7 @@ const StoreCard = ({ store }: { store: ShopType }) => {
     >
       <Box>
         <img
-          src={store.image || NoImage}
+          src={storeImage}
           alt={store.name}
           style={{
             width: window.innerWidth > 600 ? 200 : 100,
@@ -66,22 +88,34 @@ const StoreCard = ({ store }: { store: ShopType }) => {
         <Typography>
           <LocationOnIcon sx={{ color: mainColor, fontSize: 18 }} />
           <b>Địa chỉ: </b>
-          {address}
+          {addressOfUser(store?.user?.address!)}
         </Typography>
         <Typography>
           <LocalPhoneIcon sx={{ color: mainColor, fontSize: 18 }} />
           <b>Số điện thoại: </b>
-          {store.user?.phone}
+          {phoneOfUser(store.user?.phone!)}
         </Typography>
 
-        <Button
-          color="success"
-          variant="contained"
-          onClick={() => navigate(`/cua-hang/${store.name}`, { state })}
-          sx={{ mt: 2 }}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            mt: 2,
+            gap: 2,
+          }}
         >
-          Xem cửa hàng <ArrowRightAltIcon />
-        </Button>
+          <Button
+            color="success"
+            variant="contained"
+            onClick={() => navigate(`/cua-hang/${store.name}`, { state })}
+          >
+            Xem cửa hàng <ArrowRightAltIcon />
+          </Button>
+          <IconButton onClick={handleMessage}>
+            <MessageIcon color="success" />
+          </IconButton>
+        </Box>
       </Box>
     </Paper>
   );

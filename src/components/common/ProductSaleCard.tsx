@@ -18,7 +18,7 @@ const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
     s: ms,
   });
 
-  var countDownDate = new Date("Oct 26, 2023 15:37:25").getTime();
+  var countDownDate = new Date("Feb 10, 2024 00:00:00").getTime();
 
   useEffect(() => {
     setInterval(() => {

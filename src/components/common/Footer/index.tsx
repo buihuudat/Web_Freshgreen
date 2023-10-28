@@ -20,6 +20,8 @@ import SendIcon from "@mui/icons-material/Send";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { NavLink } from "react-router-dom";
 import { footerInfoData } from "./components/data";
+import { useAppSelector } from "../../../redux/hooks";
+import { RootState } from "../../../redux/store";
 
 const Footer = () => {
   const footerData: FooterDataType[] = [
@@ -53,17 +55,17 @@ const Footer = () => {
     {
       icon: <FacebookIcon />,
       title: "Facebook",
-      url: "",
+      url: "https://www.facebook.com/1150694301/",
     },
     {
       icon: <TwitterIcon />,
       title: "Twitter",
-      url: "",
+      url: "https://twitter.com/dat54261001",
     },
     {
       icon: <YouTubeIcon />,
       title: "Youtube",
-      url: "",
+      url: "https://www.youtube.com/channel/UCEt_3J34Gnx_HaWeMcCX9xw",
     },
     {
       icon: <InstagramIcon />,
@@ -71,6 +73,10 @@ const Footer = () => {
       url: "",
     },
   ];
+
+  const categories = useAppSelector(
+    (state: RootState) => state.category.categories
+  );
 
   return (
     <Box pt={5}>
@@ -213,6 +219,28 @@ const Footer = () => {
               ))}
             </Box>
           ))}
+          <Box display={"flex"} flexDirection={"column"} gap={1}>
+            <Typography fontWeight={600} fontSize={18}>
+              Danh mục sản phẩm
+            </Typography>
+            {categories.map((category) => (
+              <Typography
+                key={category._id!}
+                component={NavLink}
+                to={category.name}
+                sx={{
+                  textDecoration: "none",
+                  ":hover": {
+                    color: mainColor,
+                  },
+                }}
+                fontSize={{ xs: 13 }}
+                color={"#000"}
+              >
+                {category.name}
+              </Typography>
+            ))}
+          </Box>
         </Box>
       </Box>
 

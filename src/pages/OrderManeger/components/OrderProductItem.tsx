@@ -1,16 +1,16 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
 import { ProductCartType } from "../../../types/cartType";
 import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import { mainColor } from "../../../constants/colors";
-import { NavigateOptions, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const OrderProductItem = (product: ProductCartType) => {
   const navigate = useNavigate();
-  const state = { product } as NavigateOptions;
 
   const viewProduct = () => {
-    navigate(`/san-pham/details/${product.title}`, { state });
+    navigate(`/san-pham/details/${product.title}`, {
+      state: { productId: product._id as string },
+    });
   };
 
   return (

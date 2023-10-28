@@ -1,18 +1,18 @@
 import { Box, Divider, TextField, Typography } from "@mui/material";
-import { fullnameOfUser } from "../../../../types/userType";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { RootState } from "../../../../redux/store";
 import { LoadingButton } from "@mui/lab";
 import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
 import { messageActions } from "../../../../actions/messageAction";
+import MessageItem from "./MessageItem";
 
 const Chat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const user = useAppSelector((state: RootState) => state.user.user);
-  const { user: data, chat } = useAppSelector(
+  const { user: data, userChat } = useAppSelector(
     (state: RootState) => state.messages
   );
 
@@ -20,8 +20,17 @@ const Chat = () => {
 
   const handleSend = () => {
     setMessage("");
-    dispatch(messageActions.ask({ userId: user._id!, message }));
-    console.log(chat);
+    data.user._id === "AI "
+      ? dispatch(messageActions.ask({ userId: user?._id!, message }))
+      : dispatch(
+          messageActions.send({
+            from: user?._id!,
+            to: data.user._id,
+            message: {
+              text: message,
+            },
+          })
+        );
   };
 
   return (
@@ -34,11 +43,17 @@ const Chat = () => {
           gap={1}
         >
           <Typography>to: </Typography>
-          <Typography fontWeight={600}>
-            {fullnameOfUser(data.user.fullname)}
-          </Typography>
+          <Typography fontWeight={600}>{data.user.name}</Typography>
         </Box>
         <Divider variant="middle" />
+      </Box>
+
+      <Box sx={{ flex: 1, padding: 3 }}>
+        {userChat.map((chat, index) => (
+          <Box key={index}>
+            <MessageItem {...chat} reveicer={data.user} user={user!} />
+          </Box>
+        ))}
       </Box>
 
       <Box sx={{ mt: "auto", width: "100%", display: "flex" }}>

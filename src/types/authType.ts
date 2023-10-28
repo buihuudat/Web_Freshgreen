@@ -6,7 +6,7 @@ export interface ResetPasswordType {
   confirmPassword: string;
 }
 export interface LoginType {
-  phone: string;
+  username: string;
   password: string;
 }
 

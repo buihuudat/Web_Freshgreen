@@ -29,10 +29,10 @@ const CommentItem = memo((comment: CommentType) => {
   const user = useAppSelector((state: RootState) => state.user.user);
   const product = useContext(CommentContext);
   const dispatch = useAppDispatch();
-  const isLiked = comment.reaction.filter((rt) => rt === user._id).length;
+  const isLiked = comment.reaction.filter((rt) => rt === user?._id).length;
 
   const handleReply = () => {
-    if (!user._id) {
+    if (!user?._id) {
       return NotificationToast({
         message: "Yêu cầu đăng nhập!",
         type: "warning",
@@ -42,7 +42,7 @@ const CommentItem = memo((comment: CommentType) => {
   };
 
   const handleLike = (reaction: "Like" | "Unlike") => {
-    if (!user._id) {
+    if (!user?._id) {
       return NotificationToast({
         message: "Yêu cầu đăng nhập!",
         type: "warning",
@@ -50,7 +50,7 @@ const CommentItem = memo((comment: CommentType) => {
     }
     dispatch(
       commentActions.reactCommentActions({
-        auth: user._id as string,
+        auth: user?._id as string,
         commentId: comment._id as string,
         reaction,
       })
@@ -95,9 +95,11 @@ const CommentItem = memo((comment: CommentType) => {
                   }}
                   color="success"
                 >
-                  <Avatar src={comment.auth.avatar} />
+                  <Avatar src={comment.auth?.avatar} />
                   <Typography fontSize={16} fontWeight={600}>
-                    {`${comment.auth.fullname.firstname} ${comment.auth.fullname.lastname}`}
+                    {`${comment.auth?.fullname.firstname ?? ""} ${
+                      comment.auth?.fullname.lastname ?? "Ẩn danh"
+                    }`}
                   </Typography>
                 </Button>
                 <Typography

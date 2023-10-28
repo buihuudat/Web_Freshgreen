@@ -64,5 +64,13 @@ export const fullnameOfUser = ({ firstname, lastname }: FullnameOfUser) => {
 };
 
 export const addressOfUser = (InitialUserAddress: UserAddress) => {
-  return `${InitialUserAddress.more} ${InitialUserAddress.street} ${InitialUserAddress.ward} ${InitialUserAddress.district} ${InitialUserAddress.city}`;
+  if (InitialUserAddress?.city === undefined || InitialUserAddress?.city === "")
+    return null;
+  return `${InitialUserAddress?.more} ${InitialUserAddress?.street} ${InitialUserAddress?.ward} ${InitialUserAddress?.district} ${InitialUserAddress?.city}`;
+};
+
+export const phoneOfUser = (phone: string) => {
+  if (phone === undefined) return "";
+  if (phone.includes("social")) return "";
+  return phone;
 };

@@ -12,14 +12,17 @@ import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import Payment from "./pages/Pay";
-import OrderManager from "./pages/OrderManeger";
-import Thankyou from "./pages/Pay/Thankyou";
 import "moment/locale/vi";
-import Bought from "./pages/Bought";
-import ResetPassword from "./pages/auth/ResetPassword";
 import "./firebaseConfig";
+import "react-phone-number-input/style.css";
+import { onListeningMessage } from "./utils/handlers/getFCMToken";
 
+const Payment = lazy(() => import("./pages/Pay"));
+const OrderManager = lazy(() => import("./pages/OrderManeger"));
+const Thankyou = lazy(() => import("./pages/Pay/Thankyou"));
+const Bought = lazy(() => import("./pages/Bought"));
+const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
+const LoginWithSMS = lazy(() => import("./pages/auth/LoginWithSMS"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
@@ -45,6 +48,8 @@ const App = () => {
     },
   });
 
+  onListeningMessage();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -54,6 +59,7 @@ const App = () => {
           <Route path="/dang-ky" element={<Register />} />
           <Route path="/dang-nhap" element={<Login />} />
           <Route path="/quen-mat-khau" element={<ResetPassword />} />
+          <Route path="/dang-nhap-sms" element={<LoginWithSMS />} />
         </Route>
 
         <Route path="/" element={<AppLayout />}>

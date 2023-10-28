@@ -47,11 +47,11 @@ const DetailActions = memo((product: ProductType) => {
 
   useEffect(() => {
     const isCommented = product.comments.filter(
-      (comment: any) => comment.auth === user._id
+      (comment: any) => comment.auth === user?._id
     );
 
-    if (user._id && !isCommented.length) setShowBox(true);
-  }, [user._id, product.comments]);
+    if (user?._id && !isCommented.length) setShowBox(true);
+  }, [user?._id, product.comments]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

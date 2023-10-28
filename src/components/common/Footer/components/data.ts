@@ -23,35 +23,6 @@ export const footerInfoData: FooterInfoDataType[] = [
     ],
   },
   {
-    title: "Danh mục sản phẩm",
-    childrent: [
-      {
-        item: "Sữa",
-        url: "",
-      },
-      {
-        item: "Quần áo và làm đẹp",
-        url: "",
-      },
-      {
-        item: "Đồ chơi thú cưng",
-        url: "",
-      },
-      {
-        item: "Nguyên liệu làm bánh",
-        url: "",
-      },
-      {
-        item: "Trái cây tươi",
-        url: "",
-      },
-      {
-        item: "Rượu & đồ uống",
-        url: "",
-      },
-    ],
-  },
-  {
     title: "Thông tin",
     childrent: [
       {

@@ -27,7 +27,7 @@ const Bought = () => {
           </Typography>
         ) : (
           orders?.map((order) => (
-            <OrderItem order={order} user={user} key={order._id} />
+            <OrderItem order={order} user={user!} key={order._id} />
           ))
         )}
       </Box>

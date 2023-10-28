@@ -2,14 +2,18 @@ import { Box, SpeedDial } from "@mui/material";
 import MessageIcon from "@mui/icons-material/Message";
 import { mainColor } from "../../constants/colors";
 import MainChat from "./MainChat";
-import { useState } from "react";
 import ZoomInFromBottomRight from "./ZoomInFromBottomRight ";
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import { setPopup } from "../../redux/slices/messageSlice";
 
 const PopupMessage = () => {
-  const [isMainChatOpen, setIsMainChatOpen] = useState(false);
+  const popup = useAppSelector((state: RootState) => state.messages.popup);
+  const dispatch = useDispatch();
 
   const toggleMainChat = () => {
-    setIsMainChatOpen(!isMainChatOpen);
+    dispatch(setPopup(!popup));
   };
 
   return (
@@ -23,7 +27,7 @@ const PopupMessage = () => {
         zIndex: 1000,
       }}
     >
-      <ZoomInFromBottomRight isOpen={isMainChatOpen}>
+      <ZoomInFromBottomRight isOpen={popup}>
         <MainChat />
       </ZoomInFromBottomRight>
       <SpeedDial

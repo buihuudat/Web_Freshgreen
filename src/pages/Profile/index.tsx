@@ -77,7 +77,7 @@ const Profile = () => {
   const loading = useAppSelector((state: RootState) => state.user.isLoading);
 
   const userVerified = useMemo(
-    () => user.verifyPhone && user.verifyEmail,
+    () => user?.verifyPhone && user?.verifyEmail,
     [user]
   );
 
@@ -133,18 +133,17 @@ const Profile = () => {
 
     const data: UserType = {
       _id: user?._id,
-      username: (formData.get("username") as string) || user?.username,
+      username: (formData.get("username") as string) || user?.username!,
       phone:
-        (formData.get("phone") as string) || user?.phone.includes("social")
-          ? ""
-          : user?.phone,
-      email: (formData.get("email") as string) || user?.email,
+        (formData.get("phone") as string) ||
+        (user?.phone.includes("social") ? "" : user?.phone!),
+      email: (formData.get("email") as string) || user?.email!,
       password: formData.get("password") as string,
       fullname: {
         firstname:
-          (formData.get("firstname") as string) || user?.fullname?.firstname,
+          (formData.get("firstname") as string) || user?.fullname?.firstname!,
         lastname:
-          (formData.get("lastname") as string) || user?.fullname?.lastname,
+          (formData.get("lastname") as string) || user?.fullname?.lastname!,
       },
       address,
     };
@@ -260,7 +259,7 @@ const Profile = () => {
   const { pathname } = useLocation();
 
   const handleVerifyEmail = () => {
-    dispatch(userActions.verifyEmail(user.email));
+    dispatch(userActions.verifyEmail(user?.email!));
   };
 
   // const handleVerifyPhone = () => {
@@ -425,7 +424,7 @@ const Profile = () => {
               fullWidth
               name="phone"
               label={`Phone ${
-                user.verifyPhone ? "(Đã xác minh)" : "(Chưa xác minh)"
+                user?.verifyPhone ? "(Đã xác minh)" : "(Chưa xác minh)"
               }`}
               defaultValue={
                 user?.phone.split("#").includes("social") ? "" : user?.phone
@@ -457,7 +456,7 @@ const Profile = () => {
               fullWidth
               name="email"
               label={`Email ${
-                user.verifyEmail ? "(Đã xác minh)" : "(Chưa xác minh)"
+                user?.verifyEmail ? "(Đã xác minh)" : "(Chưa xác minh)"
               }`}
               defaultValue={user?.email}
               margin="normal"
@@ -466,7 +465,7 @@ const Profile = () => {
               error={errText.email !== ""}
               helperText={errText.email}
             />
-            {!user.verifyEmail && (
+            {!user?.verifyEmail && (
               <Button
                 variant="outlined"
                 sx={{ display: isDisable ? "block" : "none" }}
@@ -556,14 +555,6 @@ const Profile = () => {
               disabled={!isDisable}
             />
 
-            <LoadingButton
-              variant="contained"
-              color="warning"
-              onClick={handleDisable}
-              fullWidth
-            >
-              {!isDisable ? "Edit" : "Cancel"}
-            </LoadingButton>
             {isDisable && (
               <LoadingButton
                 loading={loading}
@@ -575,6 +566,15 @@ const Profile = () => {
                 Update
               </LoadingButton>
             )}
+
+            <LoadingButton
+              variant="contained"
+              color="warning"
+              onClick={handleDisable}
+              fullWidth
+            >
+              {!isDisable ? "Edit" : "Cancel"}
+            </LoadingButton>
           </Box>
         </Box>
       </Box>

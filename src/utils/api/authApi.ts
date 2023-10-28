@@ -7,6 +7,8 @@ export const authAPI = {
     axiosClient.post("/auth/login/google", payload),
   facebook: (payload: LoginSocialType) =>
     axiosClient.post("/auth/login/facebook", payload),
+  loginWithSMS: (phone: string) =>
+    axiosClient.post("/auth/login/sms", { phone }),
   register: (newUser: RegisterType) =>
     axiosClient.post("/auth/register", newUser),
   verifyToken: () => axiosClient.post("/auth/verify-token"),

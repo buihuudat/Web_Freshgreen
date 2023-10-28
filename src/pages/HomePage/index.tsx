@@ -14,7 +14,7 @@ import { categoryActions } from "../../actions/categoryActions";
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
-  const { products, popular, bestSeller } = useAppSelector(
+  const { popular, bestSeller, productsView } = useAppSelector(
     (state: RootState) => state.product
   );
   const { images } = useAppSelector(
@@ -25,8 +25,8 @@ const HomePage = () => {
   );
 
   useEffect(() => {
-    dispatch(productActions.gets({ page: 1, perPage: 8 }));
     dispatch(productActions.popular());
+    dispatch(productActions.getProductsView());
     dispatch(productActions.bestSeller());
     dispatch(settingsActions.getBanner());
     dispatch(categoryActions.gets());
@@ -48,7 +48,7 @@ const HomePage = () => {
       <BestSellers products={bestSeller} />
 
       {/* sale in day */}
-      <HomeSale products={products} />
+      <HomeSale products={productsView} />
     </Box>
   );
 };

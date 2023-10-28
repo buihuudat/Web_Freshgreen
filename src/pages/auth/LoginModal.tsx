@@ -44,7 +44,7 @@ export const LoginModal = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data: LoginType = {
-      phone: email ?? (formData.get("username") as string),
+      username: email ?? (formData.get("username") as string),
       password: formData.get("password") as string,
     };
 

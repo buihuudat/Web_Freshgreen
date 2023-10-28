@@ -7,6 +7,10 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import ScrollToTop from "./utils/handlers/resetLocalScroll";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "./firebaseConfig";
+
+initializeApp(firebaseConfig);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

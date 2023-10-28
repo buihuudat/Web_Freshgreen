@@ -8,13 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { mainColor } from "../../constants/colors";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import ShareIcon from "@mui/icons-material/Share";
-import { LoadingButton } from "@mui/lab";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -41,10 +40,10 @@ const ProductDetails = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { products, product, productLoading } = useAppSelector(
+  const { products, product } = useAppSelector(
     (state: RootState) => state.product
   );
-  const userId = useAppSelector((state: RootState) => state.user.user)._id;
+  const userId = useAppSelector((state: RootState) => state.user.user)?._id;
   const favoriteProducts = useAppSelector(
     (state: RootState) => state.favorite.favoriteProducts
   );
@@ -53,14 +52,27 @@ const ProductDetails = () => {
   ).length;
 
   const [currentCountProduct, setCurrentCountProduct] = useState<number>(1);
-  const [isLoading] = useState<boolean>(false);
   const [imageToShow, setImageToShow] = useState<string | undefined>(undefined);
+  const [isFetching, setIsFetching] = useState(true);
+
+  const fetchData = useCallback(async () => {
+    setIsFetching(true);
+    await Promise.all([
+      dispatch(productActions.get(productId)),
+      dispatch(productActions.gets({ page: 1, perPage: 8 })),
+      dispatch(commentActions.getProductComments(productId)),
+    ]);
+    setIsFetching(false);
+  }, [dispatch, productId]);
 
   useEffect(() => {
-    dispatch(productActions.get(productId));
-    dispatch(productActions.gets({ page: 1, perPage: 8 }));
-    dispatch(commentActions.getProductComments(productId));
-  }, [dispatch, productId]);
+    fetchData();
+    const updateProductView = setTimeout(() => {
+      dispatch(productActions.updateView(product._id!));
+    }, 10000);
+
+    return () => clearTimeout(updateProductView);
+  }, []);
 
   const handleAddCart = () => {
     dispatch(
@@ -90,7 +102,7 @@ const ProductDetails = () => {
 
   const viewShop = () => navigate("/cua-hang/" + product.shop?.name);
 
-  return productLoading ? (
+  return isFetching ? (
     <SkeletonLoading />
   ) : (
     <Box>
@@ -226,15 +238,11 @@ const ProductDetails = () => {
               color="success"
               size="large"
               onClick={handleAddCart}
-              disabled={isLoading}
             >
               <AddShoppingCartIcon />
               Thêm vào giỏ hàng
             </Button>
 
-            <LoadingButton loading={isLoading} variant="contained" size="large">
-              Mua ngay
-            </LoadingButton>
             <Button
               size="large"
               variant="outlined"
@@ -315,7 +323,6 @@ const ProductDetails = () => {
       </Box>
 
       {/* lien quan */}
-
       <Box py={4}>
         <Typography fontSize={30} fontWeight={600}>
           Các sản phẩm liên quan

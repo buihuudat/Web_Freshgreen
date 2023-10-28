@@ -39,7 +39,6 @@ export const cartSlice = createSlice({
       .addCase(cartActions.addProductToCart.fulfilled, (state) => {
         setItem("cart", state.data);
       })
-
       .addCase(cartActions.downCountProduct.fulfilled, (state) => {
         setItem("cart", state.data);
       })

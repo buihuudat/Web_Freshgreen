@@ -4,8 +4,6 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 
-interface Props {}
-
 interface ExtendedWindow extends Window {
   recaptchaVerifier?: RecaptchaVerifier;
   confirmationResult?: any;
@@ -14,14 +12,15 @@ interface ExtendedWindow extends Window {
 const auth = getAuth();
 declare var window: ExtendedWindow;
 
-export const recaptcha = () => {
-  const auth = getAuth();
-  window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
+export const recaptcha = (recaptchaContainer: any) => {
+  const recaptchaVerifier = new RecaptchaVerifier(auth, recaptchaContainer, {
     size: "invisible",
     callback: (response: any) => {
-      return true;
+      console.log(response);
     },
   });
+
+  recaptchaVerifier.render();
 };
 
 export const phoneVerify = (phoneNumber: string) => {

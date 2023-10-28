@@ -8,6 +8,7 @@ interface InitialStateProps {
   product: ProductType;
   popular: Array<ProductType>;
   bestSeller: Array<ProductType>;
+  productsView: Array<ProductType>;
   shopProducts: {
     products: ProductType[];
     totalProducts: number;
@@ -26,6 +27,7 @@ const initialState: InitialStateProps = {
   product: InitialProduct,
   popular: [],
   bestSeller: [],
+  productsView: [],
   shopProducts: { products: [], totalProducts: 0 },
   totalProducts: 0,
   loading: false,
@@ -83,6 +85,20 @@ export const productSlice = createSlice({
       })
       .addCase(productActions.getShopProducts.fulfilled, (state, action) => {
         state.shopProducts = action.payload;
+      })
+      .addCase(productActions.getProductsView.fulfilled, (state, action) => {
+        state.productsView = action.payload;
+      })
+      .addCase(productActions.updateView.fulfilled, (state, action) => {
+        if (!action.payload) return;
+        const indexProduct = state.products.findIndex(
+          (product) => product._id === action.meta.arg
+        );
+        const currentProduct = state.products[indexProduct];
+        state.products[indexProduct] = {
+          ...currentProduct,
+          views: currentProduct.views + 1,
+        };
       })
       .addMatcher<PendingAction>(
         (action) => action.type.endsWith("/pending"),

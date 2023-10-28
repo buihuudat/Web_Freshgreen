@@ -9,6 +9,7 @@ import { ProductCartType } from "../../../types/cartType";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { cartActions } from "../../../actions/cartActions";
 import { RootState } from "../../../redux/store";
+import { setItem } from "../../../utils/handlers/tokenHandler";
 
 const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
   const handleUp = () => {
     dispatch(
       cartActions.upCountProduct({
-        userId: user._id!,
+        userId: user?._id!,
         productId: product._id as string,
       })
     );
@@ -27,7 +28,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
   const handleDown = () => {
     dispatch(
       cartActions.downCountProduct({
-        userId: user._id!,
+        userId: user?._id!,
         productId: product._id as string,
       })
     );
@@ -35,10 +36,17 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
   const handleDeleteProduct = () => {
     dispatch(
       cartActions.removeProduct({
-        userId: user._id!,
+        userId: user?._id!,
         productId: product._id as string,
       })
     );
+  };
+
+  const handleViewProduct = () => {
+    navigate(`/san-pham/details/` + product.title, {
+      state: { productId: product._id as string },
+    });
+    setItem("productId", product._id);
   };
 
   return (
@@ -70,9 +78,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
           fontSize={{ sm: 23, xs: 16 }}
           textTransform={"capitalize"}
           sx={{ cursor: "pointer" }}
-          onClick={() =>
-            navigate(`/san-pham/details/${product.title}`, { state })
-          }
+          onClick={handleViewProduct}
         >
           {product.title.length > 10
             ? product.title.slice(0, product.title.length) + "..."

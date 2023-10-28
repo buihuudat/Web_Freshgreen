@@ -184,7 +184,7 @@ const Navbar = () => {
       <NavMobile
         mobileOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
-        user={user}
+        user={user!}
       />
     </Box>
   );

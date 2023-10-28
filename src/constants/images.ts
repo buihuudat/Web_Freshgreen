@@ -7,3 +7,4 @@ export const HomeAds2 = require("../resources/images/HomeAds2.png");
 export const HomeAds3 = require("../resources/images/HomeAds3.png");
 export const NoImage = require("../resources/images/noImage.png");
 export const AIImage = require("../resources/images/AI.png");
+export const StoreImage = require("../resources/images/storeImage.png");

@@ -10,7 +10,6 @@ function MainChat() {
         width: 700,
         height: 500,
         bottom: 0,
-
         padding: 2,
       }}
     >

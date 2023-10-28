@@ -37,11 +37,19 @@ const HomeFeaturedCategory = (props: Props) => {
             elevation={6}
             onClick={() => handleViewProduct(category)}
           >
-            <img
-              src={category.image}
-              alt={category.name}
-              style={{ width: "100%", height: 150, objectFit: "cover" }}
-            />
+            <Box sx={{ width: "100%", height: 150 }}>
+              <img
+                src={category.image}
+                alt={category.name}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  width: "auto",
+                  height: "auto",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
             <Typography fontWeight={600} align="center" fontSize={18}>
               {category.name}
             </Typography>

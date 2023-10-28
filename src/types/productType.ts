@@ -33,6 +33,7 @@ export interface ProductType {
   brand: string;
   shop?: Shop;
   comments: Array<string>;
+  views: number;
 
   totalSales?: number;
   createdAt?: string;
@@ -52,6 +53,7 @@ export const InitialProduct: ProductType = {
   tags: [],
   status: false,
   quantity: 0,
+  views: 0,
   currentQuantity: 0,
   brand: "",
   comments: [],

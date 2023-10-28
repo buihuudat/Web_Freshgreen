@@ -65,17 +65,17 @@ const PayInformation = memo(() => {
 
   useEffect(() => {
     setAddress(
-      user.address?.more +
+      user?.address?.more +
         " " +
-        user.address?.street +
+        user?.address?.street +
         " " +
-        user.address?.ward +
+        user?.address?.ward +
         " " +
-        user.address?.district +
+        user?.address?.district +
         " " +
-        user.address?.city
+        user?.address?.city
     );
-  }, [user.address]);
+  }, [user?.address]);
 
   const handleSelectPayment = (e: ChangeEvent<HTMLInputElement>) => {
     setPaymentMethod(e.target.value as PayMethod);
@@ -104,7 +104,7 @@ const PayInformation = memo(() => {
   }, [voucher]);
 
   const handlePay = async () => {
-    if (!user.address) {
+    if (!user?.address) {
       NotificationToast({
         message: "Cần thêm địa chỉ trước khi thanh toán",
         type: "warning",
@@ -134,9 +134,9 @@ const PayInformation = memo(() => {
             totalPrice,
             amount: totalPay,
             address,
-            phone: user.phone,
-            email: user.email,
-            nameOfUser: user.username,
+            phone: user?.phone,
+            email: user?.email,
+            nameOfUser: user?.username,
             discount: {
               voucher,
               discount,
@@ -158,10 +158,12 @@ const PayInformation = memo(() => {
 
       try {
         await dispatch(
-          orderActions.createOrder({ userId: user._id as string, order })
-        ).then(() => {
-          socket.emit("create-order", order);
-        });
+          orderActions.createOrder({ userId: user?._id as string, order })
+        )
+          .unwrap()
+          .then(() => {
+            socket.emit("create-order", order);
+          });
         dispatch(clearCart());
         navigate("/quan-li-don-hang");
       } finally {
@@ -265,7 +267,7 @@ const PayInformation = memo(() => {
       </Box>
 
       {/* dia chi giao hang */}
-      {!user.address ? (
+      {!user?.address ? (
         <Link
           sx={{ fontWeight: 600, textDecoration: "none", my: 1 }}
           href="/tai-khoan"
@@ -291,7 +293,7 @@ const PayInformation = memo(() => {
           Số điện thoại nhận hàng:{" "}
         </Typography>
         <Typography fontSize={16} fontWeight={600}>
-          {user.phone}
+          {user?.phone}
         </Typography>
       </Box>
 

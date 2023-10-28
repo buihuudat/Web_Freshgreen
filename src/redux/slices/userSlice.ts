@@ -6,7 +6,7 @@ import { removeItem } from "../../utils/handlers/tokenHandler";
 
 export interface UserStateProps {
   users: UserType[];
-  user: UserType;
+  user: UserType | null;
   isLoading: boolean;
   error: boolean;
   errMsg: string;
@@ -15,7 +15,7 @@ export interface UserStateProps {
 
 const initialState: UserStateProps = {
   users: [],
-  user: InitialUser,
+  user: null,
   isLoading: false,
   error: false,
   errMsg: "",
@@ -57,16 +57,16 @@ export const userSlice = createSlice({
         state.users = action.payload;
       })
       .addCase(userActions.userUpdate.fulfilled, (state, action) => {
-        if (state.user._id === action.payload._id) state.user = action.payload;
+        if (state.user?._id === action.payload._id) state.user = action.payload;
         state.userViewData = action.payload;
       })
       .addCase(userActions.verifyEmail.fulfilled, (state, action) => {
         if (!action.payload) return;
-        state.user.verifyEmail = true;
+        state.user!.verifyEmail = true;
       })
       .addCase(userActions.verifyPhone.fulfilled, (state, action) => {
         if (!action.payload) return;
-        state.user.verifyPhone = true;
+        state.user!.verifyPhone = true;
       })
       .addMatcher<PendingAction>(
         (action) => action.type.endsWith("/pending"),

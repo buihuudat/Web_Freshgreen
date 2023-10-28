@@ -33,7 +33,7 @@ const ProductCard = memo(
   ({ product, fast = false, width = 400 }: ProductCardType) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const userId = useAppSelector((state: RootState) => state.user.user)._id!;
+    const userId = useAppSelector((state: RootState) => state.user.user)?._id!;
     const isComapring = useAppSelector(
       (state: RootState) => state.compare.isComparing
     );

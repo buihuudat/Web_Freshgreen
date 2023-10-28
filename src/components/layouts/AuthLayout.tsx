@@ -7,8 +7,10 @@ import Footer from "../common/Footer";
 import { verifyToken } from "../../utils/verifyToken";
 import { useAppDispatch } from "../../redux/hooks";
 import { clearStorage, getItem } from "../../utils/handlers/tokenHandler";
+import { socket } from "../../utils/api/socketConfirm";
+import { requestPermissionNotification } from "../../utils/handlers/getFCMToken";
 
-const AuthLayout: React.FC = () => {
+const AuthLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -20,10 +22,9 @@ const AuthLayout: React.FC = () => {
         if (getItem("user")) {
           const user = await verifyToken();
           if (user) {
+            socket.emit("user-login", user._id!);
+            requestPermissionNotification(user._id);
             navigate("/");
-          } else {
-            setIsLoading(false);
-            clearStorage();
           }
         } else {
           setIsLoading(false);

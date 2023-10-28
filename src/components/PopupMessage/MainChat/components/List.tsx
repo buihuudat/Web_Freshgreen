@@ -1,6 +1,5 @@
 import { Avatar, Box, Divider, Typography } from "@mui/material";
 import ListIcon from "@mui/icons-material/List";
-import { fullnameOfUser } from "../../../../types/userType";
 import { mainColor } from "../../../../constants/colors";
 import { AIImage } from "../../../../constants/images";
 import { useAppDispatch } from "../../../../redux/hooks";
@@ -8,10 +7,8 @@ import { selectUser } from "../../../../redux/slices/messageSlice";
 
 const AIData = {
   user: {
-    fullname: {
-      firstname: "AI ",
-      lastname: "tư vấn",
-    },
+    _id: "AI",
+    name: "AI tư vấn",
     avatar: AIImage,
   },
   lastMessage: "",
@@ -22,158 +19,11 @@ const AIData = {
 const data = [
   {
     user: {
-      fullname: {
-        firstname: "test",
-        lastname: "test",
-      },
+      name: "test",
       avatar: "",
     },
     lastMessage: "string",
     time: "10:11",
-    seen: false,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "John",
-        lastname: "Doe",
-      },
-      avatar: "",
-    },
-    lastMessage: "Hello!",
-    time: "11:30",
-    seen: true,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Alice",
-        lastname: "Johnson",
-      },
-      avatar: "",
-    },
-    lastMessage: "Hi there!",
-    time: "12:45",
-    seen: false,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Bob",
-        lastname: "Smith",
-      },
-      avatar: "",
-    },
-    lastMessage: "Good morning!",
-    time: "09:15",
-    seen: true,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Jane",
-        lastname: "Doe",
-      },
-      avatar: "",
-    },
-    lastMessage: "Hey!",
-    time: "14:20",
-    seen: false,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Bob",
-        lastname: "Smith",
-      },
-      avatar: "",
-    },
-    lastMessage: "Good morning!",
-    time: "09:15",
-    seen: true,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Jane",
-        lastname: "Doe",
-      },
-      avatar: "",
-    },
-    lastMessage: "Hey!",
-    time: "14:20",
-    seen: false,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Bob",
-        lastname: "Smith",
-      },
-      avatar: "",
-    },
-    lastMessage: "Good morning!",
-    time: "09:15",
-    seen: true,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Jane",
-        lastname: "Doe",
-      },
-      avatar: "",
-    },
-    lastMessage: "Hey!",
-    time: "14:20",
-    seen: false,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Bob",
-        lastname: "Smith",
-      },
-      avatar: "",
-    },
-    lastMessage: "Good morning!",
-    time: "09:15",
-    seen: true,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Jane",
-        lastname: "Doe",
-      },
-      avatar: "",
-    },
-    lastMessage: "Hey!",
-    time: "14:20",
-    seen: false,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Bob",
-        lastname: "Smith",
-      },
-      avatar: "",
-    },
-    lastMessage: "Good morning!",
-    time: "09:15",
-    seen: true,
-  },
-  {
-    user: {
-      fullname: {
-        firstname: "Jane",
-        lastname: "Doe",
-      },
-      avatar: "",
-    },
-    lastMessage: "Hey!",
-    time: "14:20",
     seen: false,
   },
 ];
@@ -184,6 +34,7 @@ const ListItem = (data: any) => {
   const handleSelect = () => {
     dispatch(selectUser(data));
   };
+
   return (
     <Box sx={{ cursor: "pointer" }} onClick={handleSelect}>
       <Box
@@ -204,9 +55,9 @@ const ListItem = (data: any) => {
             justifyContent={"space-between"}
           >
             <Typography fontWeight={600}>
-              {fullnameOfUser(data.user.fullname).length > 10
-                ? fullnameOfUser(data.user.fullname).slice(0, 10) + "..."
-                : fullnameOfUser(data.user.fullname)}
+              {data.user.name.length > 10
+                ? data.user.name.slice(0, 10) + "..."
+                : data.user.name}
             </Typography>
             {data.seen && (
               <Box component={"li"} sx={{ color: mainColor }}></Box>

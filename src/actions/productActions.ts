@@ -123,4 +123,25 @@ export const productActions = {
       }
     }
   ),
+
+  getProductsView: createAsyncThunk("product/prouduct-view", async () => {
+    try {
+      const res = await productApi.getProductsView();
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }),
+
+  updateView: createAsyncThunk(
+    "product/update/view",
+    async (productId: string) => {
+      try {
+        await productApi.updateView(productId);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+  ),
 };

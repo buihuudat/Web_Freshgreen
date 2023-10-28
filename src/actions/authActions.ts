@@ -60,6 +60,17 @@ export const authActions = {
     }
   ),
 
+  sms: createAsyncThunk("auth/login/sms", async (phone: string, thunkAPI) => {
+    try {
+      const res = await authAPI.loginWithSMS(phone);
+      setItem("user", res.data.token);
+      return true;
+    } catch (error: any) {
+      if (error.data) return thunkAPI.rejectWithValue(error.data);
+      throw error;
+    }
+  }),
+
   resetPassword: createAsyncThunk<
     any,
     { email: string; password: string; confirmPassword: string }
