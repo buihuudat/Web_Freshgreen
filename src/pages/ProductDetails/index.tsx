@@ -47,34 +47,38 @@ const ProductDetails = () => {
   const favoriteProducts = useAppSelector(
     (state: RootState) => state.favorite.favoriteProducts
   );
-  const isFavorite = favoriteProducts.filter(
-    (p) => p._id === product._id
-  ).length;
 
   const [currentCountProduct, setCurrentCountProduct] = useState<number>(1);
   const [imageToShow, setImageToShow] = useState<string | undefined>(undefined);
   const [isFetching, setIsFetching] = useState(true);
 
-  const fetchData = useCallback(async () => {
-    setIsFetching(true);
-    await Promise.all([
-      dispatch(productActions.get(productId)),
-      dispatch(productActions.gets({ page: 1, perPage: 8 })),
-      dispatch(commentActions.getProductComments(productId)),
-    ]);
-    setIsFetching(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsFetching(true);
+      await Promise.all([
+        dispatch(productActions.get(productId)),
+        dispatch(productActions.gets({ page: 1, perPage: 8 })),
+        dispatch(commentActions.getProductComments(productId)),
+      ]);
+      setIsFetching(false);
+    };
+    fetchData();
   }, [dispatch, productId]);
 
+  const isFavorite = favoriteProducts.filter(
+    (p) => p._id === product?._id
+  ).length;
+
   useEffect(() => {
-    fetchData();
     const updateProductView = setTimeout(() => {
-      dispatch(productActions.updateView(product._id!));
+      product?._id && dispatch(productActions.updateView(product?._id!));
     }, 10000);
 
     return () => clearTimeout(updateProductView);
-  }, []);
+  }, [product?._id]);
 
   const handleAddCart = () => {
+    if (!product) return;
     dispatch(
       cartActions.addProductToCart({
         userId: userId as string,
@@ -91,7 +95,7 @@ const ProductDetails = () => {
     dispatch(
       favoriteActions.update({
         userId: userId as string,
-        product,
+        product: product!,
       })
     );
   };
@@ -100,7 +104,9 @@ const ProductDetails = () => {
     dispatch(addProductCompare(product));
   };
 
-  const viewShop = () => navigate("/cua-hang/" + product.shop?.name);
+  const viewShop = () => navigate("/cua-hang/" + product?.shop?.name);
+
+  if (!product) return <SkeletonLoading />;
 
   return isFetching ? (
     <SkeletonLoading />

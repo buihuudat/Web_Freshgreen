@@ -1,4 +1,11 @@
-import { Badge, Box, IconButton, Typography, Avatar } from "@mui/material";
+import {
+  Badge,
+  Box,
+  IconButton,
+  Typography,
+  Avatar,
+  CircularProgress,
+} from "@mui/material";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { mainColor } from "../../../constants/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -16,6 +23,7 @@ import Search from "../Search";
 import { productActions } from "../../../actions/productActions";
 import MenuIcon from "@mui/icons-material/Menu";
 import NavMobile from "./components/NavMobile";
+import SearchItem from "../../SearchItem";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -26,6 +34,9 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  const { productReSearch, searchLoading } = useAppSelector(
+    (state: RootState) => state.product
+  );
   const countProductsCart: number =
     useAppSelector((state: RootState) => state.cart.data)?.products.length || 0;
   const countFavoriteProduct: number =
@@ -70,6 +81,10 @@ const Navbar = () => {
     dispatch(productActions.searchProducts(searchQuery));
   }, [searchQuery, dispatch]);
 
+  useEffect(() => {
+    setSearchQuery("");
+  }, [navigate]);
+
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -111,11 +126,36 @@ const Navbar = () => {
             cursor: "pointer",
           }}
         />
-        <Search
-          placeholder="Tìm kiếm sản phẩm ưa thích..."
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Box>
+          <Search
+            placeholder="Tìm kiếm sản phẩm ưa thích..."
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+          <Box sx={{ position: "absolute", width: 365, mt: 1 }}>
+            {searchLoading ? (
+              <CircularProgress color="success" size={20} />
+            ) : productReSearch.length ? (
+              <Box
+                sx={{
+                  background: "white",
+                  maxHeight: 200,
+                  width: "100%",
+                  overflow: "auto",
+                  padding: 1,
+                  borderBottomLeftRadius: 5,
+                  borderBottomRightRadius: 5,
+                }}
+              >
+                {productReSearch.map((product) => (
+                  <SearchItem key={product._id!} {...product} />
+                ))}
+              </Box>
+            ) : (
+              <></>
+            )}
+          </Box>
+        </Box>
 
         <Box display={{ xs: "none", sm: "flex" }} flexDirection={"row"} gap={2}>
           {navbarDataItem.map(

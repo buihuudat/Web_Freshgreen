@@ -4,6 +4,7 @@ import InputBase from "@mui/material/InputBase";
 import { mainColor } from "../../constants/colors";
 import { Box } from "@mui/material";
 import { ChangeEvent, memo } from "react";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const SearchStyled = styled("div")(({ theme }) => ({
   position: "relative",
@@ -15,7 +16,10 @@ const SearchStyled = styled("div")(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
+  paddingRight: 10,
   width: "100%",
+  display: "flex",
+  alignItems: "center",
   [theme.breakpoints.up("sm")]: {
     // marginLeft: theme.spacing(1),
     width: "auto",
@@ -38,6 +42,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingRight: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
@@ -72,6 +77,7 @@ const Search = memo(
             onChange={handleChange}
             value={searchQuery}
           />
+          <CancelIcon />
         </SearchStyled>
       </Box>
     );

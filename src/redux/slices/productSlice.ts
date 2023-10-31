@@ -1,14 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { InitialProduct, ProductType } from "../../types/productType";
+import { ProductType } from "../../types/productType";
 import { productActions } from "../../actions/productActions";
 import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
 
 interface InitialStateProps {
   products: Array<ProductType>;
-  product: ProductType;
+  product: ProductType | null;
   popular: Array<ProductType>;
   bestSeller: Array<ProductType>;
   productsView: Array<ProductType>;
+  productReSearch: Array<ProductType>;
   shopProducts: {
     products: ProductType[];
     totalProducts: number;
@@ -16,6 +17,7 @@ interface InitialStateProps {
   totalProducts: number;
   loading: boolean;
   productLoading: boolean;
+  searchLoading: boolean;
   modal: {
     data?: ProductType;
     open: boolean;
@@ -24,15 +26,16 @@ interface InitialStateProps {
 
 const initialState: InitialStateProps = {
   products: [],
-  product: InitialProduct,
+  product: null,
   popular: [],
   bestSeller: [],
   productsView: [],
+  productReSearch: [],
   shopProducts: { products: [], totalProducts: 0 },
   totalProducts: 0,
   loading: false,
   productLoading: true,
-
+  searchLoading: false,
   modal: {
     data: undefined,
     open: false,
@@ -99,6 +102,16 @@ export const productSlice = createSlice({
           ...currentProduct,
           views: currentProduct.views + 1,
         };
+      })
+      .addCase(productActions.searchProducts.pending, (state) => {
+        state.searchLoading = true;
+      })
+      .addCase(productActions.searchProducts.fulfilled, (state, action) => {
+        state.productReSearch = action.payload;
+        state.searchLoading = false;
+      })
+      .addCase(productActions.searchProducts.rejected, (state) => {
+        state.searchLoading = false;
       })
       .addMatcher<PendingAction>(
         (action) => action.type.endsWith("/pending"),

@@ -49,5 +49,5 @@ export const productApi = {
     axiosClient.get(`/products/shop/${id}/products`),
 
   searchProducts: (searchQuery: string) =>
-    axiosClient.get(`/products/search?${searchQuery}`),
+    axiosClient.get(`/products/search?product=${searchQuery}`),
 };
