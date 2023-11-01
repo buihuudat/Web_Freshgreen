@@ -14,7 +14,6 @@ import { setItem } from "../../../utils/handlers/tokenHandler";
 const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const state = { product } as NavigateOptions;
   const user = useAppSelector((state: RootState) => state.user.user);
 
   const handleUp = () => {
@@ -94,16 +93,20 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
         flexWrap={{ sm: "nowrap", xs: "wrap" }}
         p={1}
       >
-        <Typography
-          fontSize={{ sm: 20, xs: 13 }}
-          fontWeight={600}
-          color={"orange"}
-        >
-          -{product.discount}%
-        </Typography>
-        <Typography color={"#999"} sx={{ textDecoration: "line-through" }}>
-          {moneyFormat(product.price)}
-        </Typography>
+        {product.discount > 0 && (
+          <Typography
+            fontSize={{ sm: 20, xs: 13 }}
+            fontWeight={600}
+            color={"orange"}
+          >
+            -{product.discount}%
+          </Typography>
+        )}
+        {product.discount > 0 && (
+          <Typography color={"#999"} sx={{ textDecoration: "line-through" }}>
+            {moneyFormat(product.price)}
+          </Typography>
+        )}
         <Typography
           fontSize={{ sm: 22, xs: 13 }}
           color={"#62BD19"}

@@ -2,7 +2,7 @@ import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { mainColor } from "../../constants/colors";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { ChangeEvent, memo } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 
@@ -77,7 +77,9 @@ const Search = memo(
             onChange={handleChange}
             value={searchQuery}
           />
-          <CancelIcon />
+          {searchQuery !== "" && (
+            <CancelIcon onClick={() => setSearchQuery("")} color="warning" />
+          )}
         </SearchStyled>
       </Box>
     );

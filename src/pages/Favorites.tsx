@@ -18,7 +18,7 @@ const Favorites = () => {
   }, [dispatch, user?._id]);
 
   return favoriteProducts.length ? (
-    <Box display={"flex"} flexDirection={"row"} gap={10} flexWrap={"wrap"}>
+    <Box display={"flex"} flexDirection={"row"} gap={5} flexWrap={"wrap"}>
       {favoriteProducts.map((product: ProductType, index: number) => (
         <ProductCard product={product} key={index} />
       ))}

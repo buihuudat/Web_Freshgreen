@@ -56,27 +56,38 @@ export const cartSlice = createSlice({
         ),
         (state, action) => {
           const productsInCart: ProductCartType[] = state.data?.products || [];
-          const indexProduct = productsInCart.findIndex(
+          const updatedProducts = [...productsInCart];
+          const productIndex = productsInCart.findIndex(
             (product) => product._id === action.meta.arg.product._id
           );
 
-          let cartProductUpdate = [...productsInCart];
-          // if product existed in cart
-          if (indexProduct !== -1) {
-            cartProductUpdate[indexProduct] = {
-              ...cartProductUpdate[indexProduct],
-              count:
-                cartProductUpdate[indexProduct].count +
-                (action.type === cartActions.addProductToCart.pending.type
-                  ? 1
-                  : -1),
-            };
+          if (action.type === cartActions.addProductToCart.pending.type) {
+            // Handle pending action
+            if (productIndex !== -1) {
+              updatedProducts[productIndex] = {
+                ...updatedProducts[productIndex],
+                count: updatedProducts[productIndex].count + 1,
+              };
+            } else {
+              updatedProducts.push(action.meta.arg.product);
+            }
           } else {
-            cartProductUpdate.push(action.meta.arg.product);
+            // Handle rejected action
+            if (productIndex !== -1) {
+              updatedProducts.splice(productIndex, 1);
+            }
           }
-          state.data = { ...state.data, products: cartProductUpdate };
+
+          return {
+            ...state,
+            data: {
+              ...state.data,
+              products: updatedProducts,
+            },
+          };
         }
       )
+
       // cart up
       .addMatcher(
         isAnyOf(
