@@ -6,18 +6,24 @@ import Directory from "../common/Directory";
 import Footer from "../common/Footer";
 import ScrollTop from "../common/ScrollTop";
 import { verifyToken } from "../../utils/verifyToken";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setUserReducer } from "../../redux/slices/userSlice";
 import { clearStorage, getItem } from "../../utils/handlers/tokenHandler";
 import { cartActions } from "../../actions/cartActions";
 import { favoriteActions } from "../../actions/favoriteActions";
 import PopupMessage from "../PopupMessage";
 import { socket } from "../../utils/api/socketConfirm";
+import {
+  onListentingMessage,
+  requestPermissionNotification,
+} from "../../utils/handlers/getFCMToken";
+import { RootState } from "../../redux/store";
 
 const AppLayout = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
-
+  const user = useAppSelector((state: RootState) => state.user.user);
+  user && onListentingMessage(dispatch, user._id!);
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -28,10 +34,12 @@ const AppLayout = () => {
         if (!user) {
           return clearStorage();
         }
+
         dispatch(setUserReducer(user));
         dispatch(cartActions.getCart(user._id));
         dispatch(favoriteActions.get(user._id));
         socket.emit("user", user._id);
+        requestPermissionNotification(user._id!);
       } catch (error) {
         return;
       }

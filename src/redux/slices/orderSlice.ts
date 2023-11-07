@@ -22,7 +22,7 @@ export const orderSlice = createSlice({
         state.data = action.payload?.orders;
       })
       .addCase(orderActions.createOrder.fulfilled, (state, action) => {
-        state.data.push(action.payload);
+        state.data?.push(action.payload);
       })
       .addCase(orderActions.submitStatusOrder.fulfilled, (state, action) => {
         if (action.payload.status) {

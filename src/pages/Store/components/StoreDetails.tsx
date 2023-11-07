@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   IconButton,
+  LinearProgress,
   Paper,
   Rating,
   TextField,
@@ -16,32 +17,50 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { productActions } from "../../../actions/productActions";
 import { RootState } from "../../../redux/store";
 import ProductCard from "../../../components/common/ProductCard";
 import React from "react";
 import { ProductType } from "../../../types/productType";
 import { shopActions } from "../../../actions/shopActions";
-import { getItem } from "../../../utils/handlers/tokenHandler";
+import { StoreImage } from "../../../constants/images";
+import { LoadingButton } from "@mui/lab";
+import { NotificationToast } from "../../../utils/handlers/NotificationToast";
 
 const StoreDetails = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [productsResearch, setProductsResearch] = useState<ProductType[]>([]);
   const { state } = useLocation();
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = useCallback(async () => {
+    await Promise.all([
+      dispatch(shopActions.get(state.shopId)),
+      dispatch(productActions.getShopProducts(state.shopId)),
+    ]);
+    setIsLoading(false);
+  }, [dispatch, state]);
 
   useEffect(() => {
-    dispatch(shopActions.get(state || getItem("shopId")));
-    dispatch(productActions.getShopProducts(state));
-  }, [dispatch, state]);
+    fetchData();
+  }, [fetchData]);
 
   const { products, totalProducts } = useAppSelector(
     (state: RootState) => state.product.shopProducts
   );
   const store = useAppSelector((state: RootState) => state.shop.shop);
+  const user = useAppSelector((state: RootState) => state.user.user);
+
+  console.log(store._id);
 
   const preProducts: ProductType[] = useMemo(() => [...products], [products]);
+
+  const isFollowing = useMemo(
+    () => store.followers?.findIndex((fl) => fl === user?._id!) !== -1,
+    [store, user?._id]
+  );
 
   const handleSearch = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +79,20 @@ const StoreDetails = () => {
     );
   }, [preProducts, searchQuery]);
 
-  return (
+  const handleFollow = () => {
+    if (!user)
+      return NotificationToast({
+        message: "Yêu cầu đăng nhập trước",
+        type: "warning",
+      });
+    dispatch(
+      shopActions.followUpdate({ shopId: store._id!, userId: user?._id! })
+    );
+  };
+
+  return isLoading ? (
+    <LinearProgress color={"success"} />
+  ) : (
     <Box>
       <Typography
         fontWeight={600}
@@ -117,10 +149,11 @@ const StoreDetails = () => {
         flexDirection={{ sm: "row", xs: "column" }}
         gap={"5%"}
       >
+        {/* store info */}
         <Box width={{ sm: "20%", sx: "100%" }}>
           <Paper sx={{ background: "#A6DEC1", p: 3 }}>
             <img
-              src={store.image}
+              src={store.image || StoreImage}
               alt={store.name}
               style={{ width: 150, height: 150, objectFit: "cover" }}
             />
@@ -148,6 +181,22 @@ const StoreDetails = () => {
               {store.bio}
             </Typography>
 
+            <Typography>
+              <LocationOnIcon sx={{ color: mainColor, fontSize: 18 }} />
+              <b>Địa chỉ: </b>
+              {store.user?.address?.city}
+            </Typography>
+            <Typography>
+              <LocalPhoneIcon sx={{ color: mainColor, fontSize: 18 }} />
+              <b>Số điện thoại: </b>
+              {store.user?.phone}
+            </Typography>
+            <Typography>
+              <LocalPhoneIcon sx={{ color: mainColor, fontSize: 18 }} />
+              <b>Sản phẩm: </b>
+              {totalProducts}
+            </Typography>
+
             <Typography>Theo chúng tôi</Typography>
             <Box>
               <IconButton>
@@ -160,21 +209,16 @@ const StoreDetails = () => {
                 <InstagramIcon />
               </IconButton>
             </Box>
-            <Typography>
-              <LocationOnIcon sx={{ color: mainColor, fontSize: 18 }} />
-              <b>Địa chỉ: </b>
-              {store.user?.address.city}
-            </Typography>
-            <Typography>
-              <LocalPhoneIcon sx={{ color: mainColor, fontSize: 18 }} />
-              <b>Số điện thoại: </b>
-              {store.user?.phone}
-            </Typography>
-            <Typography>
-              <LocalPhoneIcon sx={{ color: mainColor, fontSize: 18 }} />
-              <b>Sản phẩm: </b>
-              {totalProducts}
-            </Typography>
+            <Box>
+              <Typography>Người theo dõi: {store.followers?.length}</Typography>
+              <LoadingButton
+                variant={isFollowing ? "outlined" : "contained"}
+                color="success"
+                onClick={handleFollow}
+              >
+                {isFollowing ? "Huỷ theo dõi" : "Theo dõi"}
+              </LoadingButton>
+            </Box>
           </Paper>
         </Box>
         {/* products store */}

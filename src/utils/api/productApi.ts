@@ -28,10 +28,12 @@ export const productApi = {
   get: (productId: string) => axiosClient.get(`/products/${productId}`),
 
   getPopularProducts: () => axiosClient.get("/products/popular"),
-
   getProductsBestSeller: () => axiosClient.get("/products/best-seller"),
-
   getProductsView: () => axiosClient.get("/products/products-view"),
+  getNewProducts: () => axiosClient.get("/products/new"),
+  getProductsRatedHighest: () => axiosClient.get("/products/rated-highest"),
+  getBiggestDiscountProducts: () =>
+    axiosClient.get("/products/biggest-discount"),
 
   create: (newProduct: ProductType) =>
     axiosClient.post("/products/create", newProduct),

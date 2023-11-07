@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import ClearIcon from "@mui/icons-material/Clear";
-import { NavigateOptions, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ProductCartType } from "../../../types/cartType";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { cartActions } from "../../../actions/cartActions";
@@ -64,86 +64,89 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          gap: { sm: 3, xs: 1 },
+          gap: { sm: 5, xs: 2 },
         }}
       >
         <img
           src={product?.images[0]}
           alt={product.title}
-          style={{ width: 80, height: 80, objectFit: "cover" }}
+          style={{ width: 100, height: 100, objectFit: "cover" }}
         />
-        <Typography
-          fontWeight={600}
-          fontSize={{ sm: 23, xs: 16 }}
-          textTransform={"capitalize"}
-          sx={{ cursor: "pointer" }}
-          onClick={handleViewProduct}
-        >
-          {product.title.length > 10
-            ? product.title.slice(0, product.title.length) + "..."
-            : product.title}
-        </Typography>
-      </Box>
-
-      <Box
-        display={"flex"}
-        flexDirection={"row"}
-        gap={{ sm: 8, xs: 2 }}
-        alignItems={"center"}
-        flexWrap={{ sm: "nowrap", xs: "wrap" }}
-        p={1}
-      >
-        {product.discount > 0 && (
+        <Box display={"flex"} flexDirection={"column"}>
           <Typography
-            fontSize={{ sm: 20, xs: 13 }}
             fontWeight={600}
-            color={"orange"}
+            fontSize={{ sm: 23, xs: 16 }}
+            textTransform={"capitalize"}
+            sx={{ cursor: "pointer" }}
+            onClick={handleViewProduct}
           >
-            -{product.discount}%
+            {product.title}
           </Typography>
-        )}
-        {product.discount > 0 && (
-          <Typography color={"#999"} sx={{ textDecoration: "line-through" }}>
-            {moneyFormat(product.price)}
-          </Typography>
-        )}
-        <Typography
-          fontSize={{ sm: 22, xs: 13 }}
-          color={"#62BD19"}
-          fontWeight={600}
-          sx={{ width: { sm: 100, xs: 50 } }}
-          align="right"
-        >
-          {moneyFormat(product.lastPrice)}
-        </Typography>
 
-        <Box display={"flex"} gap={1}>
-          <IconButton color="warning" onClick={handleDown}>
-            <RemoveIcon />
-          </IconButton>
-          <TextField
-            value={product.count}
-            sx={{ width: 30 }}
-            variant="standard"
-          />
-          <IconButton color="primary" onClick={handleUp}>
-            <AddIcon />
-          </IconButton>
+          <Box
+            display={"flex"}
+            flexDirection={"row"}
+            gap={{ sm: 8, xs: 2 }}
+            alignItems={"center"}
+            flexWrap={{ sm: "nowrap", xs: "wrap" }}
+            p={1}
+          >
+            {product.discount > 0 && (
+              <Typography
+                fontSize={{ sm: 20, xs: 13 }}
+                fontWeight={600}
+                color={"orange"}
+              >
+                -{product.discount}%
+              </Typography>
+            )}
+            {product.discount > 0 && (
+              <Typography
+                color={"#999"}
+                sx={{ textDecoration: "line-through" }}
+              >
+                {moneyFormat(product.price)}
+              </Typography>
+            )}
+            <Typography
+              fontSize={{ sm: 25, xs: 13 }}
+              color={"#62BD19"}
+              fontWeight={600}
+              sx={{ width: { sm: 100, xs: 50 } }}
+              align="right"
+            >
+              {moneyFormat(product.lastPrice)}/{product.unit}
+            </Typography>
+
+            <Box display={"flex"} gap={1}>
+              <IconButton color="warning" onClick={handleDown}>
+                <RemoveIcon />
+              </IconButton>
+              <TextField
+                value={product.count}
+                sx={{ width: 30 }}
+                variant="standard"
+              />
+              <IconButton color="primary" onClick={handleUp}>
+                <AddIcon />
+              </IconButton>
+            </Box>
+
+            <Typography
+              fontSize={{ sm: 35, xs: 25 }}
+              fontWeight={600}
+              color={"#333"}
+              sx={{ width: { sm: 150, xs: 200 } }}
+              align="right"
+            >
+              {moneyFormat(product.count * product.lastPrice)}
+            </Typography>
+
+            <IconButton color="error" onClick={handleDeleteProduct}>
+              <ClearIcon />
+            </IconButton>
+          </Box>
         </Box>
-
-        <Typography
-          fontSize={{ sm: 35, xs: 25 }}
-          fontWeight={600}
-          color={"#333"}
-          sx={{ width: { sm: 150, xs: 200 } }}
-          align="right"
-        >
-          {moneyFormat(product.count * product.lastPrice)}
-        </Typography>
-
-        <IconButton color="error" onClick={handleDeleteProduct}>
-          <ClearIcon />
-        </IconButton>
       </Box>
     </Paper>
   );

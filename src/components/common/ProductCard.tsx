@@ -96,7 +96,7 @@ const ProductCard = memo(
             outline: `1px solid ${mainColor}`,
           },
           borderRadius: 5,
-          width: { sm: width, xs: 400 },
+          width: { sm: width, xs: 370 },
         }}
       >
         <Box
@@ -150,8 +150,10 @@ const ProductCard = memo(
           src={product.images[0]}
           alt={product.title}
           style={{
-            width: "100%",
-            height: 400,
+            maxWidth: "100%",
+            maxHeight: "100%",
+            width,
+            height: "auto",
             objectFit: "cover",
           }}
         />
@@ -216,44 +218,29 @@ const ProductCard = memo(
             alignItems={"center"}
             justifyContent={"space-between"}
             flexWrap={"wrap"}
+            height={80}
           >
             <Typography fontSize={30} color={mainColor} fontWeight={600}>
-              {moneyFormat(product.lastPrice)}
-              {product.discount > 0 && (
-                <span
-                  style={{
-                    fontSize: 25,
-                    color: "#ddd",
-                    textDecoration: "line-through",
-                  }}
-                >
-                  {moneyFormat(product.price)}
-                </span>
-              )}
+              {moneyFormat(product.lastPrice)}/{product.unit}
             </Typography>
-            <Button
-              variant="contained"
-              color="success"
-              size="small"
-              onClick={handleAddCart}
+            <Typography
+              sx={{
+                fontSize: 25,
+                color: "#ddd",
+                textDecoration: "line-through",
+              }}
             >
-              <AddShoppingCartIcon /> Thêm
-            </Button>
+              {product.discount > 0 ? moneyFormat(product.price) : ""}
+            </Typography>
           </Box>
         </Box>
+
         <Box
           p={1}
           display={"flex"}
           flexDirection={"row"}
           justifyContent={"space-around"}
         >
-          <IconButton
-            color="error"
-            title="Thêm sản phẩm yêu thích"
-            onClick={handleAddFavorite}
-          >
-            {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          </IconButton>
           <IconButton
             color="primary"
             title="So sánh"
@@ -262,6 +249,16 @@ const ProductCard = memo(
           >
             <ShuffleIcon />
           </IconButton>
+          <IconButton
+            color="error"
+            title="Thêm sản phẩm yêu thích"
+            onClick={handleAddFavorite}
+          >
+            {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </IconButton>
+          <Button variant="outlined" color="success" onClick={handleAddCart}>
+            <AddShoppingCartIcon /> Thêm
+          </Button>
         </Box>
       </Paper>
     );

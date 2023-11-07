@@ -20,7 +20,7 @@ const Chat = () => {
 
   const handleSend = () => {
     setMessage("");
-    data.user._id === "AI "
+    data.user._id === "AI"
       ? dispatch(messageActions.ask({ userId: user?._id!, message }))
       : dispatch(
           messageActions.send({

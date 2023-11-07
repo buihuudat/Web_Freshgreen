@@ -5,6 +5,7 @@ export interface NewsType {
   title: string;
   category: string;
   tags: TagType[];
+  thumbnail: string;
   author?: string;
   content: string;
   viewCount?: number;

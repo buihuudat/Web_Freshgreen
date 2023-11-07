@@ -11,12 +11,18 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { settingsActions } from "../../actions/settingsActionts";
 import { categoryActions } from "../../actions/categoryActions";
+import HomeList from "./components/HomeList";
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
-  const { popular, bestSeller, productsView } = useAppSelector(
-    (state: RootState) => state.product
-  );
+  const {
+    popular,
+    bestSeller,
+    productsView,
+    ratedHighest,
+    newProducts,
+    biggestDiscount,
+  } = useAppSelector((state: RootState) => state.product);
   const { images } = useAppSelector(
     (state: RootState) => state.settings.banners
   );
@@ -28,6 +34,9 @@ const HomePage = () => {
     dispatch(productActions.popular());
     dispatch(productActions.getProductsView());
     dispatch(productActions.bestSeller());
+    dispatch(productActions.newProducts());
+    dispatch(productActions.ratedHighestProducts());
+    dispatch(productActions.getBiggestDiscountProducts());
     dispatch(settingsActions.getBanner());
     dispatch(categoryActions.gets());
   }, [dispatch]);
@@ -49,6 +58,15 @@ const HomePage = () => {
 
       {/* sale in day */}
       <HomeSale products={productsView} />
+
+      {/* home list */}
+      <HomeList
+        bestSeller={bestSeller}
+        popular={popular}
+        bestRating={ratedHighest}
+        newProducts={newProducts}
+        biggestDiscount={biggestDiscount}
+      />
     </Box>
   );
 };

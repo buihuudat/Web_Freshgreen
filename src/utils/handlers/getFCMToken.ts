@@ -36,11 +36,19 @@ export const requestPermissionNotification = (userId: string) => {
   });
 };
 
-export const onListeningMessage = () => {
-  onMessage(messaging, (payload) => {
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      resolve(payload);
+    });
+  });
+
+export const onListentingMessage = async (dispatch: any, userId: string) => {
+  await onMessage(messaging, (payload) => {
+    dispatch(orderActions.getOrders(userId));
     NotificationToast({
-      message: payload.notification?.body!,
       type: "default",
+      message: payload.notification?.body!,
     });
   });
 };

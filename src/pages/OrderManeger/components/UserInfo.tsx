@@ -1,4 +1,4 @@
-import { Box, Skeleton, Typography, createStyles } from "@mui/material";
+import { Avatar, Box, Skeleton, Typography, createStyles } from "@mui/material";
 import { UserType } from "../../../types/userType";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
@@ -26,10 +26,10 @@ const UserInfo = ({ user, address, isLoading }: UserInfoProps) => {
 
   return !isLoading ? (
     <Box sx={{ p: 1, display: "flex", flexDirection: "row", gap: 2 }}>
-      <img
+      <Avatar
         src={user.avatar}
         alt={user.username}
-        style={{
+        sx={{
           width: window.innerWidth > 600 ? 80 : 50,
           height: window.innerWidth > 600 ? 80 : 50,
           objectFit: "cover",

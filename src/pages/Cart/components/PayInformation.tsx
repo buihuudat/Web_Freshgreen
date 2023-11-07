@@ -29,13 +29,13 @@ import {
 import { orderActions } from "../../../actions/orderActions";
 import { clearCart } from "../../../redux/slices/cartSlice";
 import { socket } from "../../../utils/api/socketConfirm";
+import { addressOfUser } from "../../../types/userType";
 
 const PayInformation = memo(() => {
   const [discount, setDiscount] = useState<number>(0);
   const [voucherErrText, setVoucherErrText] = useState<string>("");
   const [voucher, setVoucher] = useState<string>("");
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>();
-  const [address, setAddress] = useState<string>("");
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalPay, setTotalPay] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<{
@@ -62,20 +62,6 @@ const PayInformation = memo(() => {
       (total > freeDeli ? total : total + 25000) - (totalPrice * discount) / 100
     );
   }, [cart.products, discount, totalPrice]);
-
-  useEffect(() => {
-    setAddress(
-      user?.address?.more +
-        " " +
-        user?.address?.street +
-        " " +
-        user?.address?.ward +
-        " " +
-        user?.address?.district +
-        " " +
-        user?.address?.city
-    );
-  }, [user?.address]);
 
   const handleSelectPayment = (e: ChangeEvent<HTMLInputElement>) => {
     setPaymentMethod(e.target.value as PayMethod);
@@ -133,7 +119,7 @@ const PayInformation = memo(() => {
           payData: {
             totalPrice,
             amount: totalPay,
-            address,
+            address: addressOfUser(user.address),
             phone: user?.phone,
             email: user?.email,
             nameOfUser: user?.username,
@@ -280,7 +266,7 @@ const PayInformation = memo(() => {
             Địa chỉ nhận hàng:
           </Typography>
           <Typography fontSize={16} fontWeight={600}>
-            {address} (
+            {addressOfUser(user.address)} (
             <Link href="/tai-khoan" sx={{ fontWeight: 300, color: mainColor }}>
               thay đổi
             </Link>

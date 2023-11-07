@@ -24,7 +24,8 @@ import { messageActions } from "../../../actions/messageAction";
 
 const StoreCard = ({ store }: { store: ShopType }) => {
   const navigate = useNavigate();
-  const state = { shopInfo: { ...store } } as NavigateOptions;
+  const state = { shopId: store._id! } as NavigateOptions;
+
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.user.user);
 
@@ -47,6 +48,10 @@ const StoreCard = ({ store }: { store: ShopType }) => {
     );
     dispatch(setPopup(true));
     dispatch(messageActions.get({ from: user?._id!, to: store._id! }));
+  };
+
+  const handleViewStore = () => {
+    navigate(`/cua-hang/${store.name}`, { state });
   };
 
   return (
@@ -105,11 +110,7 @@ const StoreCard = ({ store }: { store: ShopType }) => {
             gap: 2,
           }}
         >
-          <Button
-            color="success"
-            variant="contained"
-            onClick={() => navigate(`/cua-hang/${store.name}`, { state })}
-          >
+          <Button color="success" variant="contained" onClick={handleViewStore}>
             Xem cửa hàng <ArrowRightAltIcon />
           </Button>
           <IconButton onClick={handleMessage}>

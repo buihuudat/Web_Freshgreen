@@ -34,6 +34,7 @@ export interface ProductType {
   shop?: Shop;
   comments: Array<string>;
   views: number;
+  unit: string;
 
   totalSales?: number;
   createdAt?: string;
@@ -48,6 +49,7 @@ export const InitialProduct: ProductType = {
   lastPrice: 0,
   discount: 0,
   sold: 0,
+  unit: "",
   averageStarRating: 0,
   category: "",
   tags: [],

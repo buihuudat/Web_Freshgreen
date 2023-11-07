@@ -135,10 +135,10 @@ const Footer = () => {
         py={5}
       >
         {footerData.map((data, index) => (
-          <Paper
+          <Box
             key={index}
             sx={{
-              background: "#D3DEDB",
+              background: "#D2DFDC",
               p: 2,
               borderRadius: "10px",
               width: { sm: 300, xs: "100%" },
@@ -154,7 +154,7 @@ const Footer = () => {
               </Typography>
               <Typography variant="body2">{data.subtitle}</Typography>
             </Box>
-          </Paper>
+          </Box>
         ))}
       </Box>
 
@@ -223,23 +223,31 @@ const Footer = () => {
             <Typography fontWeight={600} fontSize={18}>
               Danh mục sản phẩm
             </Typography>
-            {categories.map((category) => (
-              <Typography
-                key={category._id!}
-                component={NavLink}
-                to={category.name}
-                sx={{
-                  textDecoration: "none",
-                  ":hover": {
-                    color: mainColor,
-                  },
-                }}
-                fontSize={{ xs: 13 }}
-                color={"#000"}
-              >
-                {category.name}
-              </Typography>
-            ))}
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              gap={1}
+              maxHeight={200}
+              overflow={"auto"}
+            >
+              {categories.map((category) => (
+                <Typography
+                  key={category._id!}
+                  component={NavLink}
+                  to={category.name}
+                  sx={{
+                    textDecoration: "none",
+                    ":hover": {
+                      color: mainColor,
+                    },
+                  }}
+                  fontSize={{ xs: 13 }}
+                  color={"#000"}
+                >
+                  {category.name}
+                </Typography>
+              ))}
+            </Box>
           </Box>
         </Box>
       </Box>
@@ -289,7 +297,12 @@ const Footer = () => {
             <Typography fontWeight={600}>Theo dõi chúng tôi</Typography>
             <Box>
               {contactData.map((value, index) => (
-                <IconButton key={index} title={value.title} color={"success"}>
+                <IconButton
+                  key={index}
+                  title={value.title}
+                  color={"success"}
+                  href={value.url}
+                >
                   {value.icon}
                 </IconButton>
               ))}

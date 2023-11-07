@@ -44,7 +44,7 @@ const OrderProductItem = (product: ProductCartType) => {
           : product.title}
       </Typography>
       <Typography fontSize={{ sm: 16, xs: 15 }} fontWeight={600}>
-        {moneyFormat(product.lastPrice)}
+        {moneyFormat(product.lastPrice)}/{product.unit}
       </Typography>
       <Typography fontSize={14}>x{product.count}</Typography>
       <Typography

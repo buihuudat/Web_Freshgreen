@@ -1,9 +1,9 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import { OrderItemType } from "../../../types/orderType";
 import { Box, Paper } from "@mui/material";
 import OrderProductItem from "./OrderProductItem";
 import { ProductCartType } from "../../../types/cartType";
-import { UserType } from "../../../types/userType";
+import { UserType, addressOfUser } from "../../../types/userType";
 import UserInfo from "./UserInfo";
 import BillInfo from "./BillInfo";
 import OrderActions from "./OrderActions";
@@ -14,26 +14,6 @@ interface Props {
 
 const OrderItem = memo((props: Props) => {
   const { user } = props;
-  const [address, setAddress] = useState("");
-  const [isLoading, setIsLoading] = useState({
-    user: true,
-  });
-
-  useEffect(() => {
-    setAddress(
-      user.address?.more +
-        " " +
-        user.address?.street +
-        " " +
-        user.address?.ward +
-        " " +
-        user.address?.district +
-        " " +
-        user.address?.city +
-        " "
-    );
-    setIsLoading({ user: false });
-  }, [user]);
 
   return (
     <Paper
@@ -41,7 +21,11 @@ const OrderItem = memo((props: Props) => {
       elevation={9}
     >
       {/* customer information */}
-      <UserInfo user={user} address={address} isLoading={isLoading.user} />
+      <UserInfo
+        user={user}
+        address={addressOfUser(user.address)!}
+        isLoading={!user.address}
+      />
 
       {/* product list */}
       <Box

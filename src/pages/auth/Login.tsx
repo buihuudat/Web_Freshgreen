@@ -57,7 +57,7 @@ const Login = () => {
         err?.errors &&
           err.errors.forEach((e: any) => {
             switch (e.path) {
-              case "phone":
+              case "username":
                 setErrText((prev) => ({
                   ...prev,
                   phone: e.msg,

@@ -24,12 +24,9 @@ const OrderManager = () => {
     );
   }, [dataOrder, value]);
 
-  return loading ? (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <CircularProgress />
-    </Box>
-  ) : (
+  return (
     <Box>
+      {loading && <CircularProgress />}
       <Tabs value={value} setValue={setValue} />
       {!orders?.length ? (
         <Typography align="center" fontSize={23} fontWeight={600}>

@@ -18,33 +18,42 @@ const OrderActions = memo((props: Props) => {
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState<string>("");
   const [messageErr, setMessageErr] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = () => {
-    dispatch(
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    await dispatch(
       orderActions.submitStatusOrder({
         userId: user._id as string,
         orderId: order._id as string,
         status: OrderStatus.done,
       })
-    ).then(() => {
-      socket.emit("access-order");
-    });
+    )
+      .unwrap()
+      .then(() => {
+        socket.emit("access-order");
+        setIsLoading(false);
+      });
   };
-  const handleRefure = () => {
+  const handleRefure = async () => {
     if (message.length < 5) {
       setMessageErr("Lý do không hợp lệ");
       return;
     }
-    dispatch(
+    setIsLoading(true);
+    await dispatch(
       orderActions.submitStatusOrder({
         userId: user._id as string,
         orderId: order._id as string,
         status: OrderStatus.refuse,
         message,
       })
-    ).then(() => {
-      socket.emit("refuse-order");
-    });
+    )
+      .unwrap()
+      .then(() => {
+        socket.emit("refuse-order");
+        setIsLoading(false);
+      });
     setMessageErr("");
     setShow(false);
   };
@@ -52,14 +61,14 @@ const OrderActions = memo((props: Props) => {
   return order.status === OrderStatus.pending ? (
     <Box sx={{ display: "flex", gap: 1, p: 1, flexDirection: "column" }}>
       {!show ? (
-        <LoadingButton
+        <Button
           fullWidth
           color="error"
           variant="outlined"
           onClick={() => setShow(!show)}
         >
           Hủy đơn hàng
-        </LoadingButton>
+        </Button>
       ) : (
         <Box>
           <TextField
@@ -77,6 +86,7 @@ const OrderActions = memo((props: Props) => {
               color="warning"
               variant="outlined"
               onClick={() => setShow(false)}
+              loading={isLoading}
             >
               Cancel
             </LoadingButton>
@@ -85,6 +95,7 @@ const OrderActions = memo((props: Props) => {
               color="error"
               variant="contained"
               onClick={handleRefure}
+              loading={isLoading}
             >
               Xác nhận
             </LoadingButton>
@@ -97,14 +108,15 @@ const OrderActions = memo((props: Props) => {
       <Button variant="text" fullWidth color="success" disabled>
         Đang giao hàng
       </Button>
-      <Button
+      <LoadingButton
         variant="contained"
         fullWidth
         color="success"
         onClick={handleSubmit}
+        loading={isLoading}
       >
         Đã nhận được hàng
-      </Button>
+      </LoadingButton>
     </Box>
   ) : order.status === OrderStatus.done ? (
     <Button variant="contained" fullWidth color="primary">

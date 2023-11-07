@@ -24,6 +24,7 @@ import { productActions } from "../../../actions/productActions";
 import MenuIcon from "@mui/icons-material/Menu";
 import NavMobile from "./components/NavMobile";
 import SearchItem from "../../SearchItem";
+import { ProductType } from "../../../types/productType";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -33,10 +34,11 @@ const Navbar = () => {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
-
-  const { productReSearch, searchLoading } = useAppSelector(
-    (state: RootState) => state.product
+  const [productReSearch, setProductReSearch] = useState<Array<ProductType>>(
+    []
   );
+
+  const { searchLoading } = useAppSelector((state: RootState) => state.product);
   const countProductsCart: number =
     useAppSelector((state: RootState) => state.cart.data)?.products.length || 0;
   const countFavoriteProduct: number =
@@ -78,7 +80,9 @@ const Navbar = () => {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(productActions.searchProducts(searchQuery));
+    dispatch(productActions.searchProducts(searchQuery))
+      .unwrap()
+      .then((data) => setProductReSearch(data));
   }, [searchQuery, dispatch]);
 
   useEffect(() => {

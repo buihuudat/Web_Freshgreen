@@ -15,7 +15,6 @@ import "swiper/css/navigation";
 import "moment/locale/vi";
 import "./firebaseConfig";
 import "react-phone-number-input/style.css";
-import { onListeningMessage } from "./utils/handlers/getFCMToken";
 
 const Payment = lazy(() => import("./pages/Pay"));
 const OrderManager = lazy(() => import("./pages/OrderManeger"));
@@ -46,9 +45,8 @@ const App = () => {
     palette: {
       mode: "light",
     },
+    typography: { fontFamily: "Varela Round" },
   });
-
-  onListeningMessage();
 
   return (
     <ThemeProvider theme={theme}>

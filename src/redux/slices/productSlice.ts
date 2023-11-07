@@ -7,6 +7,9 @@ interface InitialStateProps {
   products: Array<ProductType>;
   product: ProductType | null;
   popular: Array<ProductType>;
+  newProducts: Array<ProductType>;
+  ratedHighest: Array<ProductType>;
+  biggestDiscount: Array<ProductType>;
   bestSeller: Array<ProductType>;
   productsView: Array<ProductType>;
   productReSearch: Array<ProductType>;
@@ -29,6 +32,9 @@ const initialState: InitialStateProps = {
   product: null,
   popular: [],
   bestSeller: [],
+  newProducts: [],
+  ratedHighest: [],
+  biggestDiscount: [],
   productsView: [],
   productReSearch: [],
   shopProducts: { products: [], totalProducts: 0 },
@@ -69,6 +75,21 @@ export const productSlice = createSlice({
       .addCase(productActions.bestSeller.fulfilled, (state, action) => {
         state.bestSeller = action.payload;
       })
+      .addCase(
+        productActions.getBiggestDiscountProducts.fulfilled,
+        (state, action) => {
+          state.biggestDiscount = action.payload;
+        }
+      )
+      .addCase(productActions.newProducts.fulfilled, (state, action) => {
+        state.newProducts = action.payload;
+      })
+      .addCase(
+        productActions.ratedHighestProducts.fulfilled,
+        (state, action) => {
+          state.ratedHighest = action.payload;
+        }
+      )
       .addCase(productActions.create.fulfilled, (state, action) => {
         state.products.push(action.payload);
       })
@@ -92,17 +113,17 @@ export const productSlice = createSlice({
       .addCase(productActions.getProductsView.fulfilled, (state, action) => {
         state.productsView = action.payload;
       })
-      .addCase(productActions.updateView.fulfilled, (state, action) => {
-        if (!action.payload) return;
-        const indexProduct = state.products.findIndex(
-          (product) => product._id === action.meta.arg
-        );
-        const currentProduct = state.products[indexProduct];
-        state.products[indexProduct] = {
-          ...currentProduct,
-          views: currentProduct.views + 1,
-        };
-      })
+      // .addCase(productActions.updateView.fulfilled, (state, action) => {
+      //   if (!action.payload) return;
+      //   const indexProduct = state.products.findIndex(
+      //     (product) => product._id === action.meta.arg
+      //   );
+      //   const currentProduct = state.products[indexProduct];
+      //   state.products[indexProduct] = {
+      //     ...currentProduct,
+      //     views: currentProduct.views + 1,
+      //   };
+      // })
       .addCase(productActions.searchProducts.pending, (state) => {
         state.searchLoading = true;
       })

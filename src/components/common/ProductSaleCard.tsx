@@ -4,11 +4,17 @@ import { NavigateOptions, useNavigate } from "react-router-dom";
 import { mainColor } from "../../constants/colors";
 import { ProductType } from "../../types/productType";
 import { moneyFormat } from "../../utils/handlers/moneyFormat";
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
+import { setItem } from "../../utils/handlers/tokenHandler";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
+import { NotificationToast } from "../../utils/handlers/NotificationToast";
+import { cartActions } from "../../actions/cartActions";
 
 const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
   const navigate = useNavigate();
-  const stateProduct = { product } as NavigateOptions;
+  const user = useAppSelector((state: RootState) => state.user.user);
+  const dispatch = useAppDispatch();
 
   const ms = 1;
   const [time, setTime] = useState({
@@ -34,6 +40,26 @@ const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
       }));
     }, 1000);
   }, [countDownDate]);
+
+  const handleViewProduct = () => {
+    navigate(`/san-pham/details/` + product.title, {
+      state: { productId: product._id as string },
+    });
+    setItem("productId", product._id);
+  };
+
+  const handleAddCart = useCallback(() => {
+    if (!user) {
+      NotificationToast({ message: "Bạn chưa đăng nhập", type: "warning" });
+      return false;
+    }
+    dispatch(
+      cartActions.addProductToCart({
+        userId: user._id!,
+        product: { ...product, count: 1 },
+      })
+    );
+  }, [product, user, dispatch]);
 
   return (
     <Box
@@ -119,11 +145,7 @@ const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
           </Box>
           <Paper sx={{ mt: 2, p: 2, display: "flex", flexDirection: "column" }}>
             <Typography
-              onClick={() => {
-                navigate("san-pham/details/" + product.title ?? "", {
-                  state: stateProduct,
-                });
-              }}
+              onClick={handleViewProduct}
               fontWeight={600}
               fontSize={18}
               sx={{
@@ -169,7 +191,7 @@ const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
             >
               <Box display={"flex"} flexDirection={"row"} gap={2}>
                 <Typography fontWeight={600} fontSize={30}>
-                  {moneyFormat(product.lastPrice)}
+                  {moneyFormat(product.lastPrice)}/{product.unit}
                 </Typography>
                 {product.discount > 0 && (
                   <Typography
@@ -179,7 +201,12 @@ const ProductSaleCard = memo(({ product }: { product: ProductType }) => {
                   </Typography>
                 )}
               </Box>
-              <Button variant="contained" color="success" size="small">
+              <Button
+                variant="contained"
+                color="success"
+                size="small"
+                onClick={handleAddCart}
+              >
                 <AddShoppingCartIcon />
                 Thêm
               </Button>

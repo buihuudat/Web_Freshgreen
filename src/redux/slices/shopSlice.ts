@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { InitialShop, ShopType } from "../../types/shopType";
 import { shopActions } from "../../actions/shopActions";
 import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
@@ -42,7 +42,6 @@ export const shopSlice = createSlice({
       .addCase(shopActions.create.fulfilled, (state, action) => {
         state.shops.push(action.payload);
       })
-
       .addCase(shopActions.update.fulfilled, (state, action) => {
         state.shops.find((shop, index) => {
           if (shop._id === action.payload._id) {
@@ -52,12 +51,37 @@ export const shopSlice = createSlice({
           return false;
         });
       })
+
       .addCase(shopActions.delete.fulfilled, (state, action) => {
         const index = state.shops.findIndex(
           (shop) => shop._id === action.meta.arg
         );
         state.shops.splice(index, 1);
       })
+      .addMatcher(
+        isAnyOf(
+          shopActions.followUpdate.pending,
+          shopActions.followUpdate.rejected
+        ),
+        (state, action) => {
+          const userId = action.meta.arg.userId;
+          const shopFollowers = state.shop.followers || [];
+          const indexFollow = state.shop.followers?.findIndex(
+            (fl) => fl === userId
+          );
+          if (action.type === shopActions.followUpdate.pending.type) {
+            if (indexFollow === -1) {
+              state.shop.followers = [...shopFollowers, userId];
+            } else {
+              state.shop.followers = shopFollowers.filter(
+                (fl) => fl !== userId
+              );
+            }
+          } else {
+            state.shop.followers = shopFollowers.filter((fl) => fl !== userId);
+          }
+        }
+      )
       .addMatcher<PendingAction>(
         (action) => action.type.endsWith("/pending"),
         (state) => {

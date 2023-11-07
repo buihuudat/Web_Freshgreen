@@ -28,9 +28,12 @@ const HomeSale = memo(({ products }: { products: Array<ProductType> }) => {
 
       <Box>
         <Swiper {...customSwiper} style={{ width: "100%" }}>
-          {products.map((data: ProductType, index: number) => (
-            <SwiperSlide key={index} style={{ display: "block", width: 600 }}>
-              <ProductSaleCard product={data} />
+          {products.map((product: ProductType) => (
+            <SwiperSlide
+              key={product._id!}
+              style={{ display: "block", width: 600 }}
+            >
+              <ProductSaleCard product={product} />
             </SwiperSlide>
           ))}
         </Swiper>

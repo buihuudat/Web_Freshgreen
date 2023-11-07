@@ -13,8 +13,8 @@ const NewsItem = memo(({ news }: { news: NewsType }) => {
   const state = { news } as NavigateOptions;
 
   const constent =
-    news.content.length > 550
-      ? news.content.slice(0, 550) + "..."
+    news.content.length > 300
+      ? news.content.slice(0, 300) + "..."
       : news.content;
 
   const handleViewNews = () => {
@@ -34,11 +34,11 @@ const NewsItem = memo(({ news }: { news: NewsType }) => {
         gap: 3,
       }}
     >
-      {/* <img
-        src={news.image}
+      <img
+        src={news.thumbnail}
         alt={news.title}
         style={{ width: "40%", height: "100%", objectFit: "cover" }}
-      /> */}
+      />
       <Box p={{ sm: 5, xs: 2 }}>
         <Typography fontWeight={600} fontSize={{ sm: 32, xs: 20 }}>
           {news.title}

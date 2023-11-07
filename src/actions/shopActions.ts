@@ -61,6 +61,17 @@ export const shopActions = {
       }
     }
   ),
+  followUpdate: createAsyncThunk(
+    "shop/follow",
+    async ({ shopId, userId }: { shopId: string; userId: string }) => {
+      try {
+        await shopAPI.updateFollow(shopId, userId);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+  ),
   delete: createAsyncThunk("shop/delete", async (id: string) => {
     try {
       const shops = await shopAPI.delete(id);

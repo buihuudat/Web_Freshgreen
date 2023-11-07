@@ -240,7 +240,7 @@ const BoxFilter = memo((props: FilterProps) => {
             <Typography pb={3} fontSize={23} fontWeight={600}>
               Theo thể loại
             </Typography>
-            <FormGroup sx={{ height: 250, overflow: "auto" }}>
+            <FormGroup sx={{ height: 260, overflow: "auto", mr: 10 }}>
               {categories.map((data: CategoryType) => (
                 <FormControlLabel
                   control={<Checkbox onChange={handleSelectCategories} />}
@@ -257,7 +257,16 @@ const BoxFilter = memo((props: FilterProps) => {
             <Typography pb={3} fontSize={23} fontWeight={600}>
               Theo cửa hàng
             </Typography>
-            <FormGroup sx={{ height: 250, overflow: "auto" }}>
+            <FormGroup
+              sx={{
+                maxHeight: 260,
+                width: 250,
+                overflowY: "auto",
+                display: "flex",
+                flexDirection: "column",
+                flexWrap: "nowrap",
+              }}
+            >
               {shops.map((data: ShopType) => (
                 <FormControlLabel
                   control={

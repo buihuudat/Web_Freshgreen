@@ -89,7 +89,7 @@ const Compare = () => {
             >
               <TableCell>{product.title}</TableCell>
               <TableCell>{moneyFormat(product.price)}</TableCell>
-              {/* <TableCell>{product.comments.length}</TableCell> */}
+              <TableCell>{product.comments.length}</TableCell>
               <TableCell>{product.sold}</TableCell>
               <TableCell>{product.category}</TableCell>
               <TableCell>

@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { mainColor } from "../../constants/colors";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -104,7 +104,10 @@ const ProductDetails = () => {
     dispatch(addProductCompare(product));
   };
 
-  const viewShop = () => navigate("/cua-hang/" + product?.shop?.name);
+  const viewShop = () =>
+    navigate("/cua-hang/" + product?.shop?.name, {
+      state: { shopId: product?.shop?._id },
+    });
 
   if (!product) return <SkeletonLoading />;
 
@@ -129,7 +132,7 @@ const ProductDetails = () => {
           >
             <img
               src={imageToShow || product.images[0]}
-              style={{ width: "100%", height: 500, objectFit: "cover" }}
+              style={{ width: "auto", height: 500, objectFit: "cover" }}
               alt={product.title}
             />
           </Box>
@@ -182,7 +185,7 @@ const ProductDetails = () => {
 
           <Box display={"flex"} flexDirection={"row"} py={5} gap={2}>
             <Typography color={mainColor} fontSize={50} fontWeight={600}>
-              {moneyFormat(product.lastPrice)}
+              {moneyFormat(product.lastPrice)}/{product.unit}
             </Typography>
             {product.discount > 0 && (
               <Box display={"flex"} flexDirection={"column"}>

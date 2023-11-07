@@ -70,12 +70,12 @@ const BestSellers = memo(({ products }: { products: Array<ProductType> }) => {
                 width: "100%",
               }}
             >
-              {products.map((data, index) => (
+              {products.map((product, index) => (
                 <SwiperSlide
-                  key={index}
+                  key={product._id!}
                   style={{ display: "block", width: 600 }}
                 >
-                  <ProductCard product={data} width={280} fast={true} />
+                  <ProductCard product={product} width={280} fast={true} />
                 </SwiperSlide>
               ))}
             </Swiper>
