@@ -20,7 +20,7 @@ const BestSellers = memo(({ products }: { products: Array<ProductType> }) => {
     centeredSlides: false,
     loop: true,
     autoplay: {
-      delay: 3000,
+      delay: 5000,
       disableOnInteraction: false,
     },
     modules: [Autoplay, FreeMode],
@@ -70,7 +70,7 @@ const BestSellers = memo(({ products }: { products: Array<ProductType> }) => {
                 width: "100%",
               }}
             >
-              {products.map((product, index) => (
+              {products.map((product) => (
                 <SwiperSlide
                   key={product._id!}
                   style={{ display: "block", width: 600 }}

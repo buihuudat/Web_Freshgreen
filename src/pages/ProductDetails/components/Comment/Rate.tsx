@@ -20,6 +20,7 @@ function getLabelText(value: number) {
 interface RateProps {
   value: number | null;
   setValue: (value: number | null) => void;
+  isDisable?: boolean;
 }
 const Rate = React.memo((props: RateProps) => {
   const { value, setValue } = props;
@@ -37,7 +38,7 @@ const Rate = React.memo((props: RateProps) => {
       <Rating
         name="hover-feedback"
         value={value}
-        disabled={!user?.username}
+        disabled={!user || props?.isDisable}
         precision={0.5}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {

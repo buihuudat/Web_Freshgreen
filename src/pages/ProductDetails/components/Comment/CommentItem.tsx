@@ -11,7 +11,7 @@ import {
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ReplyIcon from "@mui/icons-material/Reply";
-import { memo, useContext, useEffect, useMemo, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { NotificationToast } from "../../../../utils/handlers/NotificationToast";
 import { CommentContext } from "../DetailActions";
@@ -30,6 +30,7 @@ const CommentItem = memo((comment: CommentType) => {
   const product = useContext(CommentContext);
   const dispatch = useAppDispatch();
   const isLiked = comment.reaction.filter((rt) => rt === user?._id).length;
+  const isCommented = comment.auth._id === user?._id;
 
   const handleReply = () => {
     if (!user?._id) {
@@ -56,7 +57,6 @@ const CommentItem = memo((comment: CommentType) => {
       })
     );
   };
-  console.log(product);
 
   const handleDelete = () => {
     dispatch(
@@ -114,7 +114,11 @@ const CommentItem = memo((comment: CommentType) => {
                 </Typography>
               </Box>
 
-              <Rate value={comment.rate} setValue={setValue} />
+              <Rate
+                value={comment.rate}
+                setValue={setValue}
+                isDisable={isCommented}
+              />
             </Box>
 
             <Box display={"flex"} gap={2}>
