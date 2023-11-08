@@ -18,7 +18,7 @@ export const messageActions = {
   send: createAsyncThunk("message/send", async (data: SendType) => {
     try {
       const res = await messageApi.send(data);
-      socket.emit("send-message", data);
+      socket.emit("send-message-to-admin", data);
       return res.data;
     } catch (error) {
       throw error;

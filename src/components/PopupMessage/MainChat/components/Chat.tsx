@@ -3,34 +3,58 @@ import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { RootState } from "../../../../redux/store";
 import { LoadingButton } from "@mui/lab";
 import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { messageActions } from "../../../../actions/messageAction";
 import MessageItem from "./MessageItem";
+import { NotificationToast } from "../../../../utils/handlers/NotificationToast";
 
 const Chat = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
-
-  const user = useAppSelector((state: RootState) => state.user.user);
-  const { user: data, userChat } = useAppSelector(
-    (state: RootState) => state.messages
-  );
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const dispatch = useAppDispatch();
 
+  const user = useAppSelector((state: RootState) => state.user.user);
+
+  const {
+    user: data,
+    userChat,
+    loading,
+  } = useAppSelector((state: RootState) => state.messages);
+
+  useEffect(() => {
+    const chatContainer = messagesEndRef.current;
+    if (chatContainer) {
+      const isUserAtBottom =
+        chatContainer.scrollHeight - chatContainer.clientHeight <=
+        chatContainer.scrollTop + 1;
+
+      if (isUserAtBottom) {
+        chatContainer.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [userChat]);
+
   const handleSend = () => {
     setMessage("");
-    data.user._id === "AI"
-      ? dispatch(messageActions.ask({ userId: user?._id!, message }))
-      : dispatch(
-          messageActions.send({
-            from: user?._id!,
-            to: data.user._id,
-            message: {
-              text: message,
-            },
-          })
-        );
+    if (data.user._id === "AI") {
+      dispatch(messageActions.ask({ userId: user?._id!, message }));
+    } else {
+      if (!user)
+        return NotificationToast({
+          message: "Bạn cần phải đăng nhập trước",
+          type: "warning",
+        });
+      dispatch(
+        messageActions.send({
+          from: user?._id!,
+          to: data.user.id,
+          message: {
+            text: message,
+          },
+        })
+      );
+    }
   };
 
   return (
@@ -47,15 +71,17 @@ const Chat = () => {
         </Box>
         <Divider variant="middle" />
       </Box>
-
-      <Box sx={{ flex: 1, padding: 3 }}>
+      <Box sx={{ flex: 1, padding: 3, overflow: "auto", height: "80%" }}>
         {userChat.map((chat, index) => (
-          <Box key={index}>
-            <MessageItem {...chat} reveicer={data.user} user={user!} />
-          </Box>
+          <MessageItem
+            key={index}
+            {...chat}
+            reveicer={data.user}
+            user={user!}
+          />
         ))}
+        <div ref={messagesEndRef} />
       </Box>
-
       <Box sx={{ mt: "auto", width: "100%", display: "flex" }}>
         <TextField
           onChange={(e) => setMessage(e.target.value)}
@@ -64,7 +90,7 @@ const Chat = () => {
           label="Đặt câu hỏi..."
           variant="filled"
         />
-        <LoadingButton onClick={handleSend} loading={isLoading}>
+        <LoadingButton onClick={handleSend} loading={loading}>
           <SendIcon />
         </LoadingButton>
       </Box>

@@ -2,8 +2,12 @@ import { Avatar, Box, Divider, Typography } from "@mui/material";
 import ListIcon from "@mui/icons-material/List";
 import { mainColor } from "../../../../constants/colors";
 import { AIImage } from "../../../../constants/images";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { selectUser } from "../../../../redux/slices/messageSlice";
+import { messageActions } from "../../../../actions/messageAction";
+import { RootState } from "../../../../redux/store";
+import { socket } from "../../../../utils/api/socketConfirm";
+import { useEffect } from "react";
 
 const AIData = {
   user: {
@@ -19,10 +23,12 @@ const AIData = {
 const data = [
   {
     user: {
-      name: "test",
-      avatar: "",
+      id: "654367fa7a19c5bddd7a1edb",
+      name: "Hỗ trợ",
+      avatar:
+        "https://e7.pngegg.com/pngimages/381/746/png-clipart-customer-service-technical-support-help-desk-customer-support-management-miscellaneous-service-thumbnail.png",
     },
-    lastMessage: "string",
+    lastMessage: "24/7",
     time: "10:11",
     seen: false,
   },
@@ -30,10 +36,24 @@ const data = [
 
 const ListItem = (data: any) => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.user.user);
 
   const handleSelect = () => {
     dispatch(selectUser(data));
+    dispatch(messageActions.get({ from: user?._id!, to: data.user.id }));
   };
+
+  useEffect(() => {
+    socket.on("message-recieve", (data) => {
+      user &&
+        dispatch(
+          messageActions.get({
+            from: data.from,
+            to: data.to,
+          })
+        );
+    });
+  }, [dispatch, user]);
 
   return (
     <Box sx={{ cursor: "pointer" }} onClick={handleSelect}>

@@ -15,7 +15,7 @@ interface InitialProp {
     to: Array<SendProps>;
   };
   userChat: Array<{
-    fromSeft: boolean;
+    fromSelf: boolean;
     message: string;
   }>;
   loading: boolean;
@@ -76,6 +76,9 @@ export const messageSlice = createSlice({
           to: updatedChatTo,
         };
       })
+      .addCase(messageActions.send.fulfilled, (state, action) => {
+        state.userChat.push(action.payload);
+      })
       .addCase(messageActions.get.fulfilled, (state, action) => {
         state.userChat = action.payload;
       })
@@ -87,7 +90,7 @@ export const messageSlice = createSlice({
       )
       .addMatcher<FulfilledAction | RejectedAction>(
         (action) =>
-          action.type.endsWith("/fulfiled") ||
+          action.type.endsWith("/fulfilled") ||
           action.type.endsWith("/rejected"),
         (state) => {
           state.loading = false;

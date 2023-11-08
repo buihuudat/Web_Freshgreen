@@ -2,20 +2,20 @@ import { Avatar, Box, Paper, Typography } from "@mui/material";
 import { UserType, fullnameOfUser } from "../../../../types/userType";
 
 interface Props {
-  fromSeft: boolean;
+  fromSelf: boolean;
   message: string;
   reveicer: any;
   user: UserType;
 }
 
 const MessageItem = (props: Props) => {
-  const { message, fromSeft, reveicer, user } = props;
+  const { message, fromSelf, reveicer, user } = props;
 
   return (
     <Box
       sx={{
         display: "flex",
-        justifyContent: fromSeft ? "start" : "end",
+        justifyContent: fromSelf ? "end" : "start",
         pb: 2,
       }}
     >
@@ -25,22 +25,22 @@ const MessageItem = (props: Props) => {
             display: "flex",
             gap: 2,
             padding: 1,
-            flexDirection: fromSeft ? "row" : "row-reverse",
+            flexDirection: fromSelf ? "row-reverse" : "row",
           }}
         >
           <Avatar
-            src={fromSeft ? reveicer.avatar : user.avatar}
+            src={fromSelf ? user.avatar : reveicer.avatar}
             alt={"avatar"}
           />
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
-              textAlign: fromSeft ? "start" : "end",
+              textAlign: fromSelf ? "end" : "start",
             }}
           >
             <Typography fontSize={18} fontWeight={600}>
-              {fromSeft ? reveicer.name : fullnameOfUser(user.fullname)}
+              {fromSelf ? fullnameOfUser(user.fullname) : reveicer.name}
             </Typography>
             <Typography textAlign={"justify"}>{message}</Typography>
           </Box>

@@ -38,8 +38,9 @@ const AppLayout = () => {
         dispatch(setUserReducer(user));
         dispatch(cartActions.getCart(user._id));
         dispatch(favoriteActions.get(user._id));
-        socket.emit("user", user._id);
         requestPermissionNotification(user._id!);
+        socket.emit("user-connect", user._id);
+        socket.on("message-recieve", (data) => {});
       } catch (error) {
         return;
       }
