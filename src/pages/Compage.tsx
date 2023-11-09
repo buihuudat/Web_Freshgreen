@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { ProductType } from "../types/productType";
 import { removeProductCompare } from "../redux/slices/compareSlice";
 import { moneyFormat } from "../utils/handlers/moneyFormat";
+import { setItem } from "../utils/handlers/tokenHandler";
 const Compare = () => {
   const headers = [
     "Product",
@@ -32,15 +33,13 @@ const Compare = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleView = ({
-    title,
-    product,
-  }: {
-    title: string;
-    product: ProductType;
-  }) => {
-    navigate(`/san-pham/details/${title}`, { state: { product } });
+  const handleView = (product: ProductType) => {
+    navigate(`/san-pham/details/` + product.title, {
+      state: { productId: product._id as string },
+    });
+    setItem("productId", product._id);
   };
+
   const handleDelete = (id: string) => {
     dispatch(removeProductCompare(id));
   };
@@ -93,12 +92,7 @@ const Compare = () => {
               <TableCell>{product.sold}</TableCell>
               <TableCell>{product.category}</TableCell>
               <TableCell>
-                <IconButton
-                  color="primary"
-                  onClick={() =>
-                    handleView({ title: product.title as string, product })
-                  }
-                >
+                <IconButton color="primary" onClick={() => handleView(product)}>
                   <VisibilityIcon />
                 </IconButton>
               </TableCell>
