@@ -3,12 +3,13 @@ import queryString from "query-string";
 import { getItem } from "../handlers/tokenHandler";
 
 export const hostClient = "https://freshgreen.io.vn";
-// export const hostServer = "https://ecommerce-bhd.onrender.com";
-export const hostServer = "http://52.221.193.19";
+export const hostServer = "https://ecommerce-bhd.onrender.com";
 
 // export const hostClient = "http://localhost:3000";
 // export const hostServer = "http://localhost:5000";
+// export const hostServer = "http://52.221.193.19";
 
+// export const hostClient = "http://localhost:3000";
 const baseURL = `${hostServer}/api/v1`;
 
 const axiosClient = axios.create({
