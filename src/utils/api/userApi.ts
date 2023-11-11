@@ -15,8 +15,11 @@ export const userApi = {
 
   getUser: (id: string) => axiosClient.get(`/users/${id}`),
 
-  verifyEmail: (email: string) =>
-    axiosClient.post(`users/verify-email`, { email }),
+  sendCodeEmail: (email: string) =>
+    axiosClient.post(`users/send-code-email`, { email }),
+
+  verifyEmail: (email: string, code: string) =>
+    axiosClient.post(`users/verify-email`, { email, code }),
 
   verifyPhone: (phone: string) =>
     axiosClient.post(`users/verify-phone`, { phone }),

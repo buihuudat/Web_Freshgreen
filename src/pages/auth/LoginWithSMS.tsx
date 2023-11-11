@@ -13,6 +13,7 @@ import { LoginBg } from "../../constants/images";
 import PhoneInput, { formatPhoneNumber } from "react-phone-number-input";
 import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { authActions } from "../../actions/authActions";
+import { authAPI } from "../../utils/api/authApi";
 
 interface ExtendedWindow extends Window {
   recaptchaVerifier?: RecaptchaVerifier;
@@ -34,35 +35,43 @@ export default function LoginWithSMS() {
   const recaptchaContainer = document.getElementById("recaptcha-container");
 
   const verifyCapcha = async () => {
-    if (recaptchaContainer && !recaptchaContainer.hasChildNodes()) {
-      if (phone === "" || phone.length < 10) return;
-      let verify = new RecaptchaVerifier(auth, recaptchaContainer, {
-        size: "invisible",
-        callback: (response: any) => {
-          setVerify(true);
-        },
-      });
-
-      await signInWithPhoneNumber(auth, phone, verify)
-        .then((confirmationResult) => {
-          console.log(confirmationResult);
-          window.confirmationResult = confirmationResult;
-        })
-        .catch((error) => {
-          console.log(error);
-          NotificationToast({
-            message:
-              "Bạn đã thực hiện hành động này nhiều lần, Vui lòng thử lại sau.",
-            type: "error",
+    await authAPI
+      .checkPhone(formatPhoneNumber(phone).replace(/\D/g, ""))
+      .then(() => {
+        if (recaptchaContainer && !recaptchaContainer.hasChildNodes()) {
+          if (phone === "" || phone.length < 10) return;
+          let verify = new RecaptchaVerifier(auth, recaptchaContainer, {
+            size: "invisible",
+            callback: () => {
+              setVerify(true);
+            },
           });
-          setVerify(false);
-        });
-    }
-    return <div ref={recaptchaRef} id="recaptcha-container"></div>;
+
+          signInWithPhoneNumber(auth, phone, verify)
+            .then((confirmationResult) => {
+              window.confirmationResult = confirmationResult;
+            })
+            .catch(() => {
+              NotificationToast({
+                message:
+                  "Bạn đã thực hiện hành động này nhiều lần, Vui lòng thử lại sau.",
+                type: "error",
+              });
+              setVerify(false);
+            });
+        }
+        return <div ref={recaptchaRef} id="recaptcha-container"></div>;
+      })
+      .catch((e) => {
+        if (e.data.message) {
+          return NotificationToast({ message: e.data.message, type: "error" });
+        }
+      });
   };
 
-  const login = () => {
+  const login = async () => {
     setLoading(true);
+
     window.confirmationResult
       .confirm(otp)
       .then((result: any) => {
@@ -118,8 +127,9 @@ export default function LoginWithSMS() {
             onChange={(e) => setPhone(e!)}
             style={{
               width: 300,
-              height: 80,
-              fontSize: 23,
+              height: 60,
+              fontSize: 18,
+              borderRadius: 8,
             }}
             defaultCountry="VN"
           />

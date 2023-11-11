@@ -45,7 +45,7 @@ const App = () => {
     palette: {
       mode: "light",
     },
-    typography: { fontFamily: "Varela Round" },
+    typography: { fontFamily: "Open Sans" },
   });
 
   return (

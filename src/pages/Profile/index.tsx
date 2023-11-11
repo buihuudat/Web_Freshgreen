@@ -27,6 +27,7 @@ import { clearCart } from "../../redux/slices/cartSlice";
 import { clearFavorite } from "../../redux/slices/favoriteSlice";
 import { clearStorage } from "../../utils/handlers/tokenHandler";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import { userApi } from "../../utils/api/userApi";
 
 const initialErrText: {
   phone: string;
@@ -55,6 +56,8 @@ const Profile = () => {
   const [imageSelected, setImageSelected] = useState<string>("");
   const [avatarChanging, setAvatarChanging] = useState(false);
   const [dataAddress, setDataAddress] = useState([]);
+  const [code, setCode] = useState("");
+  const [formCode, setFormCode] = useState(false);
   const [address, setAddress] = useState<AddressProps>(
     {
       city: user?.address?.city || "",
@@ -258,8 +261,14 @@ const Profile = () => {
 
   const { pathname } = useLocation();
 
+  const sendCode = async () => {
+    await userApi.sendCodeEmail(user?.email!).then(() => setFormCode(true));
+  };
+
   const handleVerifyEmail = () => {
-    dispatch(userActions.verifyEmail(user?.email!));
+    dispatch(userActions.verifyEmail({ email: user?.email!, code }))
+      .unwrap()
+      .then(() => setFormCode(false));
   };
 
   // const handleVerifyPhone = () => {
@@ -465,7 +474,26 @@ const Profile = () => {
               error={errText.email !== ""}
               helperText={errText.email}
             />
-            {!user?.verifyEmail && (
+
+            {formCode && (
+              <TextField
+                sx={{ width: 180 }}
+                name="email"
+                label={"Nhập code"}
+                margin="normal"
+                onChange={(e) => setCode(e.target.value)}
+              />
+            )}
+            {!user?.verifyEmail && !formCode && (
+              <Button
+                variant="outlined"
+                sx={{ display: isDisable ? "block" : "none" }}
+                onClick={sendCode}
+              >
+                Gửi mã
+              </Button>
+            )}
+            {!user?.verifyEmail && formCode && (
               <Button
                 variant="outlined"
                 sx={{ display: isDisable ? "block" : "none" }}

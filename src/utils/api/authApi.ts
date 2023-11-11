@@ -12,6 +12,8 @@ export const authAPI = {
   register: (newUser: RegisterType) =>
     axiosClient.post("/auth/register", newUser),
   verifyToken: () => axiosClient.post("/auth/verify-token"),
+  checkPhone: (phone: string) =>
+    axiosClient.post("/auth/check-phone", { phone }),
   resetPassword: ({ email }: { email: string }) =>
     axiosClient.post("/auth/reset-password", {
       email,
