@@ -6,6 +6,7 @@ import { orderActions } from "../../actions/orderActions";
 import { RootState } from "../../redux/store";
 import { clearCart } from "../../redux/slices/cartSlice";
 import { getItem, removeItem } from "../handlers/tokenHandler";
+import { moneyFormat } from "../handlers/moneyFormat";
 
 const PaymentStatus = () => {
   const navigate = useNavigate();
@@ -40,7 +41,9 @@ const PaymentStatus = () => {
               dispatch(clearCart());
               removeItem("order");
               setMessage(
-                `Cảm ơn bạn! Giao dịch của bạn với số tiền ${paymentIntent.amount} đã được chấp nhận thành công.`
+                `Cảm ơn bạn! Giao dịch của bạn với số tiền ${moneyFormat(
+                  paymentIntent.amount
+                )} đã được chấp nhận thành công.`
               );
             });
             break;

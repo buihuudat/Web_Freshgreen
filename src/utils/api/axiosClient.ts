@@ -2,7 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 import { getItem } from "../handlers/tokenHandler";
 
-export const hostClient = "https://freshgreen.io.vn";
+export const hostClient = "https://freshgreen.vercel.app";
 export const hostServer = "https://server.freshgreen.io.vn";
 
 // export const hostClient = "http://localhost:3000";
