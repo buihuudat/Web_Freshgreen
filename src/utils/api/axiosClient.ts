@@ -3,7 +3,7 @@ import queryString from "query-string";
 import { getItem } from "../handlers/tokenHandler";
 
 export const hostClient = "https://freshgreen.io.vn";
-export const hostServer = "https://ecommerce-bhd.onrender.com";
+export const hostServer = "https://server.freshgreen.io.vn";
 
 // export const hostClient = "http://localhost:3000";
 // export const hostServer = "http://localhost:5000";
@@ -38,7 +38,7 @@ axiosClient.interceptors.response.use(
   },
   (err) => {
     if (!err.response) {
-      return alert(err);
+      console.log(err);
     }
     throw err.response;
   }
