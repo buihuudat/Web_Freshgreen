@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography, Button, Paper } from "@mui/material";
+import { Box, IconButton, Typography, Button } from "@mui/material";
 import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
 import { mainColor } from "../../../constants/colors";
 

@@ -18,12 +18,16 @@ import {
   requestPermissionNotification,
 } from "../../utils/handlers/getFCMToken";
 import { RootState } from "../../redux/store";
+import { setPopup } from "../../redux/slices/messageSlice";
 
 const AppLayout = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.user.user);
+  const popup = useAppSelector((state: RootState) => state.messages.popup);
+
   user && onListentingMessage(dispatch, user._id!);
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -40,13 +44,16 @@ const AppLayout = () => {
         dispatch(favoriteActions.get(user._id));
         requestPermissionNotification(user._id!);
         socket.emit("user-connect", user._id);
-        socket.on("message-recieve", (data) => {});
       } catch (error) {
         return;
       }
     };
     checkAuth();
   }, [dispatch]);
+
+  socket.on("message-recieve", (data) => {
+    dispatch(setPopup(!popup));
+  });
 
   return (
     <Suspense fallback={<LinearProgress color="success" />}>
