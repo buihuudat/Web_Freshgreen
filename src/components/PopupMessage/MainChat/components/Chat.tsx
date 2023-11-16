@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { messageActions } from "../../../../actions/messageAction";
 import MessageItem from "./MessageItem";
 import { NotificationToast } from "../../../../utils/handlers/NotificationToast";
+import { dataMessage } from "./data";
+import { mainColor } from "../../../../constants/colors";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
@@ -19,6 +21,7 @@ const Chat = () => {
   const {
     user: data,
     userChat,
+    aiChat,
     loading,
   } = useAppSelector((state: RootState) => state.messages);
 
@@ -33,7 +36,7 @@ const Chat = () => {
         chatContainer.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, [userChat]);
+  }, [userChat, loading]);
 
   const handleSend = () => {
     setMessage("");
@@ -72,7 +75,7 @@ const Chat = () => {
         <Divider variant="middle" />
       </Box>
       <Box sx={{ flex: 1, padding: 3, overflow: "auto", height: "80%" }}>
-        {userChat.map((chat, index) => (
+        {(data.user._id === "AI" ? aiChat : userChat).map((chat, index) => (
           <MessageItem
             key={index}
             {...chat}
@@ -82,6 +85,33 @@ const Chat = () => {
         ))}
         <div ref={messagesEndRef} />
       </Box>
+      {data.user._id === "AI" && (
+        <Box display={"flex"} flexWrap={"wrap"}>
+          {dataMessage.map((mess, i) => (
+            <Typography
+              onClick={() =>
+                !loading &&
+                dispatch(
+                  messageActions.ask({ userId: user?._id!, message: mess })
+                )
+              }
+              key={i}
+              sx={{
+                padding: 1,
+                fontSize: 12,
+                width: "max-content",
+                borderRadius: "50px",
+                borderWidth: 1,
+                borderStyle: "solid",
+                borderColor: mainColor,
+                cursor: "pointer",
+              }}
+            >
+              {mess}
+            </Typography>
+          ))}
+        </Box>
+      )}
       <Box sx={{ mt: "auto", width: "100%", display: "flex" }}>
         <TextField
           onChange={(e) => setMessage(e.target.value)}

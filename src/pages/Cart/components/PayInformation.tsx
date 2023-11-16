@@ -29,7 +29,7 @@ import {
 import { orderActions } from "../../../actions/orderActions";
 import { clearCart } from "../../../redux/slices/cartSlice";
 import { socket } from "../../../utils/api/socketConfirm";
-import { addressOfUser } from "../../../types/userType";
+import { addressOfUser, fullnameOfUser } from "../../../types/userType";
 
 const PayInformation = memo(() => {
   const [discount, setDiscount] = useState<number>(0);
@@ -122,7 +122,7 @@ const PayInformation = memo(() => {
             address: addressOfUser(user.address),
             phone: user?.phone,
             email: user?.email,
-            nameOfUser: user?.username,
+            nameOfUser: fullnameOfUser(user.fullname!),
             discount: {
               voucher,
               discount,
@@ -252,6 +252,15 @@ const PayInformation = memo(() => {
         </Typography>
       </Box>
 
+      <Box display={"flex"} flexDirection={"row"} gap={1} my={1}>
+        <Typography fontSize={15} color={"#555"}>
+          Tên người nhận:
+        </Typography>
+        <Typography fontSize={16} fontWeight={600}>
+          {fullnameOfUser(user?.fullname!)}
+        </Typography>
+      </Box>
+
       {/* dia chi giao hang */}
       {!user?.address ? (
         <Link
@@ -296,7 +305,7 @@ const PayInformation = memo(() => {
           <FormControlLabel
             value="lastPay"
             control={<Radio />}
-            label="Thanh toán khi nhận hàng"
+            label="Thanh toán khi nhận hàng (giao trong 12 giờ)"
           />
           <FormControlLabel
             value="payNow"

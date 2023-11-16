@@ -1,7 +1,6 @@
 import { Avatar, Box, Divider, Typography } from "@mui/material";
 import ListIcon from "@mui/icons-material/List";
 import { mainColor } from "../../../../constants/colors";
-import { AIImage } from "../../../../constants/images";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { selectUser } from "../../../../redux/slices/messageSlice";
 import { messageActions } from "../../../../actions/messageAction";
@@ -9,18 +8,18 @@ import { RootState } from "../../../../redux/store";
 import { socket } from "../../../../utils/api/socketConfirm";
 import { useEffect } from "react";
 
-const AIData = {
-  user: {
-    _id: "AI",
-    name: "AI tư vấn",
-    avatar: AIImage,
-  },
-  lastMessage: "",
-  time: "now",
-  seen: true,
-};
-
 const data = [
+  {
+    user: {
+      _id: "AI",
+      name: "AI tư vấn",
+      avatar:
+        "https://e7.pngegg.com/pngimages/312/145/png-clipart-chef-illustration-chef-cooking-cooking-kitchen-food-thumbnail.png",
+    },
+    lastMessage: "",
+    time: "now",
+    seen: true,
+  },
   {
     user: {
       id: "654367fa7a19c5bddd7a1edb",
@@ -116,7 +115,6 @@ function List() {
         <Typography fontWeight={600}>Danh sách</Typography>
       </Box>
       <Box sx={{ overflowY: "auto", height: "90%" }}>
-        <ListItem {...AIData} />
         {data.map((d, i) => (
           <ListItem {...d} key={i} />
         ))}

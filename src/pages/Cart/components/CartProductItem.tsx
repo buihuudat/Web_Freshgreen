@@ -91,23 +91,20 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
             flexWrap={{ sm: "nowrap", xs: "wrap" }}
             p={1}
           >
-            {product.discount > 0 && (
-              <Typography
-                fontSize={{ sm: 20, xs: 13 }}
-                fontWeight={600}
-                color={"orange"}
-              >
-                -{product.discount}%
-              </Typography>
-            )}
-            {product.discount > 0 && (
-              <Typography
-                color={"#999"}
-                sx={{ textDecoration: "line-through" }}
-              >
-                {moneyFormat(product.price)}
-              </Typography>
-            )}
+            <Typography
+              fontSize={{ sm: 20, xs: 13 }}
+              fontWeight={600}
+              color={"orange"}
+              sx={{ width: 100 }}
+            >
+              {product.discount > 0 && `-${product.discount}%`}
+            </Typography>
+            <Typography
+              color={"#999"}
+              sx={{ textDecoration: "line-through", width: 100 }}
+            >
+              {product.discount > 0 && `${moneyFormat(product.price)}`}
+            </Typography>
             <Typography
               fontSize={{ sm: 25, xs: 13 }}
               color={"#62BD19"}

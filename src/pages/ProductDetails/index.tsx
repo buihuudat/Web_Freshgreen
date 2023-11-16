@@ -75,7 +75,7 @@ const ProductDetails = () => {
     }, 10000);
 
     return () => clearTimeout(updateProductView);
-  }, [product?._id]);
+  }, [product?._id, dispatch]);
 
   const handleAddCart = () => {
     if (!product) return;

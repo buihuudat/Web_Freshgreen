@@ -4,6 +4,7 @@ import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import { mainColor } from "../../../constants/colors";
 import { PayDataProps } from "../../../types/payType";
 import { blue } from "@mui/material/colors";
+import { fullnameOfUser } from "../../../types/userType";
 
 const BillPay = memo((props: PayDataProps) => {
   return (
@@ -14,7 +15,7 @@ const BillPay = memo((props: PayDataProps) => {
 
       <Box display={"flex"} flexDirection={"row"} my={1} gap={1}>
         <Typography fontSize={{ sm: 18, xs: 15 }} color={"#555"}>
-          Tên tài khoản:
+          Tên người nhận:
         </Typography>
         <Typography fontSize={{ sm: 18, xs: 15 }} fontWeight={600}>
           {props.nameOfUser}

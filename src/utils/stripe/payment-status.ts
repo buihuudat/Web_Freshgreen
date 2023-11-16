@@ -68,7 +68,7 @@ const PaymentStatus = () => {
             break;
         }
       });
-  }, [stripe, navigate]);
+  }, [stripe, navigate, dispatch]);
 
   return message;
 };

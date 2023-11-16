@@ -29,7 +29,7 @@ const MessageItem = (props: Props) => {
           }}
         >
           <Avatar
-            src={fromSelf ? user.avatar : reveicer.avatar}
+            src={fromSelf ? user?.avatar : reveicer?.avatar}
             alt={"avatar"}
           />
           <Box
@@ -40,7 +40,11 @@ const MessageItem = (props: Props) => {
             }}
           >
             <Typography fontSize={18} fontWeight={600}>
-              {fromSelf ? fullnameOfUser(user.fullname) : reveicer.name}
+              {fromSelf
+                ? user
+                  ? fullnameOfUser(user.fullname)
+                  : "Khách"
+                : reveicer.name}
             </Typography>
             <Typography textAlign={"justify"}>{message}</Typography>
           </Box>

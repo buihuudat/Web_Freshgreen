@@ -1,19 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { messageActions } from "../../actions/messageAction";
 import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
-
-interface SendProps {
-  authId: string;
-  message: string;
-}
 
 interface InitialProp {
   popup: boolean;
   user: any;
-  aiChat: {
-    from: Array<SendProps>;
-    to: Array<SendProps>;
-  };
+  aiChat: Array<{
+    fromSelf: boolean;
+    message: string;
+  }>;
   userChat: Array<{
     fromSelf: boolean;
     message: string;
@@ -34,10 +29,7 @@ const initialState: InitialProp = {
     seen: false,
   },
 
-  aiChat: {
-    from: [],
-    to: [],
-  },
+  aiChat: [],
 
   userChat: [],
 
@@ -58,23 +50,7 @@ export const messageSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(messageActions.ask.fulfilled, (state, action) => {
-        const fromData = {
-          authId: action.meta.arg.userId,
-          message: action.meta.arg.message,
-        };
-        const toData = {
-          authId: action.payload.authId,
-          message: action.payload.message,
-        };
-
-        const updatedChatFrom = [...state.aiChat.from, fromData];
-        const updatedChatTo = [...state.aiChat.to, toData];
-
-        // Update the state
-        state.aiChat = {
-          from: updatedChatFrom,
-          to: updatedChatTo,
-        };
+        state.aiChat.push(action.payload);
       })
       .addCase(messageActions.send.fulfilled, (state, action) => {
         state.userChat.push(action.payload);
@@ -82,6 +58,15 @@ export const messageSlice = createSlice({
       .addCase(messageActions.get.fulfilled, (state, action) => {
         state.userChat = action.payload;
       })
+      .addMatcher(
+        isAnyOf(messageActions.ask.pending, messageActions.ask.rejected),
+        (state, action) => {
+          state.aiChat.push({
+            fromSelf: true,
+            message: action.meta.arg.message,
+          });
+        }
+      )
       .addMatcher<PendingAction>(
         (action) => action.type.endsWith("/pending"),
         (state) => {
