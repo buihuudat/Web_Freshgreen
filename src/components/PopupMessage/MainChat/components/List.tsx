@@ -2,7 +2,7 @@ import { Avatar, Box, Divider, Typography } from "@mui/material";
 import ListIcon from "@mui/icons-material/List";
 import { mainColor } from "../../../../constants/colors";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { selectUser } from "../../../../redux/slices/messageSlice";
+import { selectUser, setPopup } from "../../../../redux/slices/messageSlice";
 import { messageActions } from "../../../../actions/messageAction";
 import { RootState } from "../../../../redux/store";
 import { socket } from "../../../../utils/api/socketConfirm";
@@ -43,15 +43,29 @@ const ListItem = (data: any) => {
   };
 
   useEffect(() => {
-    socket.on("message-recieve", (data) => {
-      user &&
+    user &&
+      socket.on("message-recieve", (data) => {
         dispatch(
           messageActions.get({
-            from: data.from,
-            to: data.to,
+            from: user._id!,
+            to: user._id! !== data.from ? data.to : data.from,
           })
         );
-    });
+        dispatch(setPopup(true));
+        dispatch(
+          selectUser({
+            user: {
+              _id: "654367fa7a19c5bddd7a1edb",
+              name: "Hỗ trợ",
+              avatar:
+                "https://e7.pngegg.com/pngimages/381/746/png-clipart-customer-service-technical-support-help-desk-customer-support-management-miscellaneous-service-thumbnail.png",
+            },
+            lastMessage: "24/7",
+            time: "10:11",
+            seen: false,
+          })
+        );
+      });
   }, [dispatch, user]);
 
   return (

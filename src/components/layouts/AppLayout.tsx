@@ -18,13 +18,11 @@ import {
   requestPermissionNotification,
 } from "../../utils/handlers/getFCMToken";
 import { RootState } from "../../redux/store";
-import { selectUser, setPopup } from "../../redux/slices/messageSlice";
 
 const AppLayout = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.user.user);
-  const popup = useAppSelector((state: RootState) => state.messages.popup);
 
   user && onListentingMessage(dispatch, user._id!);
 
@@ -50,23 +48,6 @@ const AppLayout = () => {
     };
     checkAuth();
   }, [dispatch]);
-
-  socket.on("message-recieve", (data) => {
-    dispatch(setPopup(true));
-    dispatch(
-      selectUser({
-        user: {
-          _id: "654367fa7a19c5bddd7a1edb",
-          name: "Hỗ trợ",
-          avatar:
-            "https://e7.pngegg.com/pngimages/381/746/png-clipart-customer-service-technical-support-help-desk-customer-support-management-miscellaneous-service-thumbnail.png",
-        },
-        lastMessage: "24/7",
-        time: "10:11",
-        seen: false,
-      })
-    );
-  });
 
   return (
     <Suspense fallback={<LinearProgress color="success" />}>
