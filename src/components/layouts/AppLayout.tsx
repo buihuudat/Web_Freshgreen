@@ -56,14 +56,14 @@ const AppLayout = () => {
     dispatch(
       selectUser({
         user: {
-          _id: "AI",
-          name: "AI tư vấn",
+          _id: "654367fa7a19c5bddd7a1edb",
+          name: "Hỗ trợ",
           avatar:
-            "https://e7.pngegg.com/pngimages/312/145/png-clipart-chef-illustration-chef-cooking-cooking-kitchen-food-thumbnail.png",
+            "https://e7.pngegg.com/pngimages/381/746/png-clipart-customer-service-technical-support-help-desk-customer-support-management-miscellaneous-service-thumbnail.png",
         },
-        lastMessage: "",
-        time: "now",
-        seen: true,
+        lastMessage: "24/7",
+        time: "10:11",
+        seen: false,
       })
     );
   });
