@@ -39,7 +39,7 @@ const ListItem = (data: any) => {
 
   const handleSelect = () => {
     dispatch(selectUser(data));
-    dispatch(messageActions.get({ from: user?._id!, to: data.user.id }));
+    dispatch(messageActions.get({ from: user?._id!, to: data.user._id }));
   };
 
   useEffect(() => {

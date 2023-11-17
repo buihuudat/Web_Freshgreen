@@ -52,7 +52,7 @@ const Chat = () => {
         messageActions.send({
           user,
           from: user?._id!,
-          to: data.user.id,
+          to: data.user._id,
           message: {
             text: message,
           },
