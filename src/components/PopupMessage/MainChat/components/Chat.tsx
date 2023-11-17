@@ -13,10 +13,9 @@ import { mainColor } from "../../../../constants/colors";
 const Chat = () => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const user = useAppSelector((state: RootState) => state.user.user);
 
   const dispatch = useAppDispatch();
-
-  const user = useAppSelector((state: RootState) => state.user.user);
 
   const {
     user: data,

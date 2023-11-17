@@ -19,6 +19,7 @@ export const messageActions = {
     try {
       const res = await messageApi.send(data);
       socket.emit("send-message-to-admin", {
+        ...data,
         avatar: data.user?.avatar,
         fullname: data.user?.fullname,
         userId: data.user?._id,
