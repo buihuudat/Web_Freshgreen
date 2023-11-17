@@ -50,6 +50,7 @@ const Chat = () => {
         });
       dispatch(
         messageActions.send({
+          user,
           from: user?._id!,
           to: data.user.id,
           message: {

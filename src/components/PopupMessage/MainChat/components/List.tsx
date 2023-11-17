@@ -22,7 +22,7 @@ const data = [
   },
   {
     user: {
-      id: "654367fa7a19c5bddd7a1edb",
+      _id: "654367fa7a19c5bddd7a1edb",
       name: "Hỗ trợ",
       avatar:
         "https://e7.pngegg.com/pngimages/381/746/png-clipart-customer-service-technical-support-help-desk-customer-support-management-miscellaneous-service-thumbnail.png",

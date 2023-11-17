@@ -18,7 +18,7 @@ import {
   requestPermissionNotification,
 } from "../../utils/handlers/getFCMToken";
 import { RootState } from "../../redux/store";
-import { setPopup } from "../../redux/slices/messageSlice";
+import { selectUser, setPopup } from "../../redux/slices/messageSlice";
 
 const AppLayout = () => {
   const { pathname } = useLocation();
@@ -52,7 +52,20 @@ const AppLayout = () => {
   }, [dispatch]);
 
   socket.on("message-recieve", (data) => {
-    dispatch(setPopup(!popup));
+    dispatch(setPopup(true));
+    dispatch(
+      selectUser({
+        user: {
+          _id: "AI",
+          name: "AI tư vấn",
+          avatar:
+            "https://e7.pngegg.com/pngimages/312/145/png-clipart-chef-illustration-chef-cooking-cooking-kitchen-food-thumbnail.png",
+        },
+        lastMessage: "",
+        time: "now",
+        seen: true,
+      })
+    );
   });
 
   return (
