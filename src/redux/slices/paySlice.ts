@@ -4,17 +4,29 @@ import { FulfilledAction, PendingAction, RejectedAction } from "./silceType";
 interface InitialStateProps {
   amount: number;
   loading: boolean;
+  modal: {
+    data: any;
+    open: boolean;
+  };
 }
 
 const initialState: InitialStateProps = {
   amount: 0,
   loading: false,
+  modal: {
+    data: {},
+    open: false,
+  },
 };
 
 export const paySlice = createSlice({
   name: "pay",
   initialState,
-  reducers: {},
+  reducers: {
+    setPayMethod: (state, action) => {
+      state.modal = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addMatcher<PendingAction>(
@@ -34,4 +46,5 @@ export const paySlice = createSlice({
   },
 });
 
+export const { setPayMethod } = paySlice.actions;
 export default paySlice.reducer;

@@ -4,6 +4,7 @@ import { RootState } from "../../redux/store";
 import CartProductItem from "./components/CartProductItem";
 import { ProductCartType } from "../../types/cartType";
 import PayInformation from "./components/PayInformation";
+import PayMethodModal from "../../components/common/PayMethodModal";
 
 const Cart = () => {
   const cart = useAppSelector((state: RootState) => state.cart.data);
@@ -43,6 +44,7 @@ const Cart = () => {
 
         {cart.products.length > 0 && <PayInformation />}
       </Box>
+      <PayMethodModal />
     </Box>
   );
 };

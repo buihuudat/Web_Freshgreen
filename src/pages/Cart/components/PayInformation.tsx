@@ -30,6 +30,7 @@ import { orderActions } from "../../../actions/orderActions";
 import { clearCart } from "../../../redux/slices/cartSlice";
 import { socket } from "../../../utils/api/socketConfirm";
 import { addressOfUser, fullnameOfUser } from "../../../types/userType";
+import { setPayMethod } from "../../../redux/slices/paySlice";
 
 const PayInformation = memo(() => {
   const [discount, setDiscount] = useState<number>(0);
@@ -114,31 +115,34 @@ const PayInformation = memo(() => {
     };
     // pay online
     if (paymentMethod === "payNow") {
-      navigate("/payment", {
-        state: {
-          payData: {
-            totalPrice,
-            amount: totalPay,
-            address: addressOfUser(user.address),
-            phone: user?.phone,
-            email: user?.email,
-            nameOfUser: fullnameOfUser(user.fullname!),
-            discount: {
-              voucher,
-              discount,
+      dispatch(
+        setPayMethod({
+          open: true,
+          data: {
+            payData: {
+              totalPrice,
+              amount: totalPay,
+              address: addressOfUser(user.address),
+              phone: user?.phone,
+              email: user?.email,
+              nameOfUser: fullnameOfUser(user.fullname!),
+              discount: {
+                voucher,
+                discount,
+              },
             },
-          },
 
-          order: {
-            ...order,
-            pay: {
-              ...order.pay,
-              method: PayMethod.payNow,
-              status: PayStatus.success,
+            order: {
+              ...order,
+              pay: {
+                ...order.pay,
+                method: PayMethod.payNow,
+                status: PayStatus.success,
+              },
             },
           },
-        },
-      });
+        })
+      );
     } else {
       setIsLoading({ pay: true });
 
@@ -325,7 +329,7 @@ const PayInformation = memo(() => {
         onClick={handlePay}
         disabled={!paymentMethod}
       >
-        {paymentMethod === PayMethod.lastPay ? "Đặt hàng" : "Thanh toán"}
+        {paymentMethod === PayMethod.lastPay ? "Đặt hàng" : "Tiếp tục"}
       </LoadingButton>
     </Paper>
   );

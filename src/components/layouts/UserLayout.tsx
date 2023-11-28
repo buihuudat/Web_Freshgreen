@@ -18,29 +18,32 @@ const UserLayout = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     const checkAUth = async () => {
+      if (!getItem("user")) {
+        navigate("/dang-nhap");
+        return;
+      }
+
       try {
-        if (getItem("user")) {
-          const user = await verifyToken();
-          if (user) {
-            setIsLoading(false);
-            dispatch(setUserReducer(user));
-            dispatch(cartActions.getCart(user._id));
-            dispatch(orderActions.getOrders(user._id));
-            dispatch(favoriteActions.get(user._id));
-            socket.emit("user", user._id);
-          } else {
-            navigate("/dang-nhap");
-          }
+        const user = await verifyToken();
+
+        if (user) {
+          setIsLoading(false);
+          dispatch(setUserReducer(user));
+          dispatch(cartActions.getCart(user._id));
+          dispatch(orderActions.getOrders(user._id));
+          dispatch(favoriteActions.get(user._id));
+          socket.emit("user", user._id);
         } else {
           navigate("/dang-nhap");
         }
       } catch (error) {
+        console.error("Error checking authentication:", error);
         navigate("/dang-nhap");
       }
     };
+
     checkAUth();
   }, [navigate, dispatch]);
 

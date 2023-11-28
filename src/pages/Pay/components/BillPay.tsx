@@ -4,9 +4,12 @@ import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import { mainColor } from "../../../constants/colors";
 import { PayDataProps } from "../../../types/payType";
 import { blue } from "@mui/material/colors";
-import { fullnameOfUser } from "../../../types/userType";
+import { useLocation } from "react-router-dom";
 
 const BillPay = memo((props: PayDataProps) => {
+  const { pathname } = useLocation();
+
+  const method = pathname.split("/")[3].toUpperCase() || "online";
   return (
     <Box sx={{ p: 3 }}>
       <Typography fontSize={32} fontWeight={500} pb={2}>
@@ -126,7 +129,7 @@ const BillPay = memo((props: PayDataProps) => {
           Phương thức thanh toán
         </Typography>
         <Typography fontSize={{ sm: 16, xs: 14 }} fontWeight={600}>
-          Thanh toán trực tuyến (
+          Thanh toán {method} (
           <Link href="/gio-hang" sx={{ fontWeight: 300, color: blue }}>
             thay đổi
           </Link>

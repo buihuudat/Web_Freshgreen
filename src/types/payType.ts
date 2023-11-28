@@ -19,3 +19,15 @@ export const InitialPayData: PayDataProps = {
   email: "",
   nameOfUser: "",
 };
+
+export interface PayMethodOptionItem {
+  name: String;
+  path: String;
+  image: String;
+  value: String;
+}
+
+export interface VNPayMethod {
+  amount: number;
+  bankCode: String;
+}

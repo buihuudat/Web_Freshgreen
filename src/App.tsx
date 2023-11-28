@@ -15,8 +15,12 @@ import "swiper/css/navigation";
 import "moment/locale/vi";
 import "./firebaseConfig";
 import "react-phone-number-input/style.css";
+import VnPayMethod from "./pages/Pay/VnPayMethod";
+import MomoMethod from "./pages/Pay/MomoMethod";
+import PayLayout from "./components/layouts/PayLayout";
+import VNPayThank from "./pages/Pay/VNPayThank";
 
-const Payment = lazy(() => import("./pages/Pay"));
+const VisaMethod = lazy(() => import("./pages/Pay/VisaMethod"));
 const OrderManager = lazy(() => import("./pages/OrderManeger"));
 const Thankyou = lazy(() => import("./pages/Pay/Thankyou"));
 const Bought = lazy(() => import("./pages/Bought"));
@@ -82,9 +86,17 @@ const App = () => {
           <Route path="/gio-hang" element={<Cart />} />
           <Route path="/san-pham-yeu-thich" element={<Favorites />} />
           <Route path="/tai-khoan" element={<Profile />} />
-          <Route path="/payment" element={<Payment />} />
           <Route path="/quan-li-don-hang" element={<OrderManager />} />
           <Route path="/don-hang-da-mua" element={<Bought />} />
+          <Route path="/" element={<PayLayout />}>
+            <Route path="/gio-hang/payment/visa" element={<VisaMethod />} />
+            <Route path="/gio-hang/payment/vnpay" element={<VnPayMethod />} />
+            <Route path="/gio-hang/payment/momo" element={<MomoMethod />} />
+          </Route>
+          <Route
+            path="/gio-hang/payment/vnpay/thankyou"
+            element={<VNPayThank />}
+          />
           <Route path="/thankyou" element={<Thankyou />} />
         </Route>
       </Routes>
