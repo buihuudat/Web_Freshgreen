@@ -19,7 +19,7 @@ const NewsLists = () => {
       >
         <StoreIcon sx={{ fontSize: 60 }} color="success" />
         <Typography fontWeight={600} fontSize={32}>
-          Blog List
+          Tin tức
         </Typography>
       </Box>
       {newsList.length ? (
