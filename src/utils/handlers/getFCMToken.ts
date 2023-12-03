@@ -30,9 +30,9 @@ export const requestForToken = (userId: string) => {
 
 export const requestPermissionNotification = (userId: string) => {
   Notification.requestPermission().then((permission) => {
-    if (permission === "granted") {
-      requestForToken(userId);
-    }
+    // if (permission === "granted") {
+    requestForToken(userId);
+    // }
   });
 };
 
