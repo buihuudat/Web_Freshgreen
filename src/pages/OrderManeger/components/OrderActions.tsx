@@ -58,6 +58,15 @@ const OrderActions = memo((props: Props) => {
     setShow(false);
   };
 
+  const handleDeleteOrder = () => {
+    dispatch(
+      orderActions.deleteOrder({
+        userId: user._id as string,
+        orderId: order._id as string,
+      })
+    );
+  };
+
   return order.status === OrderStatus.pending ? (
     <Box sx={{ display: "flex", gap: 1, p: 1, flexDirection: "column" }}>
       {!show ? (
@@ -119,9 +128,19 @@ const OrderActions = memo((props: Props) => {
       </LoadingButton>
     </Box>
   ) : order.status === OrderStatus.done ? (
-    <Button variant="contained" fullWidth color="primary">
-      Mua lại
-    </Button>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 1, padding: 1 }}>
+      <Button variant="contained" fullWidth color="primary">
+        Mua lại
+      </Button>
+      {/* <Button
+        variant="outlined"
+        fullWidth
+        color="error"
+        onClick={handleDeleteOrder}
+      >
+        Xoá đơn hàng
+      </Button> */}
+    </Box>
   ) : (
     <Box p={1}>
       <Button variant="text" fullWidth color="error" disabled>

@@ -52,4 +52,16 @@ export const orderActions = {
       throw error;
     }
   }),
+
+  deleteOrder: createAsyncThunk(
+    "order/delete",
+    async ({ orderId, userId }: { orderId: string; userId: string }) => {
+      try {
+        const res = await orderApi.delete(orderId, userId);
+        return res.data;
+      } catch (error) {
+        throw error;
+      }
+    }
+  ),
 };

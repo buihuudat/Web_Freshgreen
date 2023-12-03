@@ -8,7 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { getProvince } from "../../utils/api/getProvince";
 import { LoadingButton } from "@mui/lab";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -28,6 +35,19 @@ import { clearFavorite } from "../../redux/slices/favoriteSlice";
 import { clearStorage } from "../../utils/handlers/tokenHandler";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { userApi } from "../../utils/api/userApi";
+import VerifyPhoneModal from "./components/VerifyPhoneModal";
+import {
+  RecaptchaVerifier,
+  getAuth,
+  signInWithPhoneNumber,
+} from "firebase/auth";
+import { NotificationToast } from "../../utils/handlers/NotificationToast";
+
+interface ExtendedWindow extends Window {
+  recaptchaVerifier?: RecaptchaVerifier;
+  confirmationResult?: any;
+}
+declare var window: ExtendedWindow;
 
 const initialErrText: {
   phone: string;
@@ -50,8 +70,15 @@ const initialErrText: {
 const Profile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector((state: RootState) => state.user.user);
+  const auth = getAuth();
+  const { pathname } = useLocation();
+  const recaptchaRef = useRef(null);
+  const recaptchaContainer = document.getElementById("recaptcha-container");
 
+  const { user, isLoading } = useAppSelector((state: RootState) => state.user);
+
+  const [errText, setErrText] = useState(initialErrText);
+  const [open, setOpen] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
   const [imageSelected, setImageSelected] = useState<string>("");
   const [avatarChanging, setAvatarChanging] = useState(false);
@@ -76,8 +103,6 @@ const Profile = () => {
     districts: [],
     wards: [],
   });
-  const [errText, setErrText] = useState(initialErrText);
-  const loading = useAppSelector((state: RootState) => state.user.isLoading);
 
   const userVerified = useMemo(
     () => user?.verifyPhone && user?.verifyEmail,
@@ -259,8 +284,6 @@ const Profile = () => {
     navigate("/");
   };
 
-  const { pathname } = useLocation();
-
   const sendCode = async () => {
     await userApi.sendCodeEmail(user?.email!).then(() => setFormCode(true));
   };
@@ -271,9 +294,41 @@ const Profile = () => {
       .then(() => setFormCode(false));
   };
 
-  // const handleVerifyPhone = () => {
-  //   dispatch(userActions.verifyPhone(user.phone));
-  // };
+  const verifyCapcha = async () => {
+    if (recaptchaContainer && !recaptchaContainer.hasChildNodes()) {
+      let verify = new RecaptchaVerifier(auth, recaptchaContainer, {
+        size: "invisible",
+        callback: () => {},
+      });
+
+      signInWithPhoneNumber(auth, `+84 ${+user?.phone!}`, verify)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          setOpen(true);
+        })
+        .catch(() => {
+          NotificationToast({
+            message:
+              "Bạn đã thực hiện hành động này nhiều lần, Vui lòng thử lại sau.",
+            type: "error",
+          });
+        });
+    }
+    return <div ref={recaptchaRef} id="recaptcha-container"></div>;
+  };
+
+  const handleVerify = (otp: number) => {
+    window.confirmationResult
+      .confirm(otp)
+      .then((result: any) => {
+        dispatch(userActions.verifyPhone(user?.phone!))
+          .unwrap()
+          .then(() => setOpen(false));
+      })
+      .catch((e: any) => {
+        NotificationToast({ message: "Mã không đúng", type: "error" });
+      });
+  };
 
   return (
     <Box display={"flex"} flexDirection={"row"} justifyContent={"space-around"}>
@@ -444,13 +499,16 @@ const Profile = () => {
               error={errText.phone !== ""}
               helperText={errText.phone}
             />
-            {/* <Button
-              onClick={handleVerifyPhone}
-              variant="outlined"
-              sx={{ display: isDisable ? "block" : "none" }}
-            >
-              Xác minh
-            </Button> */}
+            {!user?.verifyPhone &&
+              !user?.phone.split("#").includes("social") && (
+                <Button
+                  onClick={verifyCapcha}
+                  variant="outlined"
+                  sx={{ display: isDisable ? "block" : "none" }}
+                >
+                  Xác minh
+                </Button>
+              )}
           </Box>
           <Box
             sx={{
@@ -585,7 +643,7 @@ const Profile = () => {
 
             {isDisable && (
               <LoadingButton
-                loading={loading}
+                loading={isLoading}
                 variant="contained"
                 color="success"
                 fullWidth
@@ -606,6 +664,14 @@ const Profile = () => {
           </Box>
         </Box>
       </Box>
+      <div id="recaptcha-container"></div>
+
+      <VerifyPhoneModal
+        loading={isLoading}
+        open={open}
+        setOpen={setOpen}
+        onVerify={handleVerify}
+      />
     </Box>
   );
 };

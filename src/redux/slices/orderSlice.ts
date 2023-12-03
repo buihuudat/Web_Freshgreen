@@ -24,6 +24,14 @@ export const orderSlice = createSlice({
       .addCase(orderActions.createOrder.fulfilled, (state, action) => {
         state.data?.push(action.payload);
       })
+      .addCase(orderActions.deleteOrder.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          const orderIndex = state.data.findIndex(
+            (order) => order._id === action.meta.arg.orderId
+          );
+          state.data = state.data.splice(orderIndex, 1);
+        }
+      })
       .addCase(orderActions.submitStatusOrder.fulfilled, (state, action) => {
         if (action.payload.status) {
           const index = state.data.findIndex(

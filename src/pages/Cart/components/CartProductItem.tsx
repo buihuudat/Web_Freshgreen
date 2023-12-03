@@ -109,7 +109,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
               fontSize={{ sm: 25, xs: 13 }}
               color={"#62BD19"}
               fontWeight={600}
-              sx={{ width: { sm: 100, xs: 50 } }}
+              sx={{ width: { sm: 150, xs: 50 } }}
               align="right"
             >
               {moneyFormat(product.lastPrice)}/{product.unit}

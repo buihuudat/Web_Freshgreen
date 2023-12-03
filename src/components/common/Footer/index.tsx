@@ -261,7 +261,7 @@ const Footer = () => {
         alignItems={"center"}
       >
         <Typography sx={{ fontSize: { sm: 16, xs: 12 } }}>
-          Bản quyền @ 2023 FoodShop. Phát triên bởi{" "}
+          Bản quyền @ 2023 FreshGreen. Phát triên bởi{" "}
           <a
             style={{
               textDecoration: "none",

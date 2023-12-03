@@ -7,7 +7,8 @@ export const orderApi = {
     axiosClient.post(`/orders/user/${userId}`, { order }),
   updateStatusOrder: (userId: string, orderId: string, status: PayStatus) =>
     axiosClient.put(`/orders/${orderId}/user/${userId}`, { status }),
-  delete: (userId: string) => axiosClient.patch(`/orders/user/${userId}`),
+  delete: (orderId: string, userId: string) =>
+    axiosClient.delete(`/orders/${orderId}/user/${userId}`),
 
   statusOrder: ({ userId, orderId, status, message = "" }: SubmitProps) =>
     axiosClient.put(`/orders/${orderId}/user/${userId}`, {
