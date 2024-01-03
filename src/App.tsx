@@ -19,6 +19,7 @@ import VnPayMethod from "./pages/Pay/VnPayMethod";
 import MomoMethod from "./pages/Pay/MomoMethod";
 import PayLayout from "./components/layouts/PayLayout";
 import VNPayThank from "./pages/Pay/VNPayThank";
+import MomoThank from "./pages/Pay/MOMOThank";
 
 const VisaMethod = lazy(() => import("./pages/Pay/VisaMethod"));
 const OrderManager = lazy(() => import("./pages/OrderManeger"));
@@ -96,6 +97,10 @@ const App = () => {
           <Route
             path="/gio-hang/payment/vnpay/thankyou"
             element={<VNPayThank />}
+          />
+          <Route
+            path="/gio-hang/payment/momo/thankyou"
+            element={<MomoThank />}
           />
           <Route path="/thankyou" element={<Thankyou />} />
         </Route>

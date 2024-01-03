@@ -7,4 +7,5 @@ export const payApi = {
   vnpayMethod: (data: VNPayMethod) => axiosClient.post("/payment/vnpay", data),
   vnpayIPN: () => axiosClient.get("/payment/vnpay_ipn"),
   vnpayReturn: () => axiosClient.get("/payment/vnpay_return"),
+  momoMethod: (amount: string) => axiosClient.post("/payment/momo", { amount }),
 };
