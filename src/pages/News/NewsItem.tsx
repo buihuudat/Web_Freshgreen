@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { NavigateOptions, useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ const NewsItem = memo(({ news }: { news: NewsType }) => {
       sx={{
         height: { sm: 400, xs: 600 },
         display: "flex",
-        flexDirection: "row",
+        flexDirection: { sm: "row", xs: "column" },
         borderRadius: 1,
         overflow: "hidden",
         gap: 3,
@@ -37,7 +37,11 @@ const NewsItem = memo(({ news }: { news: NewsType }) => {
       <img
         src={news.thumbnail}
         alt={news.title}
-        style={{ width: "40%", height: "100%", objectFit: "cover" }}
+        style={{
+          width: window.innerWidth < 600 ? "100%" : "40%",
+          height: "100%",
+          objectFit: "cover",
+        }}
       />
       <Box p={{ sm: 5, xs: 2 }}>
         <Typography fontWeight={600} fontSize={{ sm: 32, xs: 20 }}>

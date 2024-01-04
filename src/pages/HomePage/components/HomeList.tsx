@@ -18,13 +18,23 @@ const HomeList = memo(
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: {
+            sm: "row",
+            xs: "column",
+          },
           justifyContent: "space-between",
           pt: 5,
           gap: 1,
         }}
       >
-        <Box width={"22%"}>
+        <Box
+          sx={{
+            width: {
+              sm: "22%",
+              xs: "100%",
+            },
+          }}
+        >
           <Typography fontSize={23} fontWeight={600} pb={2}>
             Bán chạy nhất
           </Typography>
@@ -43,7 +53,14 @@ const HomeList = memo(
             )}
           </Box>
         </Box>
-        <Box width={"22%"}>
+        <Box
+          sx={{
+            width: {
+              sm: "22%",
+              xs: "100%",
+            },
+          }}
+        >
           <Typography fontSize={23} fontWeight={600} pb={2}>
             Giảm giá nhiều nhất
           </Typography>
@@ -62,7 +79,14 @@ const HomeList = memo(
             )}
           </Box>
         </Box>
-        <Box width={"22%"}>
+        <Box
+          sx={{
+            width: {
+              sm: "22%",
+              xs: "100%",
+            },
+          }}
+        >
           <Typography fontSize={23} fontWeight={600} pb={2}>
             Đã thêm gần đây
           </Typography>
@@ -81,7 +105,14 @@ const HomeList = memo(
             )}
           </Box>
         </Box>
-        <Box width={"22%"}>
+        <Box
+          sx={{
+            width: {
+              sm: "22%",
+              xs: "100%",
+            },
+          }}
+        >
           <Typography fontSize={23} fontWeight={600} pb={2}>
             Đánh giá cao nhất
           </Typography>

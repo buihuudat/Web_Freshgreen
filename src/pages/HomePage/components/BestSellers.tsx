@@ -80,7 +80,11 @@ const BestSellers = memo(({ products }: { products: Array<ProductType> }) => {
               ))}
             </Swiper>
           ) : (
-            <Box display={"flex"} flexDirection={"row"} gap={5}>
+            <Box
+              display={"flex"}
+              flexDirection={{ sm: "row", xs: "column" }}
+              gap={5}
+            >
               <SkeletonCard width={280} />
               <SkeletonCard width={280} />
               <SkeletonCard width={280} />

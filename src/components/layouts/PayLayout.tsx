@@ -1,8 +1,6 @@
-import { Box, Container, LinearProgress } from "@mui/material";
-import { Suspense, useEffect } from "react";
+import { Box, Container } from "@mui/material";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import Navbar from "../common/Navbar";
-import Footer from "../common/Footer";
 import BillPay from "../../pages/Pay/components/BillPay";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
@@ -21,7 +19,7 @@ const PayLayout = () => {
         <Container
           sx={{
             display: "flex",
-            flexDirection: { sm: "row", xs: "column-reverse" },
+            flexDirection: { sm: "row", xs: "column" },
             justifyContent: "center",
             gap: "10%",
           }}
