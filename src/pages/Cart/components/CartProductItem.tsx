@@ -119,11 +119,7 @@ const CartProductItem = memo(({ product }: { product: ProductCartType }) => {
               <IconButton color="warning" onClick={handleDown}>
                 <RemoveIcon />
               </IconButton>
-              <TextField
-                value={product.count}
-                sx={{ width: 30 }}
-                variant="standard"
-              />
+              <TextField value={product.count} sx={{ width: 30 }} />
               <IconButton color="primary" onClick={handleUp}>
                 <AddIcon />
               </IconButton>
