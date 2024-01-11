@@ -8,6 +8,7 @@ const Contact = () => {
         width="100%"
         height="450"
         loading="lazy"
+        title="map info"
       ></iframe>
 
       {/* form */}
