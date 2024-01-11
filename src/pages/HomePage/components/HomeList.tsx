@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
-import { ProductType } from "../../../types/productType";
 import { memo } from "react";
+import { Box, Typography } from "@mui/material";
+
+import { ProductType } from "../../../types/productType";
 import ProductListItem from "../../../components/common/ProductListItem";
 import ProductListSkeleton from "../../../components/SkeletonProductListItem";
 

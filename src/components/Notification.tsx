@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { onMessageListener } from "../utils/handlers/getFCMToken";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
-  const notify = () => toast(<ToastDisplay />);
+  const notify = useCallback(() => toast(<ToastDisplay />), []);
   function ToastDisplay() {
     return (
       <div>

@@ -1,17 +1,19 @@
-import { LinearProgress, Box } from "@mui/material";
 import { Suspense, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { LinearProgress, Box } from "@mui/material";
+
 import Navbar from "../common/Navbar";
 import Directory from "../common/Directory";
 import Footer from "../common/Footer";
 import ScrollTop from "../common/ScrollTop";
+import PopupMessage from "../PopupMessage";
+
 import { verifyToken } from "../../utils/verifyToken";
+import { clearStorage, getItem } from "../../utils/handlers/tokenHandler";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setUserReducer } from "../../redux/slices/userSlice";
-import { clearStorage, getItem } from "../../utils/handlers/tokenHandler";
 import { cartActions } from "../../actions/cartActions";
 import { favoriteActions } from "../../actions/favoriteActions";
-import PopupMessage from "../PopupMessage";
 import { socket } from "../../utils/api/socketConfirm";
 import {
   onListentingMessage,

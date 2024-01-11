@@ -1,7 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { newsApi } from "../utils/api/newsApi";
-import { NewsType } from "../types/newsType";
 import { AxiosResponse } from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
+import { NewsType } from "../types/newsType";
+
+import { newsApi } from "../utils/api/newsApi";
 import { NotificationToast } from "../utils/handlers/NotificationToast";
 
 export const newsActions = {

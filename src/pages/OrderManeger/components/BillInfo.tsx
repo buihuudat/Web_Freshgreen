@@ -1,7 +1,8 @@
+import { useMemo } from "react";
 import { Box, Typography, createStyles } from "@mui/material";
-import React, { useMemo } from "react";
-import { OrderItemType, PayMethod } from "../../../types/orderType";
 import moment from "moment";
+
+import { OrderItemType, PayMethod } from "../../../types/orderType";
 import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import { mainColor } from "../../../constants/colors";
 

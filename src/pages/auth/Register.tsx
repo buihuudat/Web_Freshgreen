@@ -1,10 +1,11 @@
-import { Box, TextField, Typography } from "@mui/material";
-import { LoginBg } from "../../constants/images";
-import { LoadingButton } from "@mui/lab";
-import { Link, useNavigate } from "react-router-dom";
-import { RegisterType } from "../../types/authType";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Box, TextField, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+
+import { LoginBg } from "../../constants/images";
 import { mainColor } from "../../constants/colors";
+import { RegisterType } from "../../types/authType";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { authActions } from "../../actions/authActions";
 import { RootState } from "../../redux/store";
@@ -35,7 +36,6 @@ const Register = () => {
   const loading = useAppSelector((state: RootState) => state.auth.loading);
 
   const [errText, setErrText] = useState(InitialErrText);
-  const [showFormExpan, setShowFormExpan] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,5 +1,6 @@
-import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
 import React, { createContext, memo, useEffect, useState } from "react";
+import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
+
 import { InitialProduct, ProductType } from "../../../types/productType";
 import CommentActions from "./Comment/CommentActions";
 import ListComment from "./Comment/ListComment";

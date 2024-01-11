@@ -1,7 +1,7 @@
-import { useAppSelector } from "../../../../redux/hooks";
 import { Box } from "@mui/material";
-import CommentItem from "./CommentItem";
+import { useAppSelector } from "../../../../redux/hooks";
 import { RootState } from "../../../../redux/store";
+import CommentItem from "./CommentItem";
 
 const ListComment = () => {
   const comments = useAppSelector((state: RootState) => state.comment.comments);

@@ -2,13 +2,14 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { productActions } from "../../actions/productActions";
 import ProductList from "./components/ProductList";
 import BoxFilter from "./components/BoxFilter";
-import { ProductType } from "../../types/productType";
 import Pagini from "../../components/Pagini";
+import { ProductType } from "../../types/productType";
 
 const Products = () => {
   const dispatch = useAppDispatch();

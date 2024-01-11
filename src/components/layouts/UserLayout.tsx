@@ -1,20 +1,24 @@
-import { Box, LinearProgress } from "@mui/material";
 import { Suspense, useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Box, LinearProgress } from "@mui/material";
+
 import Navbar from "../common/Navbar";
 import Directory from "../common/Directory";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../common/Footer";
+
 import { verifyToken } from "../../utils/verifyToken";
+import { getItem } from "../../utils/handlers/tokenHandler";
+import { socket } from "../../utils/api/socketConfirm";
+
 import { useAppDispatch } from "../../redux/hooks";
 import { setUserReducer } from "../../redux/slices/userSlice";
-import { getItem } from "../../utils/handlers/tokenHandler";
 import { cartActions } from "../../actions/cartActions";
 import { favoriteActions } from "../../actions/favoriteActions";
-import { socket } from "../../utils/api/socketConfirm";
 import { orderActions } from "../../actions/orderActions";
 
 const UserLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -24,10 +28,8 @@ const UserLayout = () => {
         navigate("/dang-nhap");
         return;
       }
-
       try {
         const user = await verifyToken();
-
         if (user) {
           setIsLoading(false);
           dispatch(setUserReducer(user));

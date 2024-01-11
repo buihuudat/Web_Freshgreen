@@ -1,4 +1,6 @@
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { ProductType } from "../../types/productType";
 import {
   Box,
@@ -9,20 +11,22 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import { mainColor, secColor } from "../../constants/colors";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { moneyFormat } from "../../utils/handlers/moneyFormat";
-import { memo, useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { cartActions } from "../../actions/cartActions";
+
 import { RootState } from "../../redux/store";
-import { favoriteActions } from "../../actions/favoriteActions";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addProductCompare } from "../../redux/slices/compareSlice";
+import { cartActions } from "../../actions/cartActions";
+import { favoriteActions } from "../../actions/favoriteActions";
+
 import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { setItem } from "../../utils/handlers/tokenHandler";
+import { moneyFormat } from "../../utils/handlers/moneyFormat";
+
+import { mainColor, secColor } from "../../constants/colors";
 interface ProductCardType {
   product: ProductType;
   fast?: boolean;

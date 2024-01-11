@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { orderApi } from "../utils/api/orderApi";
 import { OrderItemType, OrderStatus, SubmitProps } from "../types/orderType";
+
+import { orderApi } from "../utils/api/orderApi";
 import { NotificationToast } from "../utils/handlers/NotificationToast";
 import { removeItem } from "../utils/handlers/tokenHandler";
 

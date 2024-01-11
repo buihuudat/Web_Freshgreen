@@ -1,8 +1,9 @@
+import { memo } from "react";
 import { Box, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
+
 import { DealsOfTheDayType } from "../../../types/homeType";
-import { memo } from "react";
 import { ProductType } from "../../../types/productType";
 import ProductSaleCard from "../../../components/common/ProductSaleCard";
 

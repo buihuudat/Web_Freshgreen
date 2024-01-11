@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
+import { LinearProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { faqActions } from "../../actions/faqActions";
 import FaqItem from "./components/FaqItem";
-import { LinearProgress } from "@mui/material";
 
 const FAQ = () => {
   const dispatch = useAppDispatch();

@@ -1,11 +1,12 @@
+import { useEffect, useRef, useState } from "react";
 import { Box, Divider, TextField, Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { RootState } from "../../../../redux/store";
 import { LoadingButton } from "@mui/lab";
 import SendIcon from "@mui/icons-material/Send";
-import { useEffect, useRef, useState } from "react";
-import { messageActions } from "../../../../actions/messageAction";
+
 import MessageItem from "./MessageItem";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { RootState } from "../../../../redux/store";
+import { messageActions } from "../../../../actions/messageAction";
 import { NotificationToast } from "../../../../utils/handlers/NotificationToast";
 import { dataMessage } from "./data";
 import { mainColor } from "../../../../constants/colors";

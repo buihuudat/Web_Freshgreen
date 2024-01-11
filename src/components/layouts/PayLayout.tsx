@@ -1,6 +1,7 @@
-import { Box, Container } from "@mui/material";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { Box, Container } from "@mui/material";
+
 import BillPay from "../../pages/Pay/components/BillPay";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";

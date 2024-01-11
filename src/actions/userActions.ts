@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { userApi } from "../utils/api/userApi";
 import { NotificationToast } from "../utils/handlers/NotificationToast";
+
 import { UserType } from "../types/userType";
 
 export interface changeAvatarProps {

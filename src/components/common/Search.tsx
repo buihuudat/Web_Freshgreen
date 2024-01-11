@@ -1,10 +1,11 @@
+import { ChangeEvent, memo } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import { mainColor } from "../../constants/colors";
 import { Box } from "@mui/material";
-import { ChangeEvent, memo } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
+
+import { mainColor } from "../../constants/colors";
 
 const SearchStyled = styled("div")(({ theme }) => ({
   position: "relative",

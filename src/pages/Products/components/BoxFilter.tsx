@@ -23,8 +23,9 @@ import React, {
 } from "react";
 import { FilterDataSelection } from "./data/DataFilter";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { mainColor } from "../../../constants/colors";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
+
+import { mainColor } from "../../../constants/colors";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
 import { categoryActions } from "../../../actions/categoryActions";
@@ -34,6 +35,7 @@ import { ShopType } from "../../../types/shopType";
 import { ProductType } from "../../../types/productType";
 import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import { productActions } from "../../../actions/productActions";
+
 import _ from "lodash";
 
 interface AirbnbThumbComponentProps extends React.HTMLAttributes<unknown> {}

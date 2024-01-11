@@ -1,14 +1,11 @@
 import { Box, IconButton, Typography, Button } from "@mui/material";
-import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
-import { mainColor } from "../../../constants/colors";
+import { NavLink } from "react-router-dom";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { ContactDataType, FooterDataType } from "../../../types/dataTypes";
-import { Banner, Logo } from "../../../constants/images";
-
+import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
@@ -18,10 +15,13 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 import SendIcon from "@mui/icons-material/Send";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { NavLink } from "react-router-dom";
+
+import { ContactDataType, FooterDataType } from "../../../types/dataTypes";
 import { footerInfoData } from "./components/data";
 import { useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
+import { Banner, Logo } from "../../../constants/images";
+import { mainColor } from "../../../constants/colors";
 
 const Footer = () => {
   const footerData: FooterDataType[] = [

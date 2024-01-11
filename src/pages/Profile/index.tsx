@@ -7,7 +7,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   ChangeEvent,
   useCallback,
@@ -16,26 +15,29 @@ import {
   useRef,
   useState,
 } from "react";
-import { getProvince } from "../../utils/api/getProvince";
+
 import { LoadingButton } from "@mui/lab";
-import CircularProgress from "@mui/material/CircularProgress";
-import { userActions } from "../../actions/userActions";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CircularProgress from "@mui/material/CircularProgress";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getProvince } from "../../utils/api/getProvince";
+import { userActions } from "../../actions/userActions";
 import { AddressForm, AddressProps } from "./components/AddressForm";
+import VerifyPhoneModal from "./components/VerifyPhoneModal";
 import { RootState } from "../../redux/store";
 import { logout, userChangeAvatar } from "../../redux/slices/userSlice";
 import { UserType } from "../../types/userType";
 import { getBaseImage } from "../../utils/handlers/getBaseImage";
 import { imageUpload } from "../../utils/handlers/imageUploadCloud";
-import { useLocation, useNavigate } from "react-router-dom";
 import { ProfileDataProps, profileData } from "./components/Data";
 import { mainColor } from "../../constants/colors";
 import { clearCart } from "../../redux/slices/cartSlice";
 import { clearFavorite } from "../../redux/slices/favoriteSlice";
 import { clearStorage } from "../../utils/handlers/tokenHandler";
-import VerifiedIcon from "@mui/icons-material/Verified";
 import { userApi } from "../../utils/api/userApi";
-import VerifyPhoneModal from "./components/VerifyPhoneModal";
 import {
   RecaptchaVerifier,
   getAuth,

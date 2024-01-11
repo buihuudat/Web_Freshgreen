@@ -1,14 +1,16 @@
+import { memo, useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Box, Button, Paper, Rating, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { NavigateOptions, useNavigate } from "react-router-dom";
+
 import { mainColor } from "../../constants/colors";
 import { ProductType } from "../../types/productType";
 import { moneyFormat } from "../../utils/handlers/moneyFormat";
-import { memo, useCallback, useEffect, useState } from "react";
 import { setItem } from "../../utils/handlers/tokenHandler";
+import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { cartActions } from "../../actions/cartActions";
 
 const ProductSaleCard = memo(({ product }: { product: ProductType }) => {

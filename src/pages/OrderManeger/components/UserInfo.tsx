@@ -1,10 +1,12 @@
-import { Avatar, Box, Skeleton, Typography, createStyles } from "@mui/material";
-import { UserType } from "../../../types/userType";
-import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
+import { Avatar, Box, Skeleton, Typography, createStyles } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+
+import { UserType } from "../../../types/userType";
+
 const userInforItem = createStyles({
   display: "flex",
   flexDirection: "row",

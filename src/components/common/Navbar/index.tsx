@@ -7,24 +7,29 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { mainColor } from "../../../constants/colors";
+import { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CompareIcon from "@mui/icons-material/Compare";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import { Logo } from "../../../constants/images";
-import { ListIconTypes } from "../../../types/dataTypes";
-import { navbarDataItem } from "./components/Data/NavbarDataItem";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { RootState } from "../../../redux/store";
-import { useEffect, useState } from "react";
-import Search from "../Search";
-import { productActions } from "../../../actions/productActions";
 import MenuIcon from "@mui/icons-material/Menu";
-import NavMobile from "./components/NavMobile";
-import SearchItem from "../../SearchItem";
+
+import { mainColor } from "../../../constants/colors";
+import { Logo } from "../../../constants/images";
+
+import { ListIconTypes } from "../../../types/dataTypes";
 import { ProductType } from "../../../types/productType";
+
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { productActions } from "../../../actions/productActions";
+import { RootState } from "../../../redux/store";
+
+import Search from "../Search";
+import SearchItem from "../../SearchItem";
+
+import { navbarDataItem } from "./components/Data/NavbarDataItem";
+import NavMobile from "./components/NavMobile";
 
 const Navbar = () => {
   const { pathname } = useLocation();

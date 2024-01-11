@@ -21,13 +21,13 @@ export const InitialPayData: PayDataProps = {
 };
 
 export interface PayMethodOptionItem {
-  name: String;
-  path: String;
-  image: String;
-  value: String;
+  name: string;
+  path: string;
+  image: string;
+  value: string;
 }
 
 export interface VNPayMethod {
   amount: number;
-  bankCode: String;
+  bankCode: string;
 }

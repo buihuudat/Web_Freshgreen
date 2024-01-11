@@ -8,12 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { memo, useState } from "react";
+
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import commentActions from "../../../../actions/commentActions";
 import { RootState } from "../../../../redux/store";
-import Rate from "./Rate";
 import { NotificationToast } from "../../../../utils/handlers/NotificationToast";
+import Rate from "./Rate";
 
 interface CommentActionsProps {
   productId: string;

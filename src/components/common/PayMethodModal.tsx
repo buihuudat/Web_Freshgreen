@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { LoadingButton } from "@mui/lab";
+
 import {
   Box,
   FormControl,
@@ -7,13 +11,13 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { PayMethodOptionItem } from "../../types/payType";
+
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setPayMethod } from "../../redux/slices/paySlice";
-import { LoadingButton } from "@mui/lab";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { RootState } from "../../redux/store";
+
+import { MomoLogo, VNpayLogo, VisaLogo } from "../../constants/images";
+import { PayMethodOptionItem } from "../../types/payType";
 
 const style = {
   position: "absolute" as "absolute",
@@ -30,19 +34,19 @@ const style = {
 const payMethodOptions: Array<PayMethodOptionItem> = [
   {
     name: "VNPAY",
-    image: "",
+    image: VNpayLogo,
     path: "/gio-hang/payment/vnpay",
     value: "VNPAY",
   },
   {
     name: "Bằng thẻ VISA",
-    image: "",
+    image: VisaLogo,
     path: "/gio-hang/payment/visa",
     value: "VISA",
   },
   {
     name: "Bằng MoMo",
-    image: "",
+    image: MomoLogo,
     path: "/gio-hang/payment/momo",
     value: "MOMO",
   },
@@ -83,13 +87,20 @@ const PayMethodModal = () => {
             name="radio-buttons-group"
           >
             {payMethodOptions.map((data, index) => (
-              <FormControlLabel
-                key={index}
-                value={data.value}
-                control={<Radio color="success" />}
-                label={data.name}
-                onClick={() => setSelected(data.path)}
-              />
+              <Box sx={{ display: "flex" }}>
+                <FormControlLabel
+                  key={index}
+                  value={data.value}
+                  control={<Radio color="success" />}
+                  label={data.name}
+                  onClick={() => setSelected(data.path)}
+                />
+                <img
+                  alt={data.name}
+                  src={data.image}
+                  style={{ width: "auto", height: 40, objectFit: "cover" }}
+                />
+              </Box>
             ))}
           </RadioGroup>
         </FormControl>

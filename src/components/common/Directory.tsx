@@ -1,11 +1,14 @@
 import { NavLink, useLocation, useParams } from "react-router-dom";
-import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { mainColor } from "../../constants/colors";
+
+import { Typography } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { NavbarDataType } from "../../types/dataTypes";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+
 import { navbarDataItem } from "./Navbar/components/Data/NavbarDataItem";
+
+import { mainColor } from "../../constants/colors";
+import { NavbarDataType } from "../../types/dataTypes";
 
 const Directory = () => {
   const { pathname } = useLocation();

@@ -1,11 +1,13 @@
-import { Box, LinearProgress } from "@mui/material";
 import { Suspense, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Box, LinearProgress } from "@mui/material";
+
 import Navbar from "../common/Navbar";
 import Directory from "../common/Directory";
 import Footer from "../common/Footer";
-import { verifyToken } from "../../utils/verifyToken";
+
 import { useAppDispatch } from "../../redux/hooks";
+import { verifyToken } from "../../utils/verifyToken";
 import { clearStorage, getItem } from "../../utils/handlers/tokenHandler";
 import { socket } from "../../utils/api/socketConfirm";
 import { requestPermissionNotification } from "../../utils/handlers/getFCMToken";

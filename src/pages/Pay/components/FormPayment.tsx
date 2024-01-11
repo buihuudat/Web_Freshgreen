@@ -8,6 +8,7 @@ import { StripeError, loadStripe } from "@stripe/stripe-js";
 import { LoadingButton } from "@mui/lab";
 import { LinearProgress } from "@mui/material";
 import { ChangeEvent, useState } from "react";
+
 import { PayDataProps } from "../../../types/payType";
 import { OrderItemType } from "../../../types/orderType";
 import { setItem } from "../../../utils/handlers/tokenHandler";

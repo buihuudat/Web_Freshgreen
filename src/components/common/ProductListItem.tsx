@@ -1,9 +1,12 @@
 import { memo } from "react";
-import { ProductType } from "../../types/productType";
-import { Avatar, Box, Rating, Typography } from "@mui/material";
-import { mainColor } from "../../constants/colors";
-import { moneyFormat } from "../../utils/handlers/moneyFormat";
 import { useNavigate } from "react-router-dom";
+
+import { Avatar, Box, Rating, Typography } from "@mui/material";
+
+import { ProductType } from "../../types/productType";
+import { mainColor } from "../../constants/colors";
+
+import { moneyFormat } from "../../utils/handlers/moneyFormat";
 import { setItem } from "../../utils/handlers/tokenHandler";
 
 const ProductListItem = memo((product: ProductType) => {

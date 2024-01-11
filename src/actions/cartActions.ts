@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { cartApi } from "../utils/api/cartApi";
 import { NotificationToast } from "../utils/handlers/NotificationToast";
+
 import { ProductCartType } from "../types/cartType";
 
 export const cartActions = {

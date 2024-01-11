@@ -1,7 +1,7 @@
-import { Swiper, SwiperSlide } from "swiper/react";
 import { memo } from "react";
-import { CustomSwiperProps } from "../../../types/homeType";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { CustomSwiperProps } from "../../../types/homeType";
 
 const HomeSwiper = memo(({ images }: { images: Array<string> }) => {
   const swiperProps: CustomSwiperProps = {

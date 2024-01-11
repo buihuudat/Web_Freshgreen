@@ -1,7 +1,8 @@
 import { memo } from "react";
+import { NavigateOptions, useNavigate } from "react-router-dom";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { NavigateOptions, useNavigate } from "react-router-dom";
+
 import { NewsType } from "../../types/newsType";
 import { formatDateInput } from "../../utils/handlers/formatDateInput";
 import { useAppDispatch } from "../../redux/hooks";

@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { Box, Typography } from "@mui/material";
+
 import ProductCard from "../../../components/common/ProductCard";
 import { ProductType } from "../../../types/productType";
-import { memo } from "react";
 import SkeletonCard from "../../../components/SkeletonCard";
 
 const HomeProducts = memo(({ products }: { products: Array<ProductType> }) => {

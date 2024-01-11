@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { categoryApi } from "../utils/api/categoryApi";
 import { NotificationToast } from "../utils/handlers/NotificationToast";
+
 import { CategoryType } from "../types/categoryType";
 
 export const categoryActions = {

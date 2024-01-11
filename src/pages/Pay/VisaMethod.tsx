@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { payActions } from "../../actions/payActions";
 import { useLocation } from "react-router-dom";
 import { Paper } from "@mui/material";
+
+import { payActions } from "../../actions/payActions";
 import FormPayment from "./components/FormPayment";
 import { setItem } from "../../utils/handlers/tokenHandler";
 

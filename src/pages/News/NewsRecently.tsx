@@ -1,8 +1,10 @@
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import { Box, Button, Typography } from "@mui/material";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { mainColor } from "../../constants/colors";
 import { NavigateOptions, useNavigate } from "react-router-dom";
+
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { Box, Button, Typography } from "@mui/material";
+
+import { mainColor } from "../../constants/colors";
 import { NewsType } from "../../types/newsType";
 import { formatDateInput } from "../../utils/handlers/formatDateInput";
 

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { productApi } from "../utils/api/productApi";
 import { NotificationToast } from "../utils/handlers/NotificationToast";
+
 import { ProductType } from "../types/productType";
 import { PaginationType } from "../types/dataTypes";
 

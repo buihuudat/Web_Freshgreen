@@ -1,4 +1,4 @@
-import { CommentType } from "../../../../types/commentType";
+import { memo, useContext, useState } from "react";
 import {
   Avatar,
   Badge,
@@ -8,19 +8,21 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import moment from "moment";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ReplyIcon from "@mui/icons-material/Reply";
-import { memo, useContext, useState } from "react";
+
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { NotificationToast } from "../../../../utils/handlers/NotificationToast";
-import { CommentContext } from "../DetailActions";
-import CommentActions from "./CommentActions";
 import { RootState } from "../../../../redux/store";
+import { CommentType } from "../../../../types/commentType";
+
 import commentActions from "../../../../actions/commentActions";
-import moment from "moment";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Rate from "./Rate";
+import CommentActions from "./CommentActions";
+import { CommentContext } from "../DetailActions";
 
 const CommentItem = memo((comment: CommentType) => {
   const [isShowRepBox, setIsShowRepBox] = useState(false);
@@ -30,7 +32,7 @@ const CommentItem = memo((comment: CommentType) => {
   const product = useContext(CommentContext);
   const dispatch = useAppDispatch();
   const isLiked = comment.reaction.filter((rt) => rt === user?._id).length;
-  const isCommented = comment.auth._id === user?._id;
+  // const isCommented = comment.auth._id === user?._id;
 
   const handleReply = () => {
     if (!user?._id) {
@@ -115,9 +117,9 @@ const CommentItem = memo((comment: CommentType) => {
               </Box>
 
               <Rate
-                value={comment.rate}
+                value={comment.rate || value}
                 setValue={setValue}
-                isDisable={isCommented}
+                isDisable={true}
               />
             </Box>
 

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+import { Box, Typography } from "@mui/material";
+
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { favoriteActions } from "../actions/favoriteActions";
-import { Box, Typography } from "@mui/material";
 import { RootState } from "../redux/store";
 import ProductCard from "../components/common/ProductCard";
 import { ProductType } from "../types/productType";

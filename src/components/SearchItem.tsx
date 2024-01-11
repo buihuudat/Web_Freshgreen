@@ -1,10 +1,11 @@
 import { memo } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { ProductType } from "../types/productType";
 import { Avatar, Paper, Typography } from "@mui/material";
 import { moneyFormat } from "../utils/handlers/moneyFormat";
-import { mainColor } from "../constants/colors";
-import { useNavigate } from "react-router-dom";
 import { setItem } from "../utils/handlers/tokenHandler";
+import { mainColor } from "../constants/colors";
 
 const SearchItem = memo((product: ProductType) => {
   const navigate = useNavigate();

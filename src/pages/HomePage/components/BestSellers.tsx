@@ -1,15 +1,16 @@
-import { Box, Button, Typography } from "@mui/material";
 import { memo } from "react";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { Banner2 } from "../../../constants/images";
+import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
 
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+
+import { Banner2 } from "../../../constants/images";
 import ProductCard from "../../../components/common/ProductCard";
+import SkeletonCard from "../../../components/SkeletonCard";
 import { DealsOfTheDayType } from "../../../types/homeType";
 import { ProductType } from "../../../types/productType";
-import SkeletonCard from "../../../components/SkeletonCard";
 
 const BestSellers = memo(({ products }: { products: Array<ProductType> }) => {
   const customSwiper: DealsOfTheDayType = {

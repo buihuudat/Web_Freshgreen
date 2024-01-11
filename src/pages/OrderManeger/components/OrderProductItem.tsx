@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
+
 import { ProductCartType } from "../../../types/cartType";
 import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import { mainColor } from "../../../constants/colors";
-import { useNavigate } from "react-router-dom";
 
 const OrderProductItem = (product: ProductCartType) => {
   const navigate = useNavigate();

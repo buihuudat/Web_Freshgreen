@@ -1,17 +1,19 @@
+import { useEffect } from "react";
 import { Box } from "@mui/material";
+
 import HomeSwiper from "./components/HomeSwiper";
 import HomeFeaturedCategory from "./components/HomeFeaturedCategory";
 import HomeAds from "./components/HomeAds";
 import HomeProducts from "./components/HomeProducts";
 import BestSellers from "./components/BestSellers";
 import HomeSale from "./components/HomeSale";
+import HomeList from "./components/HomeList";
+
 import { productActions } from "../../actions/productActions";
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { settingsActions } from "../../actions/settingsActionts";
 import { categoryActions } from "../../actions/categoryActions";
-import HomeList from "./components/HomeList";
 
 const HomePage = () => {
   const dispatch = useAppDispatch();

@@ -1,12 +1,13 @@
+import { useEffect } from "react";
 import { Avatar, Box, Divider, Typography } from "@mui/material";
 import ListIcon from "@mui/icons-material/List";
+
 import { mainColor } from "../../../../constants/colors";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { selectUser, setPopup } from "../../../../redux/slices/messageSlice";
 import { messageActions } from "../../../../actions/messageAction";
 import { RootState } from "../../../../redux/store";
 import { socket } from "../../../../utils/api/socketConfirm";
-import { useEffect } from "react";
 
 const data = [
   {

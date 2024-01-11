@@ -1,10 +1,12 @@
-import { Box, Typography } from "@mui/material";
-import { CategoryType } from "../../../types/categoryType";
-import { useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { DealsOfTheDayType } from "../../../types/homeType";
-import { Autoplay, FreeMode } from "swiper/modules";
 import { memo } from "react";
+import { useNavigate } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, FreeMode } from "swiper/modules";
+
+import { CategoryType } from "../../../types/categoryType";
+import { DealsOfTheDayType } from "../../../types/homeType";
 
 interface Props {
   categories: Array<CategoryType>;

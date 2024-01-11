@@ -1,10 +1,11 @@
-import { Box, Link, Typography } from "@mui/material";
 import { memo } from "react";
+import { Box, Link, Typography } from "@mui/material";
+import { useLocation } from "react-router-dom";
+
+import { blue } from "@mui/material/colors";
 import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import { mainColor } from "../../../constants/colors";
 import { PayDataProps } from "../../../types/payType";
-import { blue } from "@mui/material/colors";
-import { useLocation } from "react-router-dom";
 
 const BillPay = memo((props: PayDataProps) => {
   const { pathname } = useLocation();

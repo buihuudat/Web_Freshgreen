@@ -1,18 +1,20 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   RecaptchaVerifier,
   getAuth,
   signInWithPhoneNumber,
 } from "firebase/auth";
-import { useAppDispatch } from "../../redux/hooks";
-import { useRef, useState } from "react";
-import { mainColor } from "../../constants/colors";
-import { Link, useNavigate } from "react-router-dom";
-import { LoadingButton } from "@mui/lab";
-import { LoginBg } from "../../constants/images";
 import PhoneInput, { formatPhoneNumber } from "react-phone-number-input";
-import { NotificationToast } from "../../utils/handlers/NotificationToast";
+
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+
+import { useAppDispatch } from "../../redux/hooks";
+import { mainColor } from "../../constants/colors";
+import { LoginBg } from "../../constants/images";
 import { authActions } from "../../actions/authActions";
+import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { authAPI } from "../../utils/api/authApi";
 
 interface ExtendedWindow extends Window {
@@ -24,7 +26,6 @@ declare var window: ExtendedWindow;
 export default function LoginWithSMS() {
   const dispatch = useAppDispatch();
   const auth = getAuth();
-  const [errText, setErrText] = useState("");
   const [verify, setVerify] = useState(false);
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
@@ -146,8 +147,6 @@ export default function LoginWithSMS() {
               required
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              error={errText !== ""}
-              helperText={errText}
             />
             <LoadingButton
               variant="contained"

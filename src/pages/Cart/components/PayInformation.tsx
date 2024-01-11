@@ -1,3 +1,5 @@
+import { ChangeEvent, memo, useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   FormControl,
@@ -10,14 +12,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ChangeEvent, memo, useCallback, useEffect, useState } from "react";
-import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import { LoadingButton } from "@mui/lab";
+
+import { moneyFormat } from "../../../utils/handlers/moneyFormat";
+import { socket } from "../../../utils/api/socketConfirm";
+import { voucherApi } from "../../../utils/api/voucherApi";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
 import { ProductCartType } from "../../../types/cartType";
-import { voucherApi } from "../../../utils/api/voucherApi";
-import { useNavigate } from "react-router-dom";
 import { mainColor } from "../../../constants/colors";
 import { NotificationToast } from "../../../utils/handlers/NotificationToast";
 import {
@@ -28,7 +30,6 @@ import {
 } from "../../../types/orderType";
 import { orderActions } from "../../../actions/orderActions";
 import { clearCart } from "../../../redux/slices/cartSlice";
-import { socket } from "../../../utils/api/socketConfirm";
 import { addressOfUser, fullnameOfUser } from "../../../types/userType";
 import { setPayMethod } from "../../../redux/slices/paySlice";
 
@@ -221,6 +222,7 @@ const PayInformation = memo(() => {
           variant="contained"
           size="small"
           onClick={handleApplyVoucher}
+          color="success"
         >
           Áp dụng
         </LoadingButton>

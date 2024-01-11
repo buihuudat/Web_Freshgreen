@@ -1,10 +1,11 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import { Box, Paper, Typography } from "@mui/material";
+
 import { mainColor } from "../../constants/colors";
 import NewsRecently from "./NewsRecently";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import { useEffect } from "react";
 import { newsActions } from "../../actions/newsActions";
 
 const News = () => {

@@ -1,12 +1,14 @@
 import { memo } from "react";
-import { OrderItemType } from "../../../types/orderType";
 import { Box, Paper } from "@mui/material";
+
 import OrderProductItem from "./OrderProductItem";
-import { ProductCartType } from "../../../types/cartType";
-import { UserType, addressOfUser } from "../../../types/userType";
 import UserInfo from "./UserInfo";
 import BillInfo from "./BillInfo";
 import OrderActions from "./OrderActions";
+
+import { OrderItemType } from "../../../types/orderType";
+import { ProductCartType } from "../../../types/cartType";
+import { UserType, addressOfUser } from "../../../types/userType";
 interface Props {
   order: OrderItemType;
   user: UserType;

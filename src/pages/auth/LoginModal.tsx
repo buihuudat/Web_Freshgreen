@@ -1,17 +1,18 @@
-import * as React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { IconButton, TextField } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setLoginModal } from "../../redux/slices/authSlice";
-import { LoadingButton } from "@mui/lab";
-import { IconButton, TextField } from "@mui/material";
-import { useState } from "react";
 import { LoginType } from "../../types/authType";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { mainColor } from "../../constants/colors";
 import { authActions } from "../../actions/authActions";
-import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",

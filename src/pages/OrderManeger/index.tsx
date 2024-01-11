@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { Box, CircularProgress, Typography } from "@mui/material";
+
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import { Box, CircularProgress, Typography } from "@mui/material";
-import OrderItem from "./components/OrderItem";
 import { OrderItemType, OrderStatus } from "../../types/orderType";
+
+import OrderItem from "./components/OrderItem";
 import Tabs from "./components/Tabs";
 
 const OrderManager = () => {

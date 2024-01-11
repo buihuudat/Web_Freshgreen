@@ -1,7 +1,8 @@
+import { memo, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, TextField, Typography } from "@mui/material";
+
 import { OrderItemType, OrderStatus } from "../../../types/orderType";
-import { memo, useState } from "react";
 import { UserType } from "../../../types/userType";
 import { useAppDispatch } from "../../../redux/hooks";
 import { orderActions } from "../../../actions/orderActions";
@@ -58,14 +59,14 @@ const OrderActions = memo((props: Props) => {
     setShow(false);
   };
 
-  const handleDeleteOrder = () => {
-    dispatch(
-      orderActions.deleteOrder({
-        userId: user._id as string,
-        orderId: order._id as string,
-      })
-    );
-  };
+  // const handleDeleteOrder = () => {
+  //   dispatch(
+  //     orderActions.deleteOrder({
+  //       userId: user._id as string,
+  //       orderId: order._id as string,
+  //     })
+  //   );
+  // };
 
   return order.status === OrderStatus.pending ? (
     <Box sx={{ display: "flex", gap: 1, p: 1, flexDirection: "column" }}>

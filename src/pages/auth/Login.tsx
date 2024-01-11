@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import {
   Box,
   TextField,
@@ -7,23 +10,22 @@ import {
   Chip,
   Button,
 } from "@mui/material";
-import { LoginBg } from "../../constants/images";
-import { LoadingButton } from "@mui/lab";
-import { Link, useNavigate } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import { useState } from "react";
-import { mainColor } from "../../constants/colors";
-import { LoginType } from "../../types/authType";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { authActions } from "../../actions/authActions";
-import { RootState } from "../../redux/store";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { LoadingButton } from "@mui/lab";
+
+import { LoginBg } from "../../constants/images";
+import { mainColor } from "../../constants/colors";
+import { LoginType } from "../../types/authType";
+import { authActions } from "../../actions/authActions";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
+import { setLoginModal } from "../../redux/slices/authSlice";
 import { loginWithGoogle } from "../../utils/handlers/loginWithGoogle";
 import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { loginWithFacebook } from "../../utils/handlers/loginWithFacebook";
 import { LoginModal } from "./LoginModal";
-import { setLoginModal } from "../../redux/slices/authSlice";
 
 const InitialErrText: { phone: string; password: string } = {
   phone: "",

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -7,8 +8,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { mainColor } from "../../constants/colors";
-import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -17,21 +18,25 @@ import ShareIcon from "@mui/icons-material/Share";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { useLocation, useNavigate } from "react-router-dom";
+
+import _ from "lodash";
+
+import { mainColor } from "../../constants/colors";
 import { moneyFormat } from "../../utils/handlers/moneyFormat";
 import { ProductType } from "../../types/productType";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import _ from "lodash";
+
 import ProductCard from "../../components/common/ProductCard";
+import DetailActions from "./components/DetailActions";
+import SkeletonLoading from "./components/SkeletonLoading";
+
 import { productActions } from "../../actions/productActions";
 import { cartActions } from "../../actions/cartActions";
 import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { favoriteActions } from "../../actions/favoriteActions";
 import { addProductCompare } from "../../redux/slices/compareSlice";
-import DetailActions from "./components/DetailActions";
 import commentActions from "../../actions/commentActions";
-import SkeletonLoading from "./components/SkeletonLoading";
 import { getItem } from "../../utils/handlers/tokenHandler";
 
 const ProductDetails = () => {

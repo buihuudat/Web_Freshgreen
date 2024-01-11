@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { favoriteApi } from "../utils/api/favoriteApi";
 import { NotificationToast } from "../utils/handlers/NotificationToast";
+
 import { ProductType } from "../types/productType";
 
 export const favoriteActions = {

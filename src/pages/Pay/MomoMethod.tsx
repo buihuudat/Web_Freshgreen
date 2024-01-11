@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { payApi } from "../../utils/api/payApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import { Box, Typography } from "@mui/material";
+
 import { setItem } from "../../utils/handlers/tokenHandler";
+import { payApi } from "../../utils/api/payApi";
 
 const MomoMethod = () => {
   const { state } = useLocation();

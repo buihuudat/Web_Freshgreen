@@ -1,9 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import StoreIcon from "@mui/icons-material/Store";
+
 import NewsItem from "./NewsItem";
+import NewsSkeleton from "./NewsSkeleton";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import NewsSkeleton from "./NewsSkeleton";
 
 const NewsLists = () => {
   const newsList = useAppSelector((state: RootState) => state.news.newsList);

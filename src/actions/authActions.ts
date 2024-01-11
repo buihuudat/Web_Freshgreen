@@ -1,6 +1,8 @@
-import { LoginSocialType, LoginType, RegisterType } from "../types/authType";
-import { authAPI } from "../utils/api/authApi";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
+import { LoginSocialType, LoginType, RegisterType } from "../types/authType";
+
+import { authAPI } from "../utils/api/authApi";
 import { setItem } from "../utils/handlers/tokenHandler";
 
 export const authActions = {

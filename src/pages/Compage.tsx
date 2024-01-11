@@ -10,15 +10,17 @@ import {
   Typography,
   IconButton,
 } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { RootState } from "../redux/store";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
+
 import { ProductType } from "../types/productType";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { RootState } from "../redux/store";
 import { removeProductCompare } from "../redux/slices/compareSlice";
 import { moneyFormat } from "../utils/handlers/moneyFormat";
 import { setItem } from "../utils/handlers/tokenHandler";
+
 const Compare = () => {
   const headers = [
     "Product",

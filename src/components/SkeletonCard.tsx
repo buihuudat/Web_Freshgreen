@@ -1,5 +1,4 @@
 import { Box, Paper, Skeleton } from "@mui/material";
-import React from "react";
 
 const SkeletonCard = ({ width = 350 }: { width: number }) => (
   <Paper

@@ -1,10 +1,11 @@
-import { Box, IconButton, Paper, TextField, Typography } from "@mui/material";
 import { memo } from "react";
+import { useNavigate } from "react-router-dom";
+import { Box, IconButton, Paper, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useNavigate } from "react-router-dom";
+
+import { moneyFormat } from "../../../utils/handlers/moneyFormat";
 import { ProductCartType } from "../../../types/cartType";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { cartActions } from "../../../actions/cartActions";

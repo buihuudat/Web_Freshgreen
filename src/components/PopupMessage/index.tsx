@@ -1,12 +1,13 @@
+import { useDispatch } from "react-redux";
 import { Box, SpeedDial } from "@mui/material";
 import MessageIcon from "@mui/icons-material/Message";
-import { mainColor } from "../../constants/colors";
+
+import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/hooks";
 import MainChat from "./MainChat";
 import ZoomInFromBottomRight from "./ZoomInFromBottomRight ";
-import { useAppSelector } from "../../redux/hooks";
-import { RootState } from "../../redux/store";
-import { useDispatch } from "react-redux";
 import { setPopup } from "../../redux/slices/messageSlice";
+import { mainColor } from "../../constants/colors";
 
 const PopupMessage = () => {
   const popup = useAppSelector((state: RootState) => state.messages.popup);

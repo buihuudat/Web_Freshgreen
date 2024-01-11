@@ -5,10 +5,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";
+
 import { FaqDataItem } from "../../../redux/slices/faqSlice";
 import { Box, Typography } from "@mui/material";
 import { mainColor } from "../../../constants/colors";
