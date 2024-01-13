@@ -37,11 +37,9 @@ import { NotificationToast } from "../../utils/handlers/NotificationToast";
 import { favoriteActions } from "../../actions/favoriteActions";
 import { addProductCompare } from "../../redux/slices/compareSlice";
 import commentActions from "../../actions/commentActions";
-import { getItem } from "../../utils/handlers/tokenHandler";
 
 const ProductDetails = () => {
-  const { state } = useLocation();
-  const { productId }: { productId: string } = state || getItem("productId");
+  const { pathname } = useLocation();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -61,14 +59,14 @@ const ProductDetails = () => {
     const fetchData = async () => {
       setIsFetching(true);
       await Promise.all([
-        dispatch(productActions.get(productId)),
+        dispatch(productActions.get(pathname.split("/")[3])),
         dispatch(productActions.gets({ page: 1, perPage: 8 })),
-        dispatch(commentActions.getProductComments(productId)),
+        dispatch(commentActions.getProductComments(pathname.split("/")[3])),
       ]);
       setIsFetching(false);
     };
     fetchData();
-  }, [dispatch, productId]);
+  }, [dispatch, pathname]);
 
   const isFavorite = favoriteProducts.filter(
     (p) => p._id === product?._id

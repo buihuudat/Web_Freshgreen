@@ -1,12 +1,28 @@
-import { Box, Typography } from "@mui/material";
+import { Box, LinearProgress, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { NewsType } from "../../types/newsType";
+import { useEffect, useState } from "react";
+import { newsApi } from "../../utils/api/newsApi";
 
 const NewsDetails = () => {
-  const { state } = useLocation();
-  const news: NewsType = state.news;
+  const { pathname } = useLocation();
+  const [news, setNews] = useState<null | NewsType>(null);
 
-  return (
+  const fetchNews = async () => {
+    try {
+      const res = await newsApi.get(pathname.split("/")[2]);
+      setNews(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchNews();
+  }, [pathname]);
+
+  return !news ? (
+    <LinearProgress color="success" />
+  ) : (
     <Box>
       <Typography
         textAlign={"center"}

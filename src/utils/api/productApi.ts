@@ -25,7 +25,7 @@ export const productApi = {
     return axiosClient.get(apiUrl);
   },
 
-  get: (productId: string) => axiosClient.get(`/products/${productId}`),
+  get: (productTitle: string) => axiosClient.get(`/products/${productTitle}`),
 
   getPopularProducts: () => axiosClient.get("/products/popular"),
   getProductsBestSeller: () => axiosClient.get("/products/best-seller"),

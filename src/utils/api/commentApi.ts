@@ -6,8 +6,8 @@ import {
 import axiosClient from "./axiosClient";
 
 const commentApi = {
-  getProductComment: (productId: string) =>
-    axiosClient.get(`/comments/${productId}`),
+  getProductComment: (productTitle: string) =>
+    axiosClient.get(`/comments/${productTitle}`),
 
   addComment: ({
     productId,

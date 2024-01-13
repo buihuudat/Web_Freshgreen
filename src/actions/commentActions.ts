@@ -23,9 +23,9 @@ export interface ReactCommentProps {
 const commentActions = {
   getProductComments: createAsyncThunk(
     "comment/product/gets",
-    async (productId: string) => {
+    async (productTitle: string) => {
       try {
-        const res = await commentApi.getProductComment(productId);
+        const res = await commentApi.getProductComment(productTitle);
         return res.data;
       } catch (error) {
         throw error;

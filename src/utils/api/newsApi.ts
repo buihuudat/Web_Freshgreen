@@ -3,6 +3,7 @@ import axiosClient from "./axiosClient";
 
 export const newsApi = {
   gets: () => axiosClient.get("/news"),
+  get: (title: string) => axiosClient.get(`/news/${title}`),
   create: (payload: NewsType) =>
     axiosClient.post<NewsType>("/news/create", payload),
 
