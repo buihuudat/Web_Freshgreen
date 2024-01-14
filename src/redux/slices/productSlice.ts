@@ -12,6 +12,7 @@ interface InitialStateProps {
   biggestDiscount: Array<ProductType>;
   bestSeller: Array<ProductType>;
   productsView: Array<ProductType>;
+  similarProducts: Array<ProductType>;
   productReSearch: Array<ProductType>;
   shopProducts: {
     products: ProductType[];
@@ -34,6 +35,7 @@ const initialState: InitialStateProps = {
   bestSeller: [],
   newProducts: [],
   ratedHighest: [],
+  similarProducts: [],
   biggestDiscount: [],
   productsView: [],
   productReSearch: [],
@@ -74,6 +76,9 @@ export const productSlice = createSlice({
       })
       .addCase(productActions.bestSeller.fulfilled, (state, action) => {
         state.bestSeller = action.payload;
+      })
+      .addCase(productActions.similarProducts.fulfilled, (state, action) => {
+        state.similarProducts = action.payload;
       })
       .addCase(
         productActions.getBiggestDiscountProducts.fulfilled,

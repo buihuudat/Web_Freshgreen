@@ -31,6 +31,17 @@ export const productApi = {
   getProductsBestSeller: () => axiosClient.get("/products/best-seller"),
   getProductsView: () => axiosClient.get("/products/products-view"),
   getNewProducts: () => axiosClient.get("/products/new"),
+  similarProducts: ({
+    category,
+    tags,
+  }: {
+    category: string;
+    tags: { name: string }[];
+  }) =>
+    axiosClient.post("/products/similar", {
+      category,
+      tags,
+    }),
   getProductsRatedHighest: () => axiosClient.get("/products/rated-highest"),
   getBiggestDiscountProducts: () =>
     axiosClient.get("/products/biggest-discount"),

@@ -50,6 +50,21 @@ export const productActions = {
     }
   }),
 
+  similarProducts: createAsyncThunk<
+    any,
+    {
+      category: string;
+      tags: { name: string }[];
+    }
+  >("product/similar", async ({ category, tags }) => {
+    try {
+      const res = await productApi.similarProducts({ category, tags });
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }),
+
   newProducts: createAsyncThunk("product/new", async () => {
     try {
       const res = await productApi.getNewProducts();

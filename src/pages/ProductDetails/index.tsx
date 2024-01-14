@@ -43,7 +43,7 @@ const ProductDetails = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { products, product } = useAppSelector(
+  const { similarProducts, products, product } = useAppSelector(
     (state: RootState) => state.product
   );
   const userId = useAppSelector((state: RootState) => state.user.user)?._id;
@@ -67,6 +67,18 @@ const ProductDetails = () => {
     };
     fetchData();
   }, [dispatch, pathname]);
+
+  useEffect(() => {
+    const fetchSimilarProducts = async () => {
+      await dispatch(
+        productActions.similarProducts({
+          category: product?.category!,
+          tags: product?.tags?.map((tag) => ({ name: tag.name })) ?? [],
+        })
+      );
+    };
+    fetchSimilarProducts();
+  }, [product, dispatch]);
 
   const isFavorite = favoriteProducts.filter(
     (p) => p._id === product?._id
@@ -348,7 +360,7 @@ const ProductDetails = () => {
           gap={3}
           justifyContent={"space-between"}
         >
-          {products.slice(0, 8).map((product, index) => (
+          {similarProducts.map((product, index) => (
             <ProductCard product={product} key={index} />
           ))}
         </Box>
