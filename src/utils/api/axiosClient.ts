@@ -3,7 +3,8 @@ import queryString from "query-string";
 import { getItem } from "../handlers/tokenHandler";
 
 export const hostClient = "https://freshgreen.vercel.app";
-export const hostServer = "https://server.freshgreen.io.vn";
+// export const hostServer = "https://server.freshgreen.io.vn";
+export const hostServer = "https://server-freshgreen-io.onrender.com";
 
 // export const hostClient = "http://localhost:3000";
 // export const hostServer = "http://localhost:5000";

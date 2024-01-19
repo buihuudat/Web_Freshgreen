@@ -53,8 +53,6 @@ const StoreDetails = () => {
   const store = useAppSelector((state: RootState) => state.shop.shop);
   const user = useAppSelector((state: RootState) => state.user.user);
 
-  console.log(store._id);
-
   const preProducts: ProductType[] = useMemo(() => [...products], [products]);
 
   const isFollowing = useMemo(
