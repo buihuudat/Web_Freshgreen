@@ -4,10 +4,10 @@ import { getItem } from "../handlers/tokenHandler";
 
 export const hostClient = "https://freshgreen.vercel.app";
 // export const hostServer = "https://server.freshgreen.io.vn";
-export const hostServer = "https://server-freshgreen-io.onrender.com";
+// export const hostServer = "https://server-freshgreen-io.onrender.com";
 
 // export const hostClient = "http://localhost:3000";
-// export const hostServer = "http://localhost:5000";
+export const hostServer = "http://localhost:5000";
 // export const hostServer = "http://52.221.193.19";
 
 const baseURL = `${hostServer}/api/v1`;
